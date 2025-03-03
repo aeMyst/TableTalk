@@ -1,4 +1,9 @@
+import "./About.css";
+
 export default function About() {
-    return <h1>About Page</h1>;
-  }
-  
+  return (
+    <div className="about-container">
+      <h1 className="about-title">About Us</h1>
+    </div>
+  );
+}
