@@ -1,8 +1,77 @@
+:root {
+  /* Color System */
+  --color-background: #FAF3E0;
+  --color-text-primary: #1C1C1C;
+  --color-navbar: #003459;
+  --color-button-primary: #FF6F3C;
+  --color-button-secondary: #D62828;
+  --color-link: #9B5DE5;
+  --color-card: #FFFFFF;
+  --color-chat: #008080;
+  --color-hover: #F4A261;
+  --color-off-white: #FAF3E0;
+}
+
 html, body, #root {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+}
+
+a {
+  color: var(--color-link);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-hover);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+button.primary {
+  background-color: var(--color-button-primary);
+  color: var(--color-off-white);
+}
+
+button.secondary {
+  background-color: var(--color-button-secondary);
+  color: var(--color-off-white);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  background-color: var(--color-card);
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Chat bubble styles */
+.chat-bubble {
+  background-color: var(--color-chat);
+  color: var(--color-off-white);
+  padding: 12px 16px;
+  border-radius: 12px;
+  max-width: 80%;
+  margin: 8px 0;
+} 
