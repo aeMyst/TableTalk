@@ -32,6 +32,7 @@ nav {
   width: 40px;
   height: 40px;
   object-fit: contain;
+  transition: transform 0.3s ease;
 }
 
 .button-container {
@@ -74,6 +75,7 @@ nav {
   height: 24px;
   color: #1C1C1C;
   filter: brightness(0);
+  transition: transform 0.3s ease;
 }
 
 .icon path,
@@ -85,7 +87,24 @@ nav {
 .button:hover .icon {
   filter: brightness(0);
   transform: scale(1.1);
-  transition: transform 0.3s ease;
+}
+
+.button.active {
+  background-color: rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.button.active .icon {
+  filter: brightness(0);
+  transform: scale(1.1);
+}
+
+.logo-link.active {
+  transform: translateY(-2px);
+}
+
+.logo-link.active .nav-logo {
+  transform: scale(1.1);
 }
 
 nav ul {
@@ -104,4 +123,40 @@ nav ul li a {
 
 nav ul li a:hover {
   text-decoration: underline;
+}
+
+.dropdown-container {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+  padding: 8px 0;
+  z-index: 1000;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 10px 16px;
+  color: #1C1C1C;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(255, 111, 60, 0.1);
+  color: #FF6F3C;
+}
+
+.dropdown-item.active {
+  background-color: rgba(255, 111, 60, 0.15);
+  color: #FF6F3C;
+  font-weight: 500;
 } 
