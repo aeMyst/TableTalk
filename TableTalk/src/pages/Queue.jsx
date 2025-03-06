@@ -1,9 +1,12 @@
 import React from 'react';
+import "../elements/card.css"
 
 export default function Queue() {
   return (
     <div className="queue-container">
-      <h1>TableTalk Queue</h1>
+      <div className="card">
+        <h1>TableTalk Queue</h1>
+      </div>
     </div>
   );
 } 

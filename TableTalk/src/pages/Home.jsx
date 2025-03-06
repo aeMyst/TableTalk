@@ -1,9 +1,12 @@
 import React from 'react';
+import "../elements/card.css"
 
 export default function Home() {
   return (
     <div className="home-container">
-      <h1>Welcome to TableTalk</h1>
+      <div className="card">
+        <h1>Welcome to TableTalk</h1>
+      </div>
     </div>
   );
 } 
