@@ -5,6 +5,7 @@ import BlogSvg from "../assets/svg/blog-svgrepo-com.svg";
 import QueueSvg from "../assets/svg/queue-svgrepo-com.svg";
 import SearchSvg from "../assets/svg/search-alt-2-svgrepo-com.svg";
 import ProfileSvg from "../assets/svg/profile.svg";
+import GameSvg from "../assets/svg/game.svg";
 import "./Navbar.css";
 
 export default function Navbar() {
@@ -52,11 +53,36 @@ export default function Navbar() {
   return (
     <nav>
       <div className="nav-content">
-        <Link to="/" className={`button ${isActive("/home") ? "active" : ""}`}>
-          <img src={Logo} alt="Queue" className="icon" />
-          <span className="link-title">Home</span>
-        </Link>
         <div className="button-container">
+          <Link to="/" className={`button ${isActive("/home") ? "active" : ""}`}>
+            <img src={Logo} alt="Queue" className="icon" />
+            <span className="link-title">Home</span>
+          </Link>
+          <div className="dropdown-container" onClick={(e) => e.stopPropagation()}>
+              <button 
+                className={`button ${(isDropdownOpen || isActive("/search")) ? "active" : ""}`} 
+                onClick={handleDropdownClick}
+              >
+                <img src={SearchSvg} alt="Search" className="icon" />
+                <span className="link-title">Search</span>
+              </button>
+              {isDropdownOpen && (
+                <div className="dropdown-menu">
+                  <Link to="/search/item 1" className={`dropdown-item ${isActive("/search/item 1") ? "active" : ""}`}>
+                    item 1
+                  </Link>
+                  <Link to="/search/item 2" className={`dropdown-item ${isActive("/search/item 2") ? "active" : ""}`}>
+                    item 2
+                  </Link>
+                  <Link to="/search/item 3" className={`dropdown-item ${isActive("/search/item 3") ? "active" : ""}`}>
+                    item 3
+                  </Link>
+                  <Link to="/search/item 4" className={`dropdown-item ${isActive("/search/item 4") ? "active" : ""}`}>
+                    item 4
+                  </Link>
+                </div>
+              )}
+            </div>
           <Link to="/blog" className={`button ${isActive("/blog") ? "active" : ""}`}>
             <img src={BlogSvg} alt="Blog" className="icon" />
             <span className="link-title">Blog</span>
@@ -65,31 +91,10 @@ export default function Navbar() {
             <img src={QueueSvg} alt="Queue" className="icon" />
             <span className="link-title">Queue</span>
           </Link>
-          <div className="dropdown-container" onClick={(e) => e.stopPropagation()}>
-            <button 
-              className={`button ${(isDropdownOpen || isActive("/search")) ? "active" : ""}`} 
-              onClick={handleDropdownClick}
-            >
-              <img src={SearchSvg} alt="Search" className="icon" />
-              <span className="link-title">Search</span>
-            </button>
-            {isDropdownOpen && (
-              <div className="dropdown-menu">
-                <Link to="/search/item 1" className={`dropdown-item ${isActive("/search/item 1") ? "active" : ""}`}>
-                  item 1
-                </Link>
-                <Link to="/search/item 2" className={`dropdown-item ${isActive("/search/item 2") ? "active" : ""}`}>
-                  item 2
-                </Link>
-                <Link to="/search/item 3" className={`dropdown-item ${isActive("/search/item 3") ? "active" : ""}`}>
-                  item 3
-                </Link>
-                <Link to="/search/item 4" className={`dropdown-item ${isActive("/search/item 4") ? "active" : ""}`}>
-                  item 4
-                </Link>
-              </div>
-            )}
-          </div>
+          <Link to="/suggest" className={`button ${isActive("/suggest") ? "active" : ""}`}>
+            <img src={GameSvg} alt="suggest" className="icon" />
+            <span className="link-title">Suggest</span>
+          </Link>
           <Link to="/profile" className={`button ${isActive("/profile") ? "active" : ""}`}>
             <img src={ProfileSvg} alt="Profile" className="icon" />
             <span className="link-title">Profile</span>
