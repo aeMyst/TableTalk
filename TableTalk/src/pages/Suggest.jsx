@@ -20,23 +20,17 @@ export default function Suggest() {
   });
 
   const cuisineTypes = [
-    'Italian',
-    'Japanese',
-    'Chinese',
-    'Mexican',
-    'Indian',
-    'American',
-    'Mediterranean',
-    'Thai',
-    'French',
+    'something 1',
+    'something 2',
+    'something 3',
     'Other'
   ];
 
   const priceRanges = [
-    '$: Under $15',
-    '$$: $15-$30',
-    '$$$: $31-$60',
-    '$$$$: Above $60'
+    'Something 1',
+    'Something 2',
+    'Something 3',
+    'Other'
   ];
 
   const handleInputChange = (e) => {
@@ -70,7 +64,6 @@ export default function Suggest() {
         <p className="subtitle">Let us help you what to bring to your Game Night!</p>
 
         <form className="suggestion-form" onSubmit={handleSubmit}>
-          {/* Basic Information */}
           <div className="form-section">
           
             <div className="form-group">
