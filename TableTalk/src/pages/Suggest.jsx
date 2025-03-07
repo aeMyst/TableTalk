@@ -22,10 +22,6 @@ export default function Suggest() {
     features: {
       ownGames: false,
       databaseGames: false,
-      glutenFree: false,
-      parking: false,
-      delivery: false,
-      takeout: false
     }
   });
 
