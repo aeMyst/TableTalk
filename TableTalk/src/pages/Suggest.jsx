@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
+import Modal from '../components/Modal/Modal';
 import "../elements/card.css";
 import "./Suggest.css";
+
+import PandemicImage from '../assets/gameImages/Pandemic.jpg';
+import CatanImage from '../assets/gameImages/Catan.jpeg';
+import ChessImage from '../assets/gameImages/Chess.jpeg';
+import Pandemic2Image from '../assets/gameImages/Pandemic2.jpeg';
+import ClueImage from '../assets/gameImages/Clue.jpeg';
+import ExplodingKittensImage from '../assets/gameImages/explodingKittens.jpeg';
+import TicketToRideImage from '../assets/gameImages/ticketToRide.jpg';
+import MonopolyImage from '../assets/gameImages/monopoly.jpg';
 
 export default function Suggest() {
   const [formData, setFormData] = useState({
@@ -20,6 +30,8 @@ export default function Suggest() {
   });
 
   const [filteredGames, setFilteredGames] = useState([]);  // New state for filtered games
+  const [selectedGame, setSelectedGame] = useState(null); // Track the selected game
+  const [isModalOpen, setIsModalOpen] = useState(false); // Track modal
 
   const gameTypes = [
     'Cooperative',
@@ -37,14 +49,14 @@ export default function Suggest() {
   ];
 
   const allGames = [
-    { name: "Pandemic", type: "Cooperative", duration: "Around an Hour", players: [2, 4] },
-    { name: "Catan", type: "Area Control", duration: "A few hours", players: [3, 6] },
-    { name: "Chess", type: "Abstract Strategy", duration: "Less than 30 mins", players: 2 },
-    { name: "Pandemic 2.0 (Expanded and Enhanced)", type: "Cooperative", duration: "Around an Hour", players: 4 },
-    { name: "Clue", type: "Murder Mystery", duration: "Around an Hour", players: [4, 8] },
-    { name: "Exploding Kittens", type: "Cooperative", duration: "Less than 30 mins", players: [4, 6] },
-    { name: "Ticket to Ride", type: "Area Control", duration: "A few hours", players: [4, 10] },
-    { name: "Monopoly", type: "Area Control", duration: "A couple days (or more)", players: [2, 8] },
+    { name: "Pandemic", type: "Cooperative", duration: "Around an Hour", players: [2, 4], image: PandemicImage },
+    { name: "Catan", type: "Area Control", duration: "A few hours", players: [3, 6], image: CatanImage },
+    { name: "Chess", type: "Abstract Strategy", duration: "Less than 30 mins", players: 2, image: ChessImage },
+    { name: "Pandemic 2.0 (Covid-19 Edition)", type: "Cooperative", duration: "Around an Hour", players: 4, image: Pandemic2Image },
+    { name: "Clue", type: "Murder Mystery", duration: "Around an Hour", players: [4, 8], image: ClueImage },
+    { name: "Exploding Kittens", type: "Cooperative", duration: "Less than 30 mins", players: [4, 6], image: ExplodingKittensImage },
+    { name: "Ticket to Ride", type: "Area Control", duration: "A few hours", players: [4, 10], image: TicketToRideImage },
+    { name: "Monopoly", type: "Area Control", duration: "A couple days (or more)", players: [2, 8], image: MonopolyImage },
   ];
 
   const handleInputChange = (e) => {
@@ -88,6 +100,17 @@ export default function Suggest() {
     console.log('Filtered Games:', filteredGames); 
   };
 
+  // game-card click
+  const handleGameClick = (game) => {
+    setSelectedGame(game);
+    setIsModalOpen(true);
+  };
+
+  // modal close
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedGame(null);
+  };
 
   return (
     <div className="suggest-container">
@@ -189,7 +212,7 @@ export default function Suggest() {
           <h2>Suggested Games</h2>
           <div className="games-grid">
             {filteredGames.map(game => (
-              <div key={game.name} className="game-card">
+              <div key={game.name} className="game-card" onClick={() => handleGameClick(game)}>
                 <h3>{game.name}</h3>
                 <p>Type: {game.type}</p>
                 <p>Duration: {game.duration}</p>
@@ -203,6 +226,37 @@ export default function Suggest() {
           </div>
         </div>
       </div>
+      {/* Modal for selected game */}
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        {selectedGame && (
+          <>
+            <img src={selectedGame.image} alt={selectedGame.name} className="modal-image" />
+            <div className="modal-right">
+              {/* Game Details */}
+              <div className="game-details">
+                <h3>{selectedGame.name}</h3>
+                <p>Type: {selectedGame.type}</p>
+                <p>Duration: {selectedGame.duration}</p>
+                <p>
+                  Players: {Array.isArray(selectedGame.players)
+                    ? `${selectedGame.players[0]}–${selectedGame.players[1]}` // Range
+                    : selectedGame.players} {/* Fixed number */}
+                </p>
+              </div>
+
+              {/* Button Options */}
+              <div className="modal-buttons">
+                <button onClick={() => alert(`Added ${selectedGame.name} to database!`)}>
+                  Add to Database
+                </button>
+                <button onClick={() => alert(`Redirecting to rules for ${selectedGame.name}...`)}>
+                  See Game Rules
+                </button>
+              </div>
+          </div>
+          </>
+        )}
+      </Modal>
     </div>
   );
 } 
