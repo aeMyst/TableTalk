@@ -37,14 +37,14 @@ export default function Suggest() {
   ];
 
   const allGames = [
-    { name: "Pandemic", type: "Cooperative", duration: "Around an Hour", players: 4 },
-    { name: "Catan", type: "Area Control", duration: "A few hours", players: 3 },
+    { name: "Pandemic", type: "Cooperative", duration: "Around an Hour", players: [2, 4] },
+    { name: "Catan", type: "Area Control", duration: "A few hours", players: [3, 6] },
     { name: "Chess", type: "Abstract Strategy", duration: "Less than 30 mins", players: 2 },
     { name: "Pandemic 2.0 (Expanded and Enhanced)", type: "Cooperative", duration: "Around an Hour", players: 4 },
-    { name: "Clue", type: "Murder Mystery", duration: "Around an Hour", players: 4 },
-    { name: "Exploding Kittens", type: "Cooperative", duration: "Less than 30 mins", players: 4 },
-    { name: "Ticket to Ride", type: "Area Control", duration: "A few hours", players: 2 },
-    { name: "Monopoly", type: "Area Control", duration: "A couple days (or more)", players: 4 },
+    { name: "Clue", type: "Murder Mystery", duration: "Around an Hour", players: [4, 8] },
+    { name: "Exploding Kittens", type: "Cooperative", duration: "Less than 30 mins", players: [4, 6] },
+    { name: "Ticket to Ride", type: "Area Control", duration: "A few hours", players: [4, 10] },
+    { name: "Monopoly", type: "Area Control", duration: "A couple days (or more)", players: [2, 8] },
   ];
 
   const handleInputChange = (e) => {
@@ -71,12 +71,19 @@ export default function Suggest() {
     console.log('Form submitted:', formData);
     // Filter games
     const filteredGames = allGames.filter(game => {
-      return (
-        (formData.NumberPeople ? game.players === parseInt(formData.NumberPeople) : true) &&
-        (formData.gameDuration ? game.duration === formData.gameDuration : true) &&
-        (formData.gameType ? game.type === formData.gameType : true)
-      );
+      const { NumberPeople, gameDuration, gameType } = formData;
+      const isPlayerCountValid =
+      !NumberPeople ||
+      (Array.isArray(game.players)
+        ? game.players[0] <= parseInt(NumberPeople) && game.players[1] >= parseInt(NumberPeople) // Range
+        : game.players === parseInt(NumberPeople)); // Fixed
+
+      const isDurationValid = !gameDuration || game.duration === gameDuration;
+      const isTypeValid = !gameType || game.type === gameType;
+
+      return isPlayerCountValid && isDurationValid && isTypeValid;
     });
+
     setFilteredGames(filteredGames);
     console.log('Filtered Games:', filteredGames); 
   };
@@ -186,7 +193,11 @@ export default function Suggest() {
                 <h3>{game.name}</h3>
                 <p>Type: {game.type}</p>
                 <p>Duration: {game.duration}</p>
-                <p>Players: {game.players}</p>
+                <p>
+                  Players: {Array.isArray(game.players)
+                    ? `${game.players[0]}–${game.players[1]}` // range
+                    : game.players} {/* fixed number */}
+                </p>              
               </div>
               ))}
           </div>
