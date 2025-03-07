@@ -6,6 +6,7 @@ export default function Queue() {
     <div className="queue-container">
       <div className="card">
         <h1>TableTalk Queue</h1>
+        <h1> hello world </h1>
       </div>
     </div>
   );
