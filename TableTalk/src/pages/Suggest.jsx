@@ -5,13 +5,13 @@ import "./Suggest.css";
 export default function Suggest() {
   const [formData, setFormData] = useState({
     NumberPeople: '',
-    cuisine: '',
-    priceRange: '',
+    gameDuration: '',
+    gameType: '',
     location: '',
     description: '',
     features: {
-      vegetarian: false,
-      vegan: false,
+      ownGames: false,
+      databaseGames: false,
       glutenFree: false,
       parking: false,
       delivery: false,
@@ -19,18 +19,32 @@ export default function Suggest() {
     }
   });
 
-  const cuisineTypes = [
-    'something 1',
-    'something 2',
-    'something 3',
+  const [filteredGames, setFilteredGames] = useState([]);  // New state for filtered games
+
+  const gameTypes = [
+    'Cooperative',
+    'Area Control',
+    'Abstract Strategy',
+    'Murder Mystery',
     'Other'
   ];
 
-  const priceRanges = [
-    'Something 1',
-    'Something 2',
-    'Something 3',
-    'Other'
+  const gameDurations = [
+    'Less than 30 mins',
+    'Around an Hour',
+    'A few hours',
+    'A couple days (or more)'
+  ];
+
+  const allGames = [
+    { name: "Pandemic", type: "Cooperative", duration: "Around an Hour", players: 4 },
+    { name: "Catan", type: "Area Control", duration: "A few hours", players: 3 },
+    { name: "Chess", type: "Abstract Strategy", duration: "Less than 30 mins", players: 2 },
+    { name: "Pandemic 2.0 (Expanded and Enhanced)", type: "Cooperative", duration: "Around an Hour", players: 4 },
+    { name: "Clue", type: "Murder Mystery", duration: "Around an Hour", players: 4 },
+    { name: "Exploding Kittens", type: "Cooperative", duration: "Less than 30 mins", players: 4 },
+    { name: "Ticket to Ride", type: "Area Control", duration: "A few hours", players: 2 },
+    { name: "Monopoly", type: "Area Control", duration: "A couple days (or more)", players: 4 },
   ];
 
   const handleInputChange = (e) => {
@@ -55,7 +69,18 @@ export default function Suggest() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
+    // Filter games
+    const filteredGames = allGames.filter(game => {
+      return (
+        (formData.NumberPeople ? game.players === parseInt(formData.NumberPeople) : true) &&
+        (formData.gameDuration ? game.duration === formData.gameDuration : true) &&
+        (formData.gameType ? game.type === formData.gameType : true)
+      );
+    });
+    setFilteredGames(filteredGames);
+    console.log('Filtered Games:', filteredGames); 
   };
+
 
   return (
     <div className="suggest-container">
@@ -65,52 +90,55 @@ export default function Suggest() {
 
         <form className="suggestion-form" onSubmit={handleSubmit}>
           <div className="form-section">
-          
-            <div className="form-group">
-              <label htmlFor="NumberPeople">Number of People</label>
-              <input
-                type="text"
-                id="NumberPeople"
-                name="NumberPeople"
-                value={formData.NumberPeople}
-                onChange={handleInputChange}
-                required
-                placeholder="Enter restaurant name"
-              />
-            </div>
-
-            <div className="form-row">
+          <div className="form-row">
               <div className="form-group">
-                <label htmlFor="cuisine">Group Objective</label>
+                <label htmlFor="NumberPeople">Number of People</label>
                 <select
-                  id="cuisine"
-                  name="cuisine"
-                  value={formData.cuisine}
+                  id="NumberPeople"
+                  name="NumberPeople"
+                  value={formData.NumberPeople}
+                  onChange={handleInputChange}
+                  required
+                ><option value="">How many players?</option>
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
+                  <option key={num} value={num}>
+                    {num}
+                  </option>
+                ))}
+              </select>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="gameDuration">Group Objective</label>
+                <select
+                  id="gameDuration"
+                  name="gameDuration"
+                  value={formData.gameDuration}
                   onChange={handleInputChange}
                   required
                 >
-                  <option value="">Select Group Objective</option>
-                  {cuisineTypes.map(cuisine => (
-                    <option key={cuisine} value={cuisine.toLowerCase()}>
-                      {cuisine}
+                  <option value="">Select Game Duration</option>
+                  {gameDurations.map(gameDuration => (
+                    <option key={gameDuration} value={gameDuration}>
+                      {gameDuration}
                     </option>
                   ))}
                 </select>
               </div>
 
               <div className="form-group">
-                <label htmlFor="priceRange">Game Type</label>
+                <label htmlFor="gameType">Game Type</label>
                 <select
-                  id="priceRange"
-                  name="priceRange"
-                  value={formData.priceRange}
+                  id="gameType"
+                  name="gameType"
+                  value={formData.gameType}
                   onChange={handleInputChange}
                   required
                 >
                   <option value="">Select The Game Type</option>
-                  {priceRanges.map(range => (
-                    <option key={range} value={range.split(':')[0]}>
-                      {range}
+                  {gameTypes.map(type => (
+                    <option key={type} value={type}>
+                      {type}
                     </option>
                   ))}
                 </select>
@@ -124,8 +152,8 @@ export default function Suggest() {
               <label className="checkbox-label">
                 <input
                   type="checkbox"
-                  name="vegetarian"
-                  checked={formData.features.vegetarian}
+                  name="ownGames"
+                  checked={formData.features.ownGames}
                   onChange={handleCheckboxChange}
                 />
                 From Your Games
@@ -133,8 +161,8 @@ export default function Suggest() {
               <label className="checkbox-label">
                 <input
                   type="checkbox"
-                  name="vegan"
-                  checked={formData.features.vegan}
+                  name="databaseGames"
+                  checked={formData.features.databaseGames}
                   onChange={handleCheckboxChange}
                 />
                 From Games Database
@@ -148,6 +176,21 @@ export default function Suggest() {
             </button>
           </div>
         </form>
+
+
+        <div className="suggested-games">
+          <h2>Suggested Games</h2>
+          <div className="games-grid">
+            {filteredGames.map(game => (
+              <div key={game.name} className="game-card">
+                <h3>{game.name}</h3>
+                <p>Type: {game.type}</p>
+                <p>Duration: {game.duration}</p>
+                <p>Players: {game.players}</p>
+              </div>
+              ))}
+          </div>
+        </div>
       </div>
     </div>
   );
