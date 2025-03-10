@@ -1,11 +1,27 @@
+/* Import Bobby Jones font */
+@font-face {
+  font-family: 'Bobby Jones';
+  src: url('./assets/fonts/Bobby Jones Soft.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   /* Color System */
-  --color-background: #fff3e5;
-  --color-text-primary: #000000;
-  --color-button-primary: #FF6F3C;
-  --color-button-secondary: #D62828;
-  --color-link: #9B5DE5;
-  --color-card: #FFFFFF;
+  --color-background: #FFF3E5;
+  --color-primary: #3B3F97;
+  --color-secondary: #5781CB;
+  --color-accent: #B8D2FF;
+  
+  /* Font System */
+  --font-primary: 'Bobby Jones', sans-serif;
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  
+  /* Font Sizes */
+  --font-size-h1: 2.5rem;
+  --font-size-h2: 1.8rem;
+  --font-size-h3: 1.2rem;
+  --font-size-body: 1rem;
 }
 
 html, body, #root {
@@ -13,21 +29,33 @@ html, body, #root {
   width: 100%;
   margin: 0;
   padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: var(--font-body);
 }
 
 body {
   background-color: var(--color-background);
-  color: var(--color-text-primary);
+  color: var(--color-primary);
 }
 
+/* Apply Bobby Jones font to all headings globally */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-primary);
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+h1 { font-size: var(--font-size-h1); }
+h2 { font-size: var(--font-size-h2); }
+h3 { font-size: var(--font-size-h3); }
+
 a {
-  color: var(--color-link);
+  color: var(--color-secondary);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 button {
+  font-family: var(--font-primary);
   cursor: pointer;
   border: none;
   border-radius: 6px;
@@ -37,16 +65,16 @@ button {
 }
 
 button.primary {
-  background-color: var(--color-button-primary);
-  color: var(--color-off-white);
+  background-color: var(--color-primary);
+  color: white;
 }
 
 button.secondary {
-  background-color: var(--color-button-secondary);
-  color: var(--color-off-white);
+  background-color: var(--color-secondary);
+  color: white;
 }
 
 button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
+  box-shadow: 0 2px 8px rgba(59, 63, 151, 0.2);
+} 
