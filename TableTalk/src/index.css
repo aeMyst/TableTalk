@@ -1,4 +1,7 @@
-/* Import Bobby Jones font */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
   font-family: 'Bobby Jones';
   src: url('./assets/fonts/Bobby Jones Soft.otf') format('truetype');
