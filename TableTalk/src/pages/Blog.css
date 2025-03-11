@@ -1,0 +1,41 @@
+.blog-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+
+.discPost1{
+    cursor: pointer;
+    background-color: #5781CB;
+}
+
+.discPost1:hover{
+    opacity: 0.8;
+    background-color: #B8D2FF;
+}
+
+.discPostBar{
+    display: inline;
+}
+
+.discPostButtonsLeft{
+    float: left;
+}
+
+.discPostButtonsRight{
+    float: right;
+}
+
+.tags:hover{
+    opacity: 1;
+    color: blue;
+}
+
+.buttons:hover{
+    color: blue;
+    background-color: red;
+}
