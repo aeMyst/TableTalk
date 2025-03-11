@@ -11,6 +11,9 @@ import ClueImage from '../assets/gameImages/Clue.jpeg';
 import ExplodingKittensImage from '../assets/gameImages/explodingKittens.jpeg';
 import TicketToRideImage from '../assets/gameImages/ticketToRide.jpg';
 import MonopolyImage from '../assets/gameImages/monopoly.jpg';
+import filterImage from '../assets/loadingImages/boards.svg';
+import loadingImage from '../assets/loadingImages/dice.svg';
+
 
 export default function Suggest() {
   const [formData, setFormData] = useState({
@@ -28,6 +31,8 @@ export default function Suggest() {
   const [filteredGames, setFilteredGames] = useState([]);  // New state for filtered games
   const [selectedGame, setSelectedGame] = useState(null); // Track the selected game
   const [isModalOpen, setIsModalOpen] = useState(false); // Track modal
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
 
   const gameTypes = [
     'Cooperative',
@@ -76,6 +81,7 @@ export default function Suggest() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsSubmitted(true); // Set isSubmitted to true
     console.log('Form submitted:', formData);
     // Filter games
     const filteredGames = allGames.filter(game => {
@@ -110,21 +116,22 @@ export default function Suggest() {
 
   return (
     <div className="suggest-container">
-      <div className="card">
-        <h1>Game Board Suggestions</h1>
-        <p className="subtitle">Let us help you what to bring to your Game Night!</p>
+      <div className="card bg-white p-6 rounded-lg shadow-md mx-auto">
+      <h1 className="text-4xl font-bold text-gray-700 mb-4">Game Board Suggestions</h1>
+      <p className="subtitle text-base text-gray-600 mb-8">Let us help you what to bring to your Game Night!</p>
 
         <form className="suggestion-form" onSubmit={handleSubmit}>
           <div className="form-section">
           <div className="form-row">
               <div className="form-group">
-                <label htmlFor="NumberPeople">Number of People</label>
+              <label htmlFor="NumberPeople" className="block text-sm font-medium text-gray-700 mb-1">Number of People</label>
                 <select
                   id="NumberPeople"
                   name="NumberPeople"
                   value={formData.NumberPeople}
                   onChange={handleInputChange}
                   required
+                  className="w-full p-2 border border-gray-300 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 ><option value="">How many players?</option>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
                   <option key={num} value={num}>
@@ -135,13 +142,14 @@ export default function Suggest() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="gameDuration">Group Objective</label>
+              <label htmlFor="gameDuration" className="block text-sm font-medium text-gray-700 mb-1">Group Objective</label>
                 <select
                   id="gameDuration"
                   name="gameDuration"
                   value={formData.gameDuration}
                   onChange={handleInputChange}
                   required
+                  className="w-full p-2 border border-gray-300 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="">Select Game Duration</option>
                   {gameDurations.map(gameDuration => (
@@ -153,13 +161,14 @@ export default function Suggest() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="gameType">Game Type</label>
+              <label htmlFor="gameType" className="block text-sm font-medium text-gray-700 mb-1">Game Type</label>
                 <select
                   id="gameType"
                   name="gameType"
                   value={formData.gameType}
                   onChange={handleInputChange}
                   required
+                  className="w-full p-2 border border-gray-300 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="">Select The Game Type</option>
                   {gameTypes.map(type => (
@@ -173,31 +182,33 @@ export default function Suggest() {
           </div>
 
           {/* Features */}
-          <div className="form-section">
+          <div className="form-section mb-2">
             <div className="checkbox-grid">
-              <label className="checkbox-label">
+            <label className="checkbox-label flex items-center">
                 <input
                   type="checkbox"
                   name="ownGames"
                   checked={formData.features.ownGames}
                   onChange={handleCheckboxChange}
+                  className="mr-2"
                 />
-                From Your Games
+                <span className="text-base text-gray-800">From Your Games</span>
               </label>
-              <label className="checkbox-label">
+              <label className="checkbox-label flex items-center">
                 <input
                   type="checkbox"
                   name="databaseGames"
                   checked={formData.features.databaseGames}
                   onChange={handleCheckboxChange}
+                  className="ml-2"
                 />
-                From Games Database
+                <span className="text-base text-gray-800">From Games Database</span>
               </label>
             </div>
           </div>
 
           <div className="form-actions">
-            <button type="submit" className="submit-button">
+          <button type="submit" className="submit-button w-3/12 bg-gray-800 text-lg text-white py-2 px-4 rounded-md hover:bg-red-900 transition-colors mb-4">
               Submit Suggestion
             </button>
           </div>
@@ -205,21 +216,52 @@ export default function Suggest() {
 
 
         <div className="suggested-games">
-          <h2>Suggested Games</h2>
-          <div className="games-grid">
-            {filteredGames.map(game => (
-              <div key={game.name} className="game-card" onClick={() => handleGameClick(game)}>
-                <h3>{game.name}</h3>
-                <p>Type: {game.type}</p>
-                <p>Duration: {game.duration}</p>
-                <p>
-                  Players: {Array.isArray(game.players)
-                    ? `${game.players[0]}–${game.players[1]}` // range
-                    : game.players} {/* fixed number */}
-                </p>              
+          {filteredGames.length === 0 ? (
+            !isSubmitted ? (
+              // First state: Before the submit button is pressed
+              <div className="flex flex-col items-center justify-center gap-4">
+                <img
+                  src={loadingImage} // Replace with the path to your image
+                  alt="Start searching"
+                  className="mt-8 w-36 h-36 object-cover my-2 opacity-50 -rotate-12"
+                />
+                <p className="text-gray-500 text-base font-medium">Start your search to find great games!</p>
               </div>
-              ))}
-          </div>
+            ) : (
+              // Second state: No games found after submission
+              <div className="flex flex-col items-center justify-center gap-4">
+                <img
+                  src={filterImage} // Replace with the path to your image
+                  alt="No games found"
+                  className="mt-8 w-36 h-36 object-cover my-2 opacity-45 -rotate-12"
+                />
+                <p className="text-gray-500 text-base font-medium">No games found. Try to broaden your horizon!</p>
+              </div>
+            )
+          ) : (
+            // Third state: Games are found
+            <>
+              <h2 className="text-2xl font-semibold text-gray-800 mb-4">Suggested Games</h2>
+              <div className="games-grid">
+                {filteredGames.map((game) => (
+                  <div
+                    key={game.name}
+                    className="game-card border border-gray-200 rounded-lg p-4 shadow-sm hover:-translate-y-1 hover:shadow-md transition-transform cursor-pointer"
+                    onClick={() => handleGameClick(game)}
+                  >
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2">{game.name}</h3>
+                    <p className="text-gray-600">Type: {game.type}</p>
+                    <p className="text-gray-600">Duration: {game.duration}</p>
+                    <p className="text-gray-600">
+                      Players: {Array.isArray(game.players)
+                        ? `${game.players[0]} – ${game.players[1]}` // Range
+                        : game.players} {/* Fixed number */}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </div>
       {/* Modal for selected game */}
@@ -235,7 +277,7 @@ export default function Suggest() {
                 <p>Duration: {selectedGame.duration}</p>
                 <p>
                   Players: {Array.isArray(selectedGame.players)
-                    ? `${selectedGame.players[0]}–${selectedGame.players[1]}` // Range
+                    ? `${selectedGame.players[0]} – ${selectedGame.players[1]}` // Range
                     : selectedGame.players} {/* Fixed number */}
                 </p>
               </div>
