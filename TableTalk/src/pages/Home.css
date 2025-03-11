@@ -1,13 +1,256 @@
 .home-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  background-color: #FFF3E5;
+}
+
+.hero-section,
+.features-section,
+.restaurants-section,
+.activity-section {
+  width: 100%;
+}
+
+.hero-section,
+.features-section,
+.restaurants-section,
+.activity-section {
+  margin-bottom: 0;
+}
+
+.card {
+  width: 100%;
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(59, 63, 151, 0.1);
+}
+
+/* Hero Section */
+.hero-section {
+  margin-bottom: 3rem;
+}
+
+.hero-card {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.main-logo {
+  width: auto;
+  height: auto;
+  animation: fadeIn 1s ease-in;
+}
+
+.hero-subtitle {
+  color: var(--color-secondary);
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  animation: slideUp 0.8s ease-out 0.2s backwards;
+  font-family: var(--font-primary);
+}
+
+/* Features Section */
+.features-section {
+  margin-bottom: 3rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.feature-card {
+  background-color: rgba(184, 210, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(184, 210, 255, 0.4);
+  transition: transform 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+  background-color: rgba(184, 210, 255, 0.2);
+}
+
+/* Restaurants Section */
+.restaurants-section {
+  margin-bottom: 3rem;
+}
+
+.restaurants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.restaurant-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(59, 63, 151, 0.1);
+  transition: all 0.2s ease;
+}
+
+.restaurant-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(59, 63, 151, 0.15);
+}
+
+.restaurant-image-placeholder {
+  height: 160px;
+  background-color: rgba(184, 210, 255, 0.3);
+}
+
+/* Activity Section */
+.activity-section {
+  margin-bottom: 3rem;
+}
+
+.activity-feed {
+  margin-top: 1.5rem;
+}
+
+.activity-item {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(184, 210, 255, 0.4);
+  transition: background-color 0.2s ease;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+.activity-item:hover {
+  background-color: rgba(184, 210, 255, 0.05);
+}
+
+.activity-time {
+  font-size: 0.85rem;
+  color: #5781CB;
+}
+
+/* Common Styles */
+h1 {
+  color: #3B3F97;
+  font-size: 2.5rem;
+  margin: 0;
+  animation: slideUp 0.8s ease-out;
+}
+
+h2 {
+  color: #3B3F97;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  color: #3B3F97;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  color: #5781CB;
+  line-height: 1.5;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
   }
-  
-  .home-title {
-    color: #1C1C1C;
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Add hover effects for interactive elements */
+.card button,
+.submit-button {
+  background-color: #3B3F97;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+.card button:hover,
+.submit-button:hover {
+  background-color: #5781CB;
+}
+
+/* Add subtle hover effects for cards */
+.card:hover {
+  box-shadow: 0 6px 12px rgba(59, 63, 151, 0.12);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .home-container {
+    padding: 1rem;
+  }
+
+  .hero-card {
+    padding: 2rem 1rem;
+  }
+
+  .main-logo {
+    width: 250px;
+  }
+
+  h1 {
     font-size: 2rem;
   }
-  
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .features-grid,
+  .restaurants-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-logo {
+    width: 200px;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+} 
