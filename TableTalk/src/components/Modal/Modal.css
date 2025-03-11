@@ -14,10 +14,11 @@
   }
   
   .modal-content {
+    position: relative; /* Add this */
     background: white;
     padding: 20px;
     border-radius: 8px;
-    width: 600px;
+    width: 700px;
     max-width: 90%;
     display: flex;
     gap: 20px;

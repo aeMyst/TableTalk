@@ -55,8 +55,8 @@ export default function Suggest() {
     { name: "Chess", type: "Abstract Strategy", duration: "Less than 30 mins", players: 2, image: ChessImage },
     { name: "Pandemic 2.0 (Covid-19 Edition)", type: "Cooperative", duration: "Around an Hour", players: 4, image: Pandemic2Image },
     { name: "Clue", type: "Murder Mystery", duration: "Around an Hour", players: [4, 8], image: ClueImage },
-    { name: "Exploding Kittens", type: "Cooperative", duration: "Less than 30 mins", players: [4, 6], image: ExplodingKittensImage },
-    { name: "Ticket to Ride", type: "Area Control", duration: "A few hours", players: [4, 10], image: TicketToRideImage },
+    { name: "Exploding Kittens", type: "Cooperative", duration: "Around an Hour", players: [4, 6], image: ExplodingKittensImage },
+    { name: "Ticket to Ride", type: "Cooperative", duration: "Around an Hour", players: [4, 10], image: TicketToRideImage },
     { name: "Monopoly", type: "Area Control", duration: "A couple days (or more)", players: [2, 8], image: MonopolyImage },
   ];
 
@@ -116,8 +116,8 @@ export default function Suggest() {
 
   return (
     <div className="suggest-container">
-      <div className="card bg-white p-6 rounded-lg shadow-md mx-auto">
-      <h1 className="text-4xl font-bold text-gray-700 mb-4">Game Board Suggestions</h1>
+      <div className="card bg-white p-6 rounded-lg shadow-md mx-auto h-full">
+      <h1 className="text-4xl font-bold text-gray-700 mb-4 mt-1">Game Board Suggestions</h1>
       <p className="subtitle text-base text-gray-600 mb-8">Let us help you what to bring to your Game Night!</p>
 
         <form className="suggestion-form" onSubmit={handleSubmit}>
@@ -241,7 +241,7 @@ export default function Suggest() {
           ) : (
             // Third state: Games are found
             <>
-              <h2 className="text-2xl font-semibold text-gray-800 mb-4">Suggested Games</h2>
+              <h2 className="text-2xl font-semibold text-gray-800 mt-6 mb-4">Suggested Games</h2>
               <div className="games-grid">
                 {filteredGames.map((game) => (
                   <div
@@ -272,6 +272,7 @@ export default function Suggest() {
             <div className="modal-right">
               {/* Game Details */}
               <div className="game-details">
+              <button onClick={handleCloseModal} className="absolute text-xl top-2 right-2 text-gray-500 hover:text-gray-700 p-2 rounded-full transition"> ✖ </button>
                 <h3>{selectedGame.name}</h3>
                 <p>Type: {selectedGame.type}</p>
                 <p>Duration: {selectedGame.duration}</p>
