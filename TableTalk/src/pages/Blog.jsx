@@ -2,12 +2,15 @@ import React from 'react';
 import "../elements/card.css"
 import "./Blog.css"
 
+
 export default function Blog() {
+  
   return (
     <div className="blog-container">
       <div className="card">
         <h1>TableTalk Blog</h1>
-          <div className="sidebar">
+          <div className="sidebar" onClick={sidebarToggle}>
+            <button>This is a button</button>
           </div>
           <div className="discPost1">
             <div className = "discPostText">
@@ -40,3 +43,7 @@ export default function Blog() {
     </div>
   );
 } 
+
+function sidebarToggle(){
+  
+}

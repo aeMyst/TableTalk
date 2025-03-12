@@ -6,11 +6,17 @@
     justify-content: center;
   }
 
+.sidebar{
+    float: left;
+    width: 25%;
+}
 
 
 .discPost1{
     cursor: pointer;
     background-color: #5781CB;
+    width: 75%;
+    float: right;
 }
 
 .discPost1:hover{
@@ -23,7 +29,10 @@
 }
 
 .discPostButtonsLeft{
+    display: flex;
+    justify-content: space-between;
     float: left;
+    padding: 10px;
 }
 
 .discPostButtonsRight{
