@@ -1,11 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Logo from "../assets/logo/logo.svg";
-import BlogSvg from "../assets/svg/blog-svgrepo-com.svg";
-import QueueSvg from "../assets/svg/queue-svgrepo-com.svg";
-import SearchSvg from "../assets/svg/search-alt-2-svgrepo-com.svg";
-import ProfileSvg from "../assets/svg/profile.svg";
-import GameSvg from "../assets/svg/game.svg";
+import BlogSvg from "../assets/navbar/blog-svgrepo-com.svg";
+import QueueSvg from "../assets/navbar/queue-svgrepo-com.svg";
+import SearchSvg from "../assets/navbar/search-alt-2-svgrepo-com.svg";
+import ProfileSvg from "../assets/navbar/profile.svg";
+import GameSvg from "../assets/navbar/game.svg";
 import "./Navbar.css";
 
 export default function Navbar() {
