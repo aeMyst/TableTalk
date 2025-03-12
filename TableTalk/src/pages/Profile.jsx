@@ -11,7 +11,7 @@ export default function Profile() {
   );
 
   // Function to get snippet of description
-  const getSnippet = (text, length = 50) => {
+  const getSnippet = (text, length = 100) => {
     return text.length > length ? text.substring(0, length) + "..." : text;
   };
 

@@ -1,6 +1,6 @@
 .profile-container {
     display: flex;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 40px auto;
     gap: 20px;
   }
@@ -124,7 +124,7 @@
   }
   
   .view-more-btn {
-    background-color: #007bff;
+    background-color: #5781CB;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -132,10 +132,11 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 12px;
+    transition: 0.3s;
   }
   
   .view-more-btn:hover {
-    background-color: #0056b3;
+    background-color: #3B3F97;
   }
   
   /* Modal Styles */
