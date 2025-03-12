@@ -200,6 +200,57 @@
   .cancel-btn:hover {
     background-color: #c82333;
   }
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+/* Board Games Grid */
+.boardgames-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: flex-start;
+  padding: 20px 0;
+}
+
+/* Board Game Card */
+.boardgame-card {
+  width: 140px; 
+  text-align: center;
+  padding: 10px;
+  background: #f4f4f4;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.boardgame-card:hover {
+  transform: scale(1.05);
+}
+
+/* Board Game Images */
+.boardgame-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Add New Game Card */
+.add-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #3B3F97;
+  background: #e0e0e0;
+  border: 2px dashed #3B3F97;
+}
+
+.add-card:hover {
+  background: #d0d0d0;
+}
   
   
   /* Responsive Design */

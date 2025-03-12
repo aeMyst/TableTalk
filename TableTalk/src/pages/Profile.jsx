@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../elements/card.css";
 import "./Profile.css";
 import picture from "../assets/images/profile1.jpg";
+import placeholder from "../assets/gameImages/placeholder.webp"
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("overview");
@@ -9,6 +10,18 @@ export default function Profile() {
   const [description, setDescription] = useState(
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
   );
+  const [boardGames, setBoardGames] = useState([
+    { name: "Catan", image: placeholder  },
+    { name: "Ticket to Ride", image: placeholder  },
+    { name: "Gloomhaven", image: placeholder },
+    { name: "Carcassonne", image: placeholder  }
+  ]);
+
+  const addBoardGame = () => {
+    const newGame = { name: "New Game", image: placeholder };
+    setBoardGames([...boardGames, newGame]);
+  };
+
 
   // Function to get snippet of description
   const getSnippet = (text, length = 100) => {
@@ -85,6 +98,38 @@ export default function Profile() {
             <button className="edit-profile-btn">Edit Profile</button>
           </div>
         )}
+
+        {activeTab === "boardgames" && (
+          <div className="tab-content">
+            <h1>Board Games</h1>
+            <div className="boardgames-grid">
+              {boardGames.map((game, index) => (
+                <div key={index} className="boardgame-card">
+                  <img src={game.image} alt={game.name} className="boardgame-image" />
+                  <p>{game.name}</p>
+                </div>
+              ))}
+              <div className="boardgame-card add-card" onClick={addBoardGame}>
+                <p>+ Add Game</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "settings" && (
+          <div className="tab-content">
+            <h1>Settings</h1>
+            <p>Customize your profile settings here.</p>
+          </div>
+        )}
+
+        {activeTab === "security" && (
+          <div className="tab-content">
+            <h1>Security</h1>
+            <p>Update your password and security settings here.</p>
+          </div>
+        )}
+        
       </div>
 
       {/* Modal for Editing Description */}
