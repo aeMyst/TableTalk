@@ -19,7 +19,7 @@
   margin-bottom: 0;
 }
 
-.card {
+.home-card {
   width: 100%;
   background: white;
   border-radius: 15px;
@@ -121,25 +121,22 @@
   }
 }
 
-/* Add hover effects for interactive elements */
-.card button,
+.home-card button,
 .submit-button {
   background-color: #3B3F97;
   color: white;
   transition: background-color 0.2s ease;
 }
 
-.card button:hover,
+.home-card button:hover,
 .submit-button:hover {
   background-color: #5781CB;
 }
 
-/* Add subtle hover effects for cards */
-.card:hover {
+.home-card:hover {
   box-shadow: 0 6px 12px rgba(59, 63, 151, 0.12);
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .home-container {
     padding: 1rem;

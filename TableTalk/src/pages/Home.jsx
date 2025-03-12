@@ -16,7 +16,7 @@ export default function Home() {
     <div className="home-container">
       {/* Hero Section */}
       <section className="hero-section">
-        <div className="card hero-card">
+        <div className="home-card hero-card">
         <h1 className="hero-title">Welcome to</h1>
           <div className="logo-container">
             <img src={mainLogo} alt="TableTalk Logo" className="main-logo" />
