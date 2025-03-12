@@ -12,8 +12,8 @@
 :root {
   /* Color System */
   --color-background: #FFF3E5;
-  --color-primary: #3B3F97;
-  --color-secondary: #5781CB;
+  --color-primary: #5781CB;
+  --color-secondary: #3B3F97;
   --color-accent: #B8D2FF;
   
   /* Font System */
@@ -56,28 +56,3 @@ a {
   text-decoration: none;
   transition: color 0.2s ease;
 }
-
-button {
-  font-family: var(--font-primary);
-  cursor: pointer;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 16px;
-  font-size: 1rem;
-  transition: all 0.2s ease;
-}
-
-button.primary {
-  background-color: var(--color-primary);
-  color: white;
-}
-
-button.secondary {
-  background-color: var(--color-secondary);
-  color: white;
-}
-
-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 2px 8px rgba(59, 63, 151, 0.2);
-} 
