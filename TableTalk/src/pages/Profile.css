@@ -163,7 +163,7 @@
   
   .modal-textarea {
     width: 100%;
-    height: 100px;
+    height: 250px;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -183,24 +183,6 @@
     margin: 5px;
   }
   
-  .save-btn {
-    background-color: #28a745;
-    color: white;
-  }
-  
-  .cancel-btn {
-    background-color: #dc3545;
-    color: white;
-  }
-  
-  .save-btn:hover {
-    background-color: #218838;
-  }
-  
-  .cancel-btn:hover {
-    background-color: #c82333;
-  }
-
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 /* Board Games Grid */
