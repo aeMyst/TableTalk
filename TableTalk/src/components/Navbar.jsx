@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Logo from "../assets/logo/file.svg";
+import Logo from "../assets/logo/logo.svg";
 import BlogSvg from "../assets/svg/blog-svgrepo-com.svg";
 import QueueSvg from "../assets/svg/queue-svgrepo-com.svg";
 import SearchSvg from "../assets/svg/search-alt-2-svgrepo-com.svg";
