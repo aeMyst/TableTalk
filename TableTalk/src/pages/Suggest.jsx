@@ -117,14 +117,14 @@ export default function Suggest() {
   return (
     <div className="suggest-container">
       <div className="card bg-white p-6 rounded-lg shadow-md mx-auto h-full">
-      <h1 className="text-4xl font-bold text-gray-700 mb-4 mt-1">Game Board Suggestions</h1>
+      <h1 className="text-4xl font-bold text-blue-900 mb-4 mt-1">Game Board Suggestions</h1>
       <p className="subtitle text-base text-gray-600 mb-8">Let us help you what to bring to your Game Night!</p>
 
         <form className="suggestion-form" onSubmit={handleSubmit}>
           <div className="form-section">
           <div className="form-row">
               <div className="form-group">
-              <label htmlFor="NumberPeople" className="block text-sm font-medium text-gray-700 mb-1">Number of People</label>
+              <label htmlFor="NumberPeople" className="block text-sm font-medium text-blue-800 mb-1">Number of People</label>
                 <select
                   id="NumberPeople"
                   name="NumberPeople"
@@ -142,7 +142,7 @@ export default function Suggest() {
               </div>
 
               <div className="form-group">
-              <label htmlFor="gameDuration" className="block text-sm font-medium text-gray-700 mb-1">Group Objective</label>
+              <label htmlFor="gameDuration" className="block text-sm font-medium text-blue-800 mb-1">Group Objective</label>
                 <select
                   id="gameDuration"
                   name="gameDuration"
@@ -161,7 +161,7 @@ export default function Suggest() {
               </div>
 
               <div className="form-group">
-              <label htmlFor="gameType" className="block text-sm font-medium text-gray-700 mb-1">Game Type</label>
+              <label htmlFor="gameType" className="block text-sm font-medium text-blue-800 mb-1">Game Type</label>
                 <select
                   id="gameType"
                   name="gameType"
@@ -183,32 +183,69 @@ export default function Suggest() {
 
           {/* Features */}
           <div className="form-section mb-2">
-            <div className="checkbox-grid">
-            <label className="checkbox-label flex items-center">
+            <div className="checkbox-grid flex justify-center gap-8">
+              <label className="checkbox-label flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
                   name="ownGames"
                   checked={formData.features.ownGames}
                   onChange={handleCheckboxChange}
-                  className="mr-2"
+                  className="hidden" // Hide the default checkbox
                 />
+                <span className="w-5 h-5 border-2 border-gray-400 rounded-sm flex items-center justify-center transition-all duration-200 ease-in-out shadow-sm hover:border-blue-500 hover:shadow-xl">
+                  {formData.features.ownGames && (
+                    <svg
+                      className="w-4 h-4 text-blue-600 transform scale-125 transition-transform duration-200 ease-in-out"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  )}
+                </span>
                 <span className="text-base text-gray-800">From Your Games</span>
               </label>
-              <label className="checkbox-label flex items-center">
+
+              <label className="checkbox-label flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
                   name="databaseGames"
                   checked={formData.features.databaseGames}
                   onChange={handleCheckboxChange}
-                  className="ml-2"
+                  className="hidden" // Hide the default checkbox
                 />
+                <span className="w-5 h-5 border-2 border-gray-400 rounded-sm flex items-center justify-center transition-all duration-200 ease-in-out shadow-sm hover:border-blue-500 hover:shadow-xl">
+                  {formData.features.databaseGames && (
+                    <svg
+                      className="w-4 h-4 text-blue-600 transform scale-125 transition-transform duration-200 ease-in-out"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  )}
+                </span>
                 <span className="text-base text-gray-800">From Games Database</span>
               </label>
             </div>
           </div>
 
           <div className="form-actions">
-          <button type="submit" className="submit-button w-3/12 bg-gray-800 text-lg text-white py-2 px-4 rounded-md hover:bg-red-900 transition-colors mb-4">
+          <button type="submit" className="submit-button w-3/12 bg-blue-900 text-lg text-white py-2 px-4 rounded-md hover:bg-red-900 transition-colors mb-4">
               Submit Suggestion
             </button>
           </div>
