@@ -17,17 +17,19 @@ export default function Blog() {
           <div className="sidebar">
             <div className ="sidebarTitle">
               <h1 className ="sidebarTitleText">Topics</h1>
-              <button id = "menuImage"><img src={menuHidden}></img></button>
             </div>
             <div className="sidebarContent">
+              <a href="#" className="topics"><img src={placeImg}></img>&nbsp;&nbsp;Casting Shadows</a><br></br>
               <a href="#" className="topics"><img src={placeImg}></img>&nbsp;&nbsp;Catan</a><br></br>
               <a href="#" className="topics"><img src={placeImg}></img>&nbsp;&nbsp;Chess</a><br></br>
               <a href="#" className="topics"><img src={placeImg}></img>&nbsp;&nbsp;Clue</a><br></br>
               <a href="#" className="topics"><img src={placeImg}></img>&nbsp;&nbsp;Exploding Kittens</a><br></br>
               <a href="#" className="topics"><img src={placeImg}></img>&nbsp;&nbsp;Monopoly</a><br></br>
               <a href="#" className="topics"><img src={placeImg}></img>&nbsp;&nbsp;Pandemic</a><br></br>
+              <a href="#" className="topics"><img src={placeImg}></img>&nbsp;&nbsp;Scrabble</a><br></br>
             </div>
           </div>
+          
           <div className="mainTitle">
             <h1>Blog Posts</h1>
           </div>

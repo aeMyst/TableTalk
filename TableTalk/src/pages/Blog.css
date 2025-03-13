@@ -10,34 +10,23 @@
 .sidebar{
     float: left;
     width: 22.5%;
+    margin-left: 5px;
 }
 
 .sidebarTitle{
-    display: flex;
-    justify-content: space-between;
-}
-.sidebarTitleText{
-    display: flex;
-    justify-content: space-between;
-    float: left;
+    text-align: center;
 }
 
-#menuImage img{
-    height: 25px;
-    width: auto;
 
-}
 
-#menuImage{
-    float: right;
-}
 
 
 .sidebarContent{
     display: block;
-    
+    border-radius: 25px;
     background-color: #3b3f97;
-    
+    padding-left: 10px;
+    padding-top: 5px;
 }
 
 
