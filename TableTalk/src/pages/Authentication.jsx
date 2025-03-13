@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom"; // Import hook to read query params
 import "./Authentication.css";
 
 export default function Authentication() {
-  const [activeTab, setActiveTab] = useState("login");
+  const [searchParams] = useSearchParams();
+  const initialTab = searchParams.get("tab") === "signup" ? "signup" : "login"; // Default to login
+  const [activeTab, setActiveTab] = useState(initialTab);
+
+  useEffect(() => {
+    // Update tab when query params change
+    setActiveTab(initialTab);
+  }, [searchParams]);
 
   return (
     <div className="auth-container">
       {/* Auth Card */}
       <div className="auth-card">
-        {/* Tabs Section (Now seamlessly attached to the card) */}
+        {/* Tabs Section */}
         <div className="auth-tabs">
           <button
             className={`logtab-button ${activeTab === "login" ? "active" : ""}`}

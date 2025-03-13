@@ -20,14 +20,14 @@ export default function Home() {
           <p className="hero-subtitle">Play, Plan, and Connect Over Board Games</p>
           
           <div className="auth-buttons">
-            <button className="sign-Button" onClick={() => navigate("/signup")}>
+            <button className="sign-Button" onClick={() => navigate("/auth?tab=signup")}>
               Sign up
               <div className="arrow-wrapper">
                 <div className="arrow"></div>
               </div>
             </button>
 
-            <button className="sign-Button" onClick={() => navigate("/login")}>
+            <button className="sign-Button" onClick={() => navigate("/auth?tab=login")}>
               Log in
               <div className="arrow-wrapper">
                 <div className="arrow"></div>

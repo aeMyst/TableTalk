@@ -21,7 +21,7 @@ export default function App() {
           <Route path="/Queue" element={<Queue />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/Suggest" element={<Suggest />} />
-          <Route path="/signup" element={<Authentication />} />
+          <Route path="/auth" element={<Authentication />} />
         </Routes>
       </div>
     </div>
