@@ -3,8 +3,10 @@ import "../elements/card.css";
 import "./Blog.css";
 import menuHidden from "../assets/svg/menuHidden.svg";
 import placeImg from "../assets/svg/imagePlaceholder.svg";
-
-
+import dislike from "../assets/svg/dislike.svg";
+import like from "../assets/svg/like.svg";
+import viewImg from "../assets/svg/view.svg";
+import replyImg from "../assets/svg/reply.svg";
 
 export default function Blog() {
   
@@ -41,12 +43,12 @@ export default function Blog() {
             <div className = "discPostBar">
               <div className = "discPostButtons">
                 <div className = "discPostButtonsLeft">
-                  <button className="buttons">View Post</button>
-                  <button className="buttons">Reply</button>
+                  <button className="buttons"><img src={viewImg} id="likeButton"></img></button>
+                  <button className="buttons"><img src={replyImg} id="likeButton"></img></button>
                 </div>
                 <div className = "discPostButtonsRight">
-                  <button className="buttons">Like</button>
-                  <button className="buttons">Dislike</button>
+                  <button className="buttons"><img src={like} id="likeButton"></img></button>
+                  <button className="buttons"><img src={dislike} id="likeButton"></img></button>
                   </div>
               </div>
               <br></br>
@@ -70,12 +72,12 @@ export default function Blog() {
             <div className = "discPostBar">
               <div className = "discPostButtons">
                 <div className = "discPostButtonsLeft">
-                  <button className="buttons">View Post</button>
-                  <button className="buttons">Reply</button>
+                  <button className="buttons"><img src={viewImg} id="likeButton"></img></button>
+                  <button className="buttons"><img src={replyImg} id="likeButton"></img></button>
                 </div>
                 <div className = "discPostButtonsRight">
-                  <button className="buttons">Like</button>
-                  <button className="buttons">Dislike</button>
+                  <button className="buttons"><img src={like} id="likeButton"></img></button>
+                  <button className="buttons"><img src={dislike} id="likeButton"></img></button>
                   </div>
               </div>
               <br></br>
@@ -88,7 +90,7 @@ export default function Blog() {
               </p>
             </div>
           </div>
-
+          
           <div className="discPost1">
             <div className = "discPostText">
               <h2 id = "sample1">I am unsure on the rules of chess</h2>
@@ -99,12 +101,12 @@ export default function Blog() {
             <div className = "discPostBar">
               <div className = "discPostButtons">
                 <div className = "discPostButtonsLeft">
-                  <button className="buttons">View Post</button>
-                  <button className="buttons">Reply</button>
+                  <button className="buttons"><img src={viewImg} id="likeButton"></img></button>
+                  <button className="buttons"><img src={replyImg} id="likeButton"></img></button>
                 </div>
                 <div className = "discPostButtonsRight">
-                  <button className="buttons">Like</button>
-                  <button className="buttons">Dislike</button>
+                  <button className="buttons"><img src={like} id="likeButton"></img></button>
+                  <button className="buttons"><img src={dislike} id="likeButton"></img></button>
                   </div>
               </div>
               <br></br>
@@ -117,6 +119,7 @@ export default function Blog() {
               </p>
             </div>
           </div>
+          
 
       </div>
     </div>
