@@ -7,6 +7,7 @@ import Profile from "./pages/Profile";
 import Search from "./pages/Search";
 import Navbar from "./components/Navbar";
 import Authentication from "./pages/Authentication";
+import GameDetails from "./pages/GameDetails"; 
 import "./App.css"; 
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="/Profile" element={<Profile />} />
           <Route path="/Suggest" element={<Suggest />} />
           <Route path="/auth" element={<Authentication />} />
+          <Route path="/game/:gameName" element={<GameDetails />} />
         </Routes>
       </div>
     </div>

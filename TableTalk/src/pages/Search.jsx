@@ -1,37 +1,10 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom"; 
 import "./Search.css";
 import HeartIcon from "../assets/svg/heart.svg";
-
-// Import Board Game Images
-import CatanImage from "../assets/gameImages/placeholder.webp";
-import TicketToRideImage from "../assets/gameImages/placeholder.webp";
-import GloomhavenImage from "../assets/gameImages/placeholder.webp";
-import ChessImage from "../assets/gameImages/placeholder.webp";
-import ExplodingKittensImage from "../assets/gameImages/placeholder.webp";
-import ClueImage from "../assets/gameImages/placeholder.webp";
-import PandemicImage from "../assets/gameImages/placeholder.webp";
-import MonopolyImage from "../assets/gameImages/placeholder.webp";
-import DominionImage from "../assets/gameImages/placeholder.webp";
-import Wonders7Image from "../assets/gameImages/placeholder.webp";
-import AzulImage from "../assets/gameImages/placeholder.webp";
-import RiskImage from "../assets/gameImages/placeholder.webp";
+import boardGames from "../database/gamesData.jsx"; 
 
 export default function Search() {
-  const boardGames = [
-    { name: "Catan", type: "Area Control", objective: "Casual", likes: 1200, image: CatanImage },
-    { name: "Ticket to Ride", type: "Area Control", objective: "Casual", likes: 950, image: TicketToRideImage },
-    { name: "Gloomhaven", type: "Strategy", objective: "Competitive", likes: 800, image: GloomhavenImage },
-    { name: "Chess", type: "Abstract Strategy", objective: "Competitive", likes: 1800, image: ChessImage },
-    { name: "Exploding Kittens", type: "Party", objective: "Casual", likes: 1100, image: ExplodingKittensImage },
-    { name: "Clue", type: "Murder Mystery", objective: "Competitive", likes: 750, image: ClueImage },
-    { name: "Pandemic", type: "Cooperative", objective: "Casual", likes: 1300, image: PandemicImage },
-    { name: "Monopoly", type: "Area Control", objective: "Competitive", likes: 600, image: MonopolyImage },
-    { name: "Dominion", type: "Strategy", objective: "Competitive", likes: 700, image: DominionImage },
-    { name: "7 Wonders", type: "Strategy", objective: "Casual", likes: 950, image: Wonders7Image },
-    { name: "Azul", type: "Abstract Strategy", objective: "Casual", likes: 880, image: AzulImage },
-    { name: "Risk", type: "Area Control", objective: "Competitive", likes: 650, image: RiskImage },
-  ];
-
   const gameTypes = ["Area Control", "Abstract Strategy", "Cooperative", "Murder Mystery", "Party", "Strategy"];
   const gameObjectives = ["Competitive", "Casual"];
 
@@ -99,12 +72,12 @@ export default function Search() {
             <p className="no-results">No games found.</p>
           ) : (
             currentGames.map((game, index) => (
-              <div key={game.name} className="leaderboard-card">
+              <Link key={game.name} to={`/game/${game.name.toLowerCase().replace(/\s+/g, "-")}`} className="leaderboard-card">
                 <span className="rank">#{indexOfFirstGame + index + 1}</span>
                 
                 <img src={game.image} alt={game.name} className="game-image" />
                 
-                <div className="game-info">
+                <div className="game-info-search">
                   <h3>{game.name}</h3>
                   <p>Type: {game.type}</p>
                   <p>Objective: {game.objective}</p>
@@ -114,7 +87,7 @@ export default function Search() {
                   <img src={HeartIcon} alt="Likes" className="heart-icon" />
                   <span>{game.likes}</span>
                 </div>
-              </div>
+              </Link>
             ))
           )}
         </div>
