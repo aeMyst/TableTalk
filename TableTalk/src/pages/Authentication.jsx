@@ -1,16 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom"; // Import hook to read query params
+import { useSearchParams, useNavigate } from "react-router-dom"; // Import navigation
 import "./Authentication.css";
 
 export default function Authentication() {
   const [searchParams] = useSearchParams();
-  const initialTab = searchParams.get("tab") === "signup" ? "signup" : "login"; // Default to login
+  const navigate = useNavigate();
+  
+  // Get tab state from URL query parameter
+  const initialTab = searchParams.get("tab") === "signup" ? "signup" : "login";
   const [activeTab, setActiveTab] = useState(initialTab);
 
+  // Update tab when query params change
   useEffect(() => {
-    // Update tab when query params change
     setActiveTab(initialTab);
   }, [searchParams]);
+
+  // Handle login
+  const handleLogin = (e) => {
+    e.preventDefault();
+    localStorage.setItem("isAuthenticated", "true"); 
+    navigate("/"); 
+  };
+
+  // Handle signup
+  const handleSignup = (e) => {
+    e.preventDefault();
+    localStorage.setItem("isAuthenticated", "true"); 
+    navigate("/"); 
+  };
 
   return (
     <div className="auth-container">
@@ -35,7 +52,7 @@ export default function Authentication() {
         {/* Authentication Form */}
         <div className="auth-form-container">
           {activeTab === "login" ? (
-            <form className="auth-form">
+            <form className="auth-form" onSubmit={handleLogin}>
               <h1>Log In</h1>
               <input type="email" placeholder="Email" required />
               <input type="password" placeholder="Password" required />
@@ -52,7 +69,7 @@ export default function Authentication() {
               <button type="submit" className="auth-button">Log In</button>
             </form>
           ) : (
-            <form className="auth-form">
+            <form className="auth-form" onSubmit={handleSignup}>
               <h1>Sign Up</h1>
               <input type="text" placeholder="Username" required />
               <input type="email" placeholder="Email" required />

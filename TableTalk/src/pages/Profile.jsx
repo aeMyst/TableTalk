@@ -1,31 +1,34 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 import "../elements/card.css";
 import "./Profile.css";
 import picture from "../assets/images/profile1.jpg";
-import placeholder from "../assets/gameImages/placeholder.webp"
+import placeholder from "../assets/gameImages/placeholder.webp";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("overview");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [description, setDescription] = useState(
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
   );
   const [boardGames, setBoardGames] = useState([
-    { name: "Catan", image: placeholder  },
-    { name: "Ticket to Ride", image: placeholder  },
+    { name: "Catan", image: placeholder },
+    { name: "Ticket to Ride", image: placeholder },
     { name: "Gloomhaven", image: placeholder },
-    { name: "Carcassonne", image: placeholder  }
+    { name: "Carcassonne", image: placeholder }
   ]);
+
+  const navigate = useNavigate();
+
+  // Logout Function
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated"); // Clear authentication state
+    navigate("/"); // Redirect to landing page
+  };
 
   const addBoardGame = () => {
     const newGame = { name: "New Game", image: placeholder };
     setBoardGames([...boardGames, newGame]);
-  };
-
-
-  // Function to get snippet of description
-  const getSnippet = (text, length = 100) => {
-    return text.length > length ? text.substring(0, length) + "..." : text;
   };
 
   return (
@@ -87,11 +90,8 @@ export default function Profile() {
                 <div className="info-row description-row">
                   <label>Description:</label>
                   <p className="description-text">
-                    {getSnippet(description)}
+                    {description}
                   </p>
-                  <button className="view-more-btn" onClick={() => setIsModalOpen(true)}>
-                    View More
-                  </button>
                 </div>
               </div>
             </div>
@@ -120,6 +120,7 @@ export default function Profile() {
           <div className="tab-content">
             <h1>Settings</h1>
             <p>Customize your profile settings here.</p>
+            <button className="logout-button" onClick={handleLogout}>Log Out</button>
           </div>
         )}
 
@@ -129,26 +130,7 @@ export default function Profile() {
             <p>Update your password and security settings here.</p>
           </div>
         )}
-        
       </div>
-
-      {/* Modal for Editing Description */}
-      {isModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <h2>Edit Description</h2>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="modal-textarea"
-            />
-            <div className="modal-buttons">
-              <button className="save-btn" onClick={() => setIsModalOpen(false)}>Save</button>
-              <button className="cancel-btn" onClick={() => setIsModalOpen(false)}>Cancel</button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
