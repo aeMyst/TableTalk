@@ -1,0 +1,149 @@
+/* Page Layout */
+.search-page-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 40px auto;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  
+  /* Filter Card */
+  .filter-card {
+    width: 500px;
+    padding: 20px;
+    background: #3b3f97;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    color: white; 
+  }
+  
+  .filter-label {
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 0.01px;
+    text-align: left;
+  }
+  
+  .filter-dropdown {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    color: black;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    color: black;
+  }
+  
+  /* Leaderboard Section */
+  .search-results {
+    flex-grow: 1;
+    padding: 30px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .search-results h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .leaderboard {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .leaderboard-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;  
+    padding: 15px;
+    background: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    gap: 15px;
+}
+
+/* Rank Position */
+.rank {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #3B3F97;
+    width: 35px;
+    text-align: center;
+}
+
+/* Move Game Image Closer to Rank */
+.game-image {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 0;
+}
+
+/* Center the Game Info */
+.game-info {
+    flex-grow: 1;  
+    text-align: center;  
+}
+
+/* Move Likes to the Left */
+.likes-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: black;
+    min-width: 60px; 
+}
+
+/* Adjust Heart Icon */
+.heart-icon {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    object-fit: contain;
+}
+
+  /* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .page-button {
+    background: #3B3F97;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+  }
+  
+  .page-button.active {
+    background: #5781CB;
+    font-weight: bold;
+  }
+  
+  .page-button:hover {
+    background: #4A6FB3;
+  }
+  
