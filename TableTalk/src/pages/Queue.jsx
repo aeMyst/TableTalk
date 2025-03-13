@@ -8,12 +8,15 @@ export default function Queue() {
   const handleInputChange = (e) => {
     setRangeValue(e.target.value);
   };
-
+  
   const removeDiv = (btn) => {
     ((btn.parentNode).parentNode).removeChild(btn.parentNode);
   };
 
+
   return (
+
+
     <div className="container">
       <div className="options-container">
         <div className="tall-card-blue">
@@ -58,23 +61,23 @@ export default function Queue() {
           <h1>Matches For You</h1>
           <form>
             <div className="match-card">
-              <h1>Joe Shmoe</h1>
+              <h2 class="textstyle">Joe Shmoe</h2>
               <r1>You both like Competitive Games</r1><br></br>
               <r2>You both own Pandemic</r2><br></br><br></br>
               <button className="match-button">Message</button>
               <button className="match-button" onClick={(e) => removeDiv(e.target)}>Ignore</button>
             </div>
             <div className="match-card">
-              <h1>James Games</h1>
+              <h2 class = "textstyle">James Games</h2>
               <r1>You're only 20 km away</r1><br></br>
-              <r2>You both like Strategy Games</r2><br></br>
+              <r2>You both like Strategy Games</r2><br></br><br></br>
               <button className="match-button">Message</button>
               <button className="match-button" onClick={(e) => removeDiv(e.target)}>Ignore</button>
             </div>
             <div className="match-card">
-              <h1>Jess Chess</h1>
+              <h2 class = "textstyle">Jess Chess</h2>
               <r1>You're both friends with Hannah Montana</r1><br></br>
-              <r2>You both like Strategy Games</r2><br></br>
+              <r2>You both like Strategy Games</r2><br></br><br></br>
               <button className="match-button">Message</button>
               <button className="match-button" onClick={(e) => removeDiv(e.target)}>Ignore</button>
             </div>
