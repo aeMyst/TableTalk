@@ -43,6 +43,13 @@ export default function Profile() {
         </button>
 
         <button 
+          className={`tab-button ${activeTab === "Queue" ? "active" : ""}`} 
+          onClick={() => setActiveTab("Queue")}
+        >
+          Queue Info
+        </button>
+
+        <button 
           className={`tab-button ${activeTab === "boardgames" ? "active" : ""}`} 
           onClick={() => setActiveTab("boardgames")}
         >
@@ -87,6 +94,25 @@ export default function Profile() {
                   <label>Password:</label>
                   <p>**********</p>
                 </div>
+              </div>
+            </div>
+            <button className="edit-profile-btn">Edit Profile</button>
+          </div>
+        )}
+
+        {activeTab === "Queue" && (
+          <div className="tab-content">
+            <h1>Queue Settings</h1>
+            <p>Update your Queue Information Here</p>
+            <div className="details">
+                <div className="info-row">
+                  <label>Tags</label>
+                  <p>Competitive, Fun, ...</p>
+                </div>
+                <div className="info-row">
+                  <label>Classicfication:</label>
+                  <p>Intermediate</p>
+                </div>
                 <div className="info-row description-row">
                   <label>Description:</label>
                   <p className="description-text">
@@ -94,8 +120,7 @@ export default function Profile() {
                   </p>
                 </div>
               </div>
-            </div>
-            <button className="edit-profile-btn">Edit Profile</button>
+              <button className="edit-profile-btn">Edit Queue Settings</button>
           </div>
         )}
 

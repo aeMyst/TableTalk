@@ -47,10 +47,10 @@ export default function Home() {
             <p>Discover new board games, plan game nights, and connect with your friends.</p>
             
             <div className="dashboard-actions">
-              <button className="dashboard-action-button" onClick={() => navigate("/queue")}>View Your Queue</button>
+              <button className="dashboard-action-button" onClick={() => navigate("/queue")}>View New Matches</button>
             </div>
 
-            <h2 className="dashboard-matches-title">Recent Matches</h2>
+            <h2 className="dashboard-matches-title">Friends</h2>
             <div className="dashboard-matches-list">
               {recentMatches.map((match, index) => (
                 <div key={index} className="dashboard-match-item">
