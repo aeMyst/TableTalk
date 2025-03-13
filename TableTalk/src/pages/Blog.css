@@ -25,8 +25,7 @@
     display: block;
     border-radius: 25px;
     background-color: #3b3f97;
-    padding-left: 10px;
-    padding-top: 5px;
+  
 }
 
 
@@ -94,6 +93,10 @@
 
 .topics:hover{
     background-color: #5781CB;
+}
+
+.firstTopic:hover{
+    border-radius: 25px;
 }
 
 .buttons{
