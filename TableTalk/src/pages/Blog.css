@@ -8,15 +8,52 @@
 
 .sidebar{
     float: left;
-    width: 25%;
+    width: 20%;
 }
 
+.sidebarTitle{
+    display: flex;
+    justify-content: space-between;
+}
+.sidebarTitleText{
+    display: flex;
+    justify-content: space-between;
+    float: left;
+}
+
+.sidebarContent{
+    display: block;
+    padding-left: 10px;
+    background-color: #5781CB;
+    
+}
+
+.sidebarContent img{
+    height: 50px;
+    width: 50px;
+}
+
+#menuImage img{
+    height: 25px;
+    width: auto;
+
+}
+
+#menuImage{
+    float: right;
+}
+
+.mainTitle{
+    width: 75%;
+    float: right;
+}
 
 .discPost1{
     cursor: pointer;
     background-color: #5781CB;
     width: 75%;
     float: right;
+    border-radius: 25px;
 }
 
 .discPost1:hover{
@@ -44,7 +81,14 @@
     color: blue;
 }
 
+.topics{
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
 .buttons:hover{
     color: blue;
     background-color: red;
 }
+

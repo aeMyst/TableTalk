@@ -1,6 +1,9 @@
 import React from 'react';
-import "../elements/card.css"
-import "./Blog.css"
+import "../elements/card.css";
+import "./Blog.css";
+import menuHidden from "../assets/svg/menuHidden.svg";
+import placeImg from "../assets/svg/imagePlaceholder.svg";
+
 
 
 export default function Blog() {
@@ -8,10 +11,25 @@ export default function Blog() {
   return (
     <div className="blog-container">
       <div className="card">
-        <h1>TableTalk Blog</h1>
-          <div className="sidebar" onClick={sidebarToggle}>
-            <button>This is a button</button>
+
+          <div className="sidebar">
+            <div className ="sidebarTitle">
+              <h1 className ="sidebarTitleText">Topics</h1>
+              <button id = "menuImage"><img src={menuHidden}></img></button>
+            </div>
+            <div className="sidebarContent">
+              <a href="#" className="topics"><img src={placeImg}></img>&nbsp;&nbsp;Catan</a><br></br>
+              <a href="#" className="topics"><img src={placeImg}></img>&nbsp;&nbsp;Chess</a><br></br>
+              <a href="#" className="topics"><img src={placeImg}></img>&nbsp;&nbsp;Clue</a><br></br>
+              <a href="#" className="topics"><img src={placeImg}></img>&nbsp;&nbsp;Exploding Kittens</a><br></br>
+              <a href="#" className="topics"><img src={placeImg}></img>&nbsp;&nbsp;Monopoly</a><br></br>
+              <a href="#" className="topics"><img src={placeImg}></img>&nbsp;&nbsp;Pandemic</a><br></br>
+            </div>
           </div>
+          <div className="mainTitle">
+            <h1>Blog Posts</h1>
+          </div>
+
           <div className="discPost1">
             <div className = "discPostText">
               <h2 id = "sample1">This is a post</h2>
@@ -44,6 +62,3 @@ export default function Blog() {
   );
 } 
 
-function sidebarToggle(){
-  
-}
