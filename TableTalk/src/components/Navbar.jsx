@@ -10,8 +10,13 @@ import "./Navbar.css";
 export default function Navbar() {
   const location = useLocation();
 
-  const isActive = (path) => location.pathname.startsWith(path);
-
+  const isActive = (path) => {
+    if (path === "/") {
+      return location.pathname === "/";
+    }
+    return location.pathname.startsWith(path);
+  };
+  
   return (
     <nav>
       <div className="nav-content">
@@ -21,7 +26,6 @@ export default function Navbar() {
             <span className="link-title">Home</span>
           </Link>
           
-          {/* Direct Search Navigation (Dropdown Removed) */}
           <Link to="/search" className={`button ${isActive("/search") ? "active" : ""}`}>
             <img src={SearchSvg} alt="Search" className="icon" />
             <span className="link-title">Search</span>
