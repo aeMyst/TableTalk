@@ -1,0 +1,118 @@
+.blog-container {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6080C5;
+  }
+
+.sidebar{
+    float: left;
+    width: 22.5%;
+    margin-left: 5px;
+}
+
+.sidebarTitle{
+    text-align: center;
+}
+
+
+
+
+
+.sidebarContent{
+    display: block;
+    border-radius: 25px;
+    background-color: #3b3f97;
+    padding-left: 10px;
+    padding-top: 5px;
+}
+
+
+.sidebarContent img{
+    height: 50px;
+    width: 50px;
+}
+
+
+.mainTitle{
+    width: 75%;
+    float: right;
+}
+
+.discPost1{
+    cursor: pointer;
+    background-color: #d6d6e5;
+    width: 75%;
+    float: right;
+    border-radius: 25px;
+    margin-bottom: 10px;
+    margin-right: 5px;
+}
+
+.discPostText{
+    text-align: left;
+    padding-left: 10px;
+}
+
+.discPost1:hover{
+    opacity: 1;
+    background-color: #e4e4f5;
+}
+
+.discPostBar{
+    display: inline;
+}
+
+.discPostButtonsLeft{
+    display: flex;
+    justify-content: space-between;
+    float: left;
+    padding: 10px;
+}
+
+.discPostButtonsRight{
+    float: right;
+    padding: 10px;
+}
+
+.tags{
+    color: #6080C5;
+}
+
+.tags:hover{
+    opacity: 1;
+    color: #3b3f97;
+}
+
+.topics{
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.topics:hover{
+    background-color: #5781CB;
+}
+
+.buttons{
+    margin: 10px;
+    border-radius: 25px;
+    opacity: 1;
+    background-color: transparent;
+    height: 34px;
+}
+
+
+.buttons:hover{
+    opacity: 0.8;
+    color: blue;
+}
+
+#likeButton{
+    height: 30px;
+    vertical-align: center;
+}
+
+
