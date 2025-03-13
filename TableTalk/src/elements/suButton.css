@@ -1,7 +1,7 @@
 .sign-Button {
     --primary-color: var(--primary-color);
     --secondary-color: #fff;
-    --hover-color: #111;
+    --hover-color: #5781cb;
     --arrow-width: 10px;
     --arrow-stroke: 2px;
     box-sizing: border-box;

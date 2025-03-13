@@ -6,6 +6,7 @@ import Queue from "./pages/Queue";
 import Profile from "./pages/Profile";
 import Search from "./pages/Search";
 import Navbar from "./components/Navbar";
+import Authentication from "./pages/Authentication";
 import "./App.css"; 
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/Queue" element={<Queue />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/Suggest" element={<Suggest />} />
+          <Route path="/signup" element={<Authentication />} />
         </Routes>
       </div>
     </div>
