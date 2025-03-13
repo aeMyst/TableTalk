@@ -32,6 +32,14 @@ export default function Search() {
     setCurrentPage(pageNumber);
   };
 
+  // ✅ Reset all filters function
+  const handleResetFilters = () => {
+    setSearchTerm("");
+    setSelectedType("");
+    setSelectedObjective("");
+    setCurrentPage(1);
+  };
+
   return (
     <div className="search-page-container">
       {/* Filter Card */}
@@ -62,6 +70,9 @@ export default function Search() {
             <option key={objective} value={objective}>{objective}</option>
           ))}
         </select>
+
+        {/* ✅ Reset Button */}
+        <button className="reset-button" onClick={handleResetFilters}>Reset Filters</button>
       </div>
 
       {/* Leaderboard Display */}

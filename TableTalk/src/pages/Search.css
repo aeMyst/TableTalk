@@ -115,6 +115,26 @@
     object-fit: contain;
 }
 
+/* Reset Button */
+.reset-button {
+  background: #d32f2f;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.reset-button:hover {
+  background: #b71c1c;
+}
+
+
   /* Pagination */
 .pagination {
     display: flex;
