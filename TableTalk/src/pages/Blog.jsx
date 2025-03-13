@@ -30,10 +30,71 @@ export default function Blog() {
             <h1>Blog Posts</h1>
           </div>
 
+          
           <div className="discPost1">
             <div className = "discPostText">
-              <h2 id = "sample1">This is a post</h2>
-              <p>there will be a bunch of a stuff here including an <a href = "#">indepndent link</a></p>
+              <h2 id = "sample1">Tips on improving the chess rules</h2>
+              <p>Let's say I wanted to talk about a chess play I made <a href = "#">linked here</a>. 
+              I was wondering what happens if I change the rules to say 
+              all pieces move in a straight line.</p>
+            </div>
+            <div className = "discPostBar">
+              <div className = "discPostButtons">
+                <div className = "discPostButtonsLeft">
+                  <button className="buttons">View Post</button>
+                  <button className="buttons">Reply</button>
+                </div>
+                <div className = "discPostButtonsRight">
+                  <button className="buttons">Like</button>
+                  <button className="buttons">Dislike</button>
+                  </div>
+              </div>
+              <br></br>
+              <p>Tags: &nbsp;
+                  <a href="#" className="tags">Chess</a>, &nbsp;
+                  <a href="#" className="tags">New release</a>, &nbsp;
+                  <a href="#" className="tags">Cat</a>, &nbsp; 
+                  <a href="#" className="tags">Rules</a>, &nbsp;
+                  <a href="#" className="tags">Old release</a>, &nbsp;
+              </p>
+            </div>
+          </div>
+
+          <div className="discPost1">
+            <div className = "discPostText">
+              <h2 id = "sample1">Critique of the chess rules</h2>
+              <p>Let's say I wanted to talk about a chess play I made <a href = "#">linked here</a>. 
+              I was wondering what happens if I change the rules to say 
+              all pieces move in a straight line.</p>
+            </div>
+            <div className = "discPostBar">
+              <div className = "discPostButtons">
+                <div className = "discPostButtonsLeft">
+                  <button className="buttons">View Post</button>
+                  <button className="buttons">Reply</button>
+                </div>
+                <div className = "discPostButtonsRight">
+                  <button className="buttons">Like</button>
+                  <button className="buttons">Dislike</button>
+                  </div>
+              </div>
+              <br></br>
+              <p>Tags: &nbsp;
+                  <a href="#" className="tags">Chess</a>, &nbsp;
+                  <a href="#" className="tags">New release</a>, &nbsp;
+                  <a href="#" className="tags">Cat</a>, &nbsp; 
+                  <a href="#" className="tags">Rules</a>, &nbsp;
+                  <a href="#" className="tags">Old release</a>, &nbsp;
+              </p>
+            </div>
+          </div>
+
+          <div className="discPost1">
+            <div className = "discPostText">
+              <h2 id = "sample1">I am unsure on the rules of chess</h2>
+              <p>Let's say I wanted to talk about a chess play I made <a href = "#">linked here</a>. 
+              I was wondering what happens if I change the rules to say 
+              all pieces move in a straight line.</p>
             </div>
             <div className = "discPostBar">
               <div className = "discPostButtons">

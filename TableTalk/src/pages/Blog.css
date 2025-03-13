@@ -1,5 +1,5 @@
 .blog-container {
-    width: 100%;
+    width: 90%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -21,18 +21,6 @@
     float: left;
 }
 
-.sidebarContent{
-    display: block;
-    padding-left: 10px;
-    background-color: #5781CB;
-    
-}
-
-.sidebarContent img{
-    height: 50px;
-    width: 50px;
-}
-
 #menuImage img{
     height: 25px;
     width: auto;
@@ -42,6 +30,21 @@
 #menuImage{
     float: right;
 }
+
+
+.sidebarContent{
+    display: block;
+    
+    background-color: #3b3f97;
+    
+}
+
+
+.sidebarContent img{
+    height: 50px;
+    width: 50px;
+}
+
 
 .mainTitle{
     width: 75%;
@@ -54,6 +57,13 @@
     width: 75%;
     float: right;
     border-radius: 25px;
+    margin-bottom: 10px;
+    margin-right: 5px;
+}
+
+.discPostText{
+    text-align: left;
+    padding-left: 10px;
 }
 
 .discPost1:hover{
@@ -74,6 +84,7 @@
 
 .discPostButtonsRight{
     float: right;
+    padding: 10px;
 }
 
 .tags:hover{
@@ -87,8 +98,17 @@
     color: white;
 }
 
+.topics:hover{
+    background-color: #5781CB;
+}
+
+.buttons{
+    margin: 10px;
+}
+
 .buttons:hover{
     color: blue;
     background-color: red;
 }
+
 
