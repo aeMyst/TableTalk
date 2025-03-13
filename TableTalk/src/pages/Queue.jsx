@@ -18,13 +18,31 @@ export default function Queue() {
 
 
     <div className="container">
-      <div className="options-container">
+      <div className="friends-container">
         <div className="tall-card-blue">
-          <h1>Options</h1>
+          <h1>Friends</h1>
           <form>
-            <button className="queue-button">Edit Preferences</button>
-            <button className="queue-button">Privacy Settings</button>
-            <button className="queue-button">Match History</button>
+            <div className="match-card">
+              <h2 class="textstyle">Ben Fren</h2>
+              <r1>Friend since March 2nd</r1><br></br>
+              <r2>1 unread message</r2><br></br><br></br>
+              <button className="match-button">Message</button>
+              <button className="match-button" onClick={(e) => removeDiv(e.target)}>Unfriend</button>
+            </div>
+            <div className="match-card">
+              <h2 class = "textstyle">Bud Dee</h2>
+              <r1>Friends since February 14</r1><br></br>
+              <r2>No unread messages</r2><br></br><br></br>
+              <button className="match-button">Message</button>
+              <button className="match-button" onClick={(e) => removeDiv(e.target)}>Unfriend</button>
+            </div>
+            <div className="match-card">
+              <h2 class = "textstyle">Quinten Quaintance</h2>
+              <r1>Friends since July 9</r1><br></br>
+              <r2>3 unread messages</r2><br></br><br></br>
+              <button className="match-button">Message</button>
+              <button className="match-button" onClick={(e) => removeDiv(e.target)}>Unfriend</button>
+            </div>
           </form>
         </div>
       </div>
@@ -32,14 +50,16 @@ export default function Queue() {
       <div className="search-container">
         <div className="tall-card">
           <h1>Find people to play with!</h1>
+          <r1>Search for new people using these filters. All fields are optional.</r1>
           <form>
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name">Their Name</label>
             <input type="text" id="name" name="fname" className="form-control" /><br />
 
-            <label htmlFor="gametypes">Game Type</label>
+            <label htmlFor="gametypes">Their Game Type Preferences</label>
             <select name="Game Types" id="gametypes" className="form-control"><br />
+            <option value="none">None Chosen</option>
               <option value="competitive">Competitive</option>
-              <option value="competitive">Casual</option>
+              <option value="casual">Casual</option>  
             </select><br />
 
             <label htmlFor="range">Distance</label>
@@ -52,7 +72,7 @@ export default function Queue() {
             />
             <output htmlFor="range">{rangeValue} km</output>
           </form><br></br>
-          <input type="submit"></input>
+          <input type="submit" value="Search"></input>
         </div>
       </div>
 
