@@ -141,7 +141,7 @@ export default function Suggest() {
 
       {/* Sidebar for Suggested Games */}
       <div className="suggest-sidebar">
-        <h2>Suggested Games</h2>
+        <h2 className="mb-4">Suggested Games</h2>
         <div className={`suggested-list ${isAnimating ? 'fade-in' : ''}`}>
           {filteredGames.map((game, index) => (
             <div key={game.name} className="suggested-card" style={{ animationDelay: `${index * 0.2}s` }}>
