@@ -49,3 +49,17 @@ form {
 h2.textstyle {
   font-family: tahoma
 }
+
+.rounded-card {
+  width: 40vw;
+  height: 200px;
+  border-radius: 15px;
+  background-color: #f0f0f0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}

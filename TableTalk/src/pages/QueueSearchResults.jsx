@@ -1,3 +1,5 @@
+// THIS PAGE WILL EVENTUALLY BE LINKED TO QUEUE.JSX
+
 import React, { useState } from 'react';
 import "../elements/tall-card.css";
 import "../pages/Queue.css";
@@ -49,42 +51,35 @@ export default function Queue() {
 
       <div className="search-container">
         <div className="tall-card">
-          <h1>Find people to play with!</h1>
-          <r1>Search for new people using these filters. All fields are optional.</r1>
+          <h1>Search Results:</h1>
           <form>
-            <label htmlFor="name">Their Name</label>
-            <input type="text" id="name" name="fname" className="form-control" /><br />
+            <div className="rounded-card">
+                <h2 class = "textstyle">Sarah Serched</h2><br></br>
+                <r1>Prefers Competitive Games</r1><br></br>
+                <r2>Prefers Strategy Games</r2><br></br>
+                <r3>122 km away</r3><br></br><br></br>
+                <button className="match-button">Message</button>
+                <button className="match-button" onClick={(e) => removeDiv(e.target)}>Ignore</button>
+                </div>
 
-            <label htmlFor="gametypes">Their Game Type Preferences</label>
-            <select name="Game Types" id="gametypes" className="form-control"><br />
-            <option value="none">None Chosen</option>
-              <option value="competitive">Competitive</option>
-              <option value="casual">Casual</option>  
-            </select><br />
+                <div className="rounded-card">
+                <h2 class = "textstyle">Freddy Found</h2><br></br>
+                <r1>Prefers Competitive Games</r1><br></br>
+                <r2>Prefers Murder Mystery Games</r2><br></br>
+                <r3>1 km away</r3><br></br><br></br>
+                <button className="match-button">Message</button>
+                <button className="match-button" onClick={(e) => removeDiv(e.target)}>Ignore</button>
+                </div>    
 
-            <label htmlFor="gamegenres">Their Game Genre Preferences</label>
-            <select name="Game Type" id="gametypes" className="form-control">
-              <option value="none">None Chosen</option>
-              <option value="areacontrol">Area Control</option>
-              <option value="abstractstrategy">Abstract Strategy</option>
-              <option value="cooperative">Cooperative</option>
-              <option value="murdermystery">Murder Mystery</option>
-              <option value="party">Party</option>
-              <option value="strategy">Strategy</option>
-
-            </select><br></br>
-
-            <label htmlFor="range">Distance</label>
-            <input
-              type="range"
-              id="range"
-              max="200"
-              defaultValue="0"
-              onInput={handleInputChange}
-            />
-            <output htmlFor="range">{rangeValue} km</output>
+            <div className="rounded-card">
+                <h2 class = "textstyle">Rebecca Result</h2><br></br>
+                <r1>Prefers Competitive Games</r1><br></br>
+                <r2>Prefers Area Control Games</r2><br></br>
+                <r3>55 km away</r3><br></br><br></br>
+                <button className="match-button">Message</button>
+                <button className="match-button" onClick={(e) => removeDiv(e.target)}>Ignore</button>
+                </div>                            
           </form><br></br>
-          <input type="submit" value="Search"></input>
         </div>
       </div>
 
