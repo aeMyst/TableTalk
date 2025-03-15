@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../elements/card.css";
-import "./Home.css"; // Landing Page Styling
-import "./mainHome.css"; // Logged-in Dashboard Styling
+import "./Home.css"; 
+import "./mainHome.css"; 
+import "./Chat.css";
+import "../elements/suButton.css";
 import mainLogo from "../assets/logo/mainLogoCrop.png";
 import boardGames from "../database/gamesData.jsx";
 import blogPosts from "../database/blogData.jsx";
-import "../elements/suButton.css";
 
 export default function Home() {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
+  const [currentChat, setCurrentChat] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
 
   useEffect(() => {
     const userLoggedIn = localStorage.getItem("isAuthenticated") === "true";
     setIsAuthenticated(userLoggedIn);
   }, []);
 
-  // Function to get ordinal suffixes (1st, 2nd, 3rd, etc.)
   const getOrdinalSuffix = (rank) => {
     if (rank === 1) return "#1";
     if (rank === 2) return "#2";
@@ -25,18 +29,31 @@ export default function Home() {
     return `${rank}th`;
   };
 
-  // Select top 3 games for preview
   const topGames = boardGames.sort((a, b) => b.likes - a.likes).slice(0, 3);
-  
-  // Select top 3 latest blog posts
   const recentBlogs = blogPosts.slice(0, 3);
 
-  // Fake Recent Matches Data
   const recentMatches = [
     { opponent: "Alice", chatLink: "/chat/alice" },
     { opponent: "Bob", chatLink: "/chat/bob" },
     { opponent: "Charlie", chatLink: "/chat/charlie" },
   ];
+
+  const toggleChat = (opponent) => {
+    if (currentChat === opponent) {
+      setChatOpen(!chatOpen);
+    } else {
+      setCurrentChat(opponent);
+      setChatOpen(true);
+      setMessages([]); 
+    }
+  };
+
+  const sendMessage = () => {
+    if (newMessage.trim() !== "") {
+      setMessages([...messages, { text: newMessage, sender: "me" }]);
+      setNewMessage("");
+    }
+  };
 
   return (
     <div className="home-container">
@@ -55,7 +72,12 @@ export default function Home() {
               {recentMatches.map((match, index) => (
                 <div key={index} className="dashboard-match-item">
                   <p><strong>{match.opponent}</strong></p>
-                  <button className="dashboard-chat-button" onClick={() => navigate(match.chatLink)}>Open Chat</button>
+                  <button 
+                    className="dashboard-chat-button" 
+                    onClick={() => toggleChat(match.opponent)}
+                  >
+                    Open Chat
+                  </button>
                 </div>
               ))}
             </div>
@@ -96,7 +118,6 @@ export default function Home() {
           </div>
         </section>
       ) : (
-        // Landing Page (Unauthenticated)
         <section className="hero-section">
           <div className="home-card hero-card">
             <h1 className="hero-title">Welcome to</h1>
@@ -122,6 +143,36 @@ export default function Home() {
             </div>
           </div>
         </section>
+      )}
+
+      {/* Chat Box */}
+      {chatOpen && (
+        <div className="chat-box">
+          <div className="chat-header">
+            <span>Chat with {currentChat}</span>
+            <button className="chat-close-button" onClick={() => setChatOpen(false)}>X</button>
+          </div>
+          
+          <div className="chat-messages">
+            {messages.map((msg, index) => (
+              <div key={index} className={`chat-message ${msg.sender === "me" ? "sent" : ""}`}>
+                {msg.text}
+              </div>
+            ))}
+          </div>
+
+          <div className="chat-input-container">
+            <input 
+              type="text" 
+              className="chat-input" 
+              placeholder="Type a message..." 
+              value={newMessage} 
+              onChange={(e) => setNewMessage(e.target.value)} 
+              onKeyDown={(e) => e.key === "Enter" && sendMessage()} 
+            />
+            <button className="chat-send-button" onClick={sendMessage}>Send</button>
+          </div>
+        </div>
       )}
     </div>
   );
