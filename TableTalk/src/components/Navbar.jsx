@@ -5,6 +5,7 @@ import QueueSvg from "../assets/navbar/queueIcon.svg";
 import SearchSvg from "../assets/navbar/searchIcon.svg";
 import ProfileSvg from "../assets/navbar/profileIcon.svg";
 import GameSvg from "../assets/navbar/gameIcon.svg";
+import BellSvg from "../assets/navbar/bell.svg";
 import "./Navbar.css";
 
 export default function Navbar() {
@@ -44,6 +45,11 @@ export default function Navbar() {
           <Link to="/suggest" className={`button ${isActive("/suggest") ? "active" : ""}`}>
             <img src={GameSvg} alt="Suggest" className="icon" />
             <span className="link-title">Suggest</span>
+          </Link>
+
+          <Link to="/notifications" className={`button ${isActive("/notifications") ? "active" : ""}`}>
+            <img src={BellSvg} alt="Notification" className="icon" />
+            <span className="link-title">Notification</span>
           </Link>
 
           <Link to="/profile" className={`button ${isActive("/profile") ? "active" : ""}`}>
