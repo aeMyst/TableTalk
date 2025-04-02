@@ -43,10 +43,10 @@ export default function Profile() {
         </button>
 
         <button 
-          className={`tab-button ${activeTab === "Queue" ? "active" : ""}`} 
-          onClick={() => setActiveTab("Queue")}
+          className={`tab-button ${activeTab === "match" ? "active" : ""}`} 
+          onClick={() => setActiveTab("match")}
         >
-          Queue Info
+          Matchmaking Preferences
         </button>
 
         <button 
@@ -100,10 +100,10 @@ export default function Profile() {
           </div>
         )}
 
-        {activeTab === "Queue" && (
+        {activeTab === "match" && (
           <div className="tab-content">
-            <h1>Queue Settings</h1>
-            <p>Update your Queue Information Here</p>
+            <h1>matchmaking Preferences</h1>
+            <p>Update your Matchmaking Information Here</p>
             <div className="details">
                 <div className="info-row">
                   <label>Tags</label>

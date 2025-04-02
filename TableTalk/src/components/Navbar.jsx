@@ -39,7 +39,7 @@ export default function Navbar() {
 
           <Link to="/queue" className={`button ${isActive("/queue") ? "active" : ""}`}>
             <img src={QueueSvg} alt="Queue" className="icon" />
-            <span className="link-title">Queue</span>
+            <span className="link-title">Matchmaking</span>
           </Link>
 
           <Link to="/suggest" className={`button ${isActive("/suggest") ? "active" : ""}`}>
