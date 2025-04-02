@@ -19,45 +19,49 @@ export default function Navbar() {
   };
   
   return (
-    <nav>
-      <div className="nav-content">
-        <div className="button-container">
-          <Link to="/" className={`button ${isActive("/") ? "active" : ""}`}>
-            <img src={Logo} alt="Home" className="icon" />
-            <span className="link-title">Home</span>
-          </Link>
-          
-          <Link to="/search" className={`button ${isActive("/search") ? "active" : ""}`}>
-            <img src={SearchSvg} alt="Search" className="icon" />
-            <span className="link-title">Search</span>
-          </Link>
-
-          <Link to="/blog" className={`button ${isActive("/blog") ? "active" : ""}`}>
-            <img src={BlogSvg} alt="Blog" className="icon" />
-            <span className="link-title">Blog</span>
-          </Link>
-
-          <Link to="/queue" className={`button ${isActive("/queue") ? "active" : ""}`}>
-            <img src={QueueSvg} alt="Queue" className="icon" />
-            <span className="link-title">Matchmaking</span>
-          </Link>
-
-          <Link to="/suggest" className={`button ${isActive("/suggest") ? "active" : ""}`}>
-            <img src={GameSvg} alt="Suggest" className="icon" />
-            <span className="link-title">Suggest</span>
-          </Link>
-
-          <Link to="/notifications" className={`button ${isActive("/notifications") ? "active" : ""}`}>
-            <img src={BellSvg} alt="Notification" className="icon" />
-            <span className="link-title">Notification</span>
-          </Link>
-
-          <Link to="/profile" className={`button ${isActive("/profile") ? "active" : ""}`}>
-            <img src={ProfileSvg} alt="Profile" className="icon" />
-            <span className="link-title">Profile</span>
-          </Link>
-        </div>
+<nav>
+  <div className="nav-wrapper">
+    {/* Left nav box */}
+    <div className="nav-box">
+      <div className="button-container">
+        <Link to="/" className={`button ${isActive("/") ? "active" : ""}`}>
+          <img src={Logo} alt="Home" className="icon" />
+          <span className="link-title">Home</span>
+        </Link>
+        <Link to="/search" className={`button ${isActive("/search") ? "active" : ""}`}>
+          <img src={SearchSvg} alt="Search" className="icon" />
+          <span className="link-title">Search</span>
+        </Link>
+        <Link to="/blog" className={`button ${isActive("/blog") ? "active" : ""}`}>
+          <img src={BlogSvg} alt="Blog" className="icon" />
+          <span className="link-title">Blog</span>
+        </Link>
+        <Link to="/queue" className={`button ${isActive("/queue") ? "active" : ""}`}>
+          <img src={QueueSvg} alt="Queue" className="icon" />
+          <span className="link-title">Matchmaking</span>
+        </Link>
+        <Link to="/suggest" className={`button ${isActive("/suggest") ? "active" : ""}`}>
+          <img src={GameSvg} alt="Suggest" className="icon" />
+          <span className="link-title">Suggest</span>
+        </Link>
       </div>
-    </nav>
+    </div>
+
+    {/* Right nav box */}
+    <div className="nav-box secondary">
+      <div className="button-container">
+        <Link to="/notifications" className={`button ${isActive("/notifications") ? "active" : ""}`}>
+          <img src={BellSvg} alt="Notification" className="icon" />
+          <span className="link-title">Notification</span>
+        </Link>
+        <Link to="/profile" className={`button ${isActive("/profile") ? "active" : ""}`}>
+          <img src={ProfileSvg} alt="Profile" className="icon" />
+          <span className="link-title">Profile</span>
+        </Link>
+      </div>
+    </div>
+  </div>
+</nav>
+
   );
 }
