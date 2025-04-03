@@ -84,11 +84,11 @@ export default function Blog() {
             </div>
 
             {/* Pagination Section */}
-            <div className="pagination">
+            <div className="pagination-blog">
               {Array.from({ length: totalPages }, (_, i) => (
                 <button
                   key={i + 1}
-                  className={`page-button ${currentPage === i + 1 ? "active" : ""}`}
+                  className={`page-button-blog ${currentPage === i + 1 ? "active" : ""}`}
                   onClick={() => handlePageChange(i + 1)}
                 >
                   {i + 1}

@@ -131,7 +131,7 @@
 .rank {
     font-size: 1.4rem;
     font-weight: bold;
-    color: #3B3F97;
+    color: #5781cb;
     width: 35px;
     text-align: center;
 }
@@ -145,6 +145,7 @@
 }
 
 .game-info-search {
+    color: #5781cb;
     flex-grow: 1;  
     text-align: center;  
 }

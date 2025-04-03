@@ -61,6 +61,10 @@
     padding: 2.5rem;
     border-radius: 12px;
     box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.05);
+    min-height: 600px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   
   /* Blog heading + Add Post button */
@@ -148,14 +152,14 @@
     background-color: #4A6FB3;
   }
   
-  .pagination {
+  .pagination-blog {
     display: flex;
     justify-content: center;
     margin-top: 2rem;
     gap: 0.5rem;
   }
   
-  .page-button {
+  .page-button-blog {
     background: #3B3F97;
     color: white;
     border: none;
@@ -166,11 +170,11 @@
     transition: background 0.3s ease;
   }
   
-  .page-button:hover {
+  .page-button-blog:hover {
     background: #4A6FB3;
   }
   
-  .page-button.active {
+  .page-button-blog.active {
     background: #2a2f7a;
     font-weight: bold;
   }
