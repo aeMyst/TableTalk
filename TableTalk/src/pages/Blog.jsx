@@ -7,7 +7,6 @@ const Post = ({ title, excerpt, author, date }) => (
   <article className="blog-post-card">
     <div className="blog-post-content">
       <h2 className="blog-post-title">{title}</h2>
-      <p className="blog-post-excerpt">{excerpt}</p>
       <div className="blog-post-meta">
         <span className="blog-author">By {author}</span>
         <span className="blog-date">{date}</span>
