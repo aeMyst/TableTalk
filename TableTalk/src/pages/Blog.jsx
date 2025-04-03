@@ -1,7 +1,6 @@
 import React from 'react';
 import "../elements/card.css";
 import "./Blog.css";
-import menuHidden from "../assets/svg/menuHidden.svg";
 import placeImg from "../assets/svg/imagePlaceholder.svg";
 import dislike from "../assets/svg/dislike.svg";
 import like from "../assets/svg/like.svg";
