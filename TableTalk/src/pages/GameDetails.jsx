@@ -2,7 +2,6 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import boardGames from "../database/gamesData.jsx";
 import "./GameDetails.css"; 
-import HeartIcon from "../assets/svg/heart.svg";
 
 export default function GameDetails() {
   const { gameName } = useParams();
@@ -32,8 +31,7 @@ export default function GameDetails() {
 
         {/* Like Section */}
         <div className="likes-container">
-          <img src={HeartIcon} alt="Likes" className="heart-icon" />
-          <span>{game.likes}</span>
+          <span>❤️ {game.likes}</span>
         </div>
       </div>
 

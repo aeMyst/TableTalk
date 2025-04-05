@@ -8,6 +8,7 @@ import Search from "./pages/Search";
 import Navbar from "./components/Navbar";
 import Authentication from "./pages/Authentication";
 import GameDetails from "./pages/GameDetails"; 
+import Posts from "./pages/Posts";
 import "./App.css"; 
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<Posts />} />
           <Route path="/Search" element={<Search />} />
           <Route path="/Queue" element={<Queue />} />
           <Route path="/Profile" element={<Profile />} />

@@ -119,12 +119,7 @@
     margin-bottom: 0.5rem;
   }
   
-  .blog-post-excerpt {
-    font-size: 1rem;
-    color: #444;
-    margin-bottom: 0.75rem;
-  }
-  
+
   .blog-post-meta {
     font-size: 0.9rem;
     color: #777;
@@ -177,4 +172,10 @@
   .page-button-blog.active {
     background: #2a2f7a;
     font-weight: bold;
+  }
+
+  .blog-likes {
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+    color: #777;
   }

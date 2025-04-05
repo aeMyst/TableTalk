@@ -1,19 +1,23 @@
+import { Link } from "react-router-dom";
 import React, { useState } from 'react';
 import "../elements/card.css";
 import "./Blog.css";
-import blogPosts from "../database/blogData.jsx";
+import blogPosts from "../database/blogData.jsx"; 
 
-const Post = ({ title, excerpt, author, date }) => (
-  <article className="blog-post-card">
-    <div className="blog-post-content">
-      <h2 className="blog-post-title">{title}</h2>
-      <div className="blog-post-meta">
-        <span className="blog-author">By {author}</span>
-        <span className="blog-date">{date}</span>
+const Post = ({ id, title, author, date, likes }) => (
+  <Link to={`/blog/${id}`} className="blog-post-link">
+    <article className="blog-post-card">
+      <div className="blog-post-content">
+        <h2 className="blog-post-title"> {title} </h2>
+        <div className="blog-post-meta">
+          <span className="blog-author">By: {author} || {date}</span>
+          <div className="blog-likes">
+          ❤️ {likes} {likes === 1 ? "Like" : "Likes"}
+        </div>
+        </div>
       </div>
-    </div>
-    <div className="blog-post-footer"></div>
-  </article>
+    </article>
+  </Link>
 );
 
 export default function Blog() {
@@ -74,10 +78,11 @@ export default function Blog() {
               {currentPosts.map((post) => (
                 <Post
                   key={post.id}
+                  id={post.id}
                   title={post.title}
-                  excerpt={post.excerpt}
                   author={post.author}
                   date={post.date}
+                  likes={post.likes} 
                 />
               ))}
             </div>

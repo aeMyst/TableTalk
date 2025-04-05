@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom"; 
 import "./Search.css";
-import HeartIcon from "../assets/svg/heart.svg";
 import boardGames from "../database/gamesData.jsx"; 
 
 export default function Search() {
@@ -153,8 +152,7 @@ export default function Search() {
 
                     </div>
                     <div className="likes-container">
-                      <img src={HeartIcon} alt="Likes" className="heart-icon" />
-                      <span>{game.likes}</span>
+                      <span> ❤️ {game.likes}</span>
                     </div>
                   </Link>
                 ))
