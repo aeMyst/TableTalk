@@ -91,6 +91,7 @@
     background-color: #f0f2f8;
     border-radius: 8px;
     border-left: 4px solid #3b3f97;
+    border-right: 4px solid #3b3f97;
     margin-left: calc(var(--indent-level, 0) * 2rem); 
   }
 
