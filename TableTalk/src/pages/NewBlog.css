@@ -1,6 +1,7 @@
 .new-post-container {
     width: 100%;
     max-width: 1800px; 
+    min-height: 75vh;
     margin: 2rem auto;
     padding: 3rem; 
     background: white;
@@ -28,9 +29,15 @@
     border-radius: 8px;
     font-size: 1.1rem; 
   }
+
+  .new-post-input {
+    min-width: 1250px;
+    resize: vertical;
+  }
   
   .new-post-textarea {
-    min-height: 250px;
+    min-height: 350px;
+    min-width: 1250px;
     resize: vertical;
   }
   
