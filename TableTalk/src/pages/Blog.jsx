@@ -72,7 +72,9 @@ export default function Blog() {
           <main className="blog-main">
             <div className="blog-heading-row">
               <h1 className="blog-heading">Blog Posts</h1>
-              <button className="blog-add-button">+ Add New Blog Post</button>
+              <Link to="/blog/new" className="blog-add-button-link">
+                <button className="blog-add-button">+ Add New Blog Post</button>
+              </Link>
             </div>
             <div className="blog-post-list">
               {currentPosts.map((post) => (

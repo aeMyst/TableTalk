@@ -8,6 +8,7 @@ import Search from "./pages/Search";
 import Navbar from "./components/Navbar";
 import Authentication from "./pages/Authentication";
 import GameDetails from "./pages/GameDetails"; 
+import NewBlog from "./pages/NewBlog";
 import Posts from "./pages/Posts";
 import "./App.css"; 
 
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/Blog" element={<Blog />} />
           <Route path="/blog/:id" element={<Posts />} />
+          <Route path="/blog/new" element={<NewBlog />} />
           <Route path="/Search" element={<Search />} />
           <Route path="/Queue" element={<Queue />} />
           <Route path="/Profile" element={<Profile />} />
