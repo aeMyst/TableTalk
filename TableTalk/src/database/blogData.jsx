@@ -7,8 +7,24 @@ const blogPosts = [
     date: "March 10, 2025",
     likes: 10,
     replies: [
-      { id: 1, user: "Replier1", text: "Lorem ipsum!" },
-      { id: 2, user: "Replier5", text: "Lorem ipsum dolor sit amet." }
+      {
+        id: 1,
+        user: "Replier1",
+        text: "Lorem ipsum!",
+        replies: [
+          {
+            id: 1,
+            user: "Account1",
+            text: "Thanks for the comment!"
+          }
+        ]
+      },
+      {
+        id: 2,
+        user: "Replier5",
+        text: "Lorem ipsum dolor sit amet.",
+        replies: []
+      }
     ]
   },
   {
@@ -19,7 +35,18 @@ const blogPosts = [
     date: "March 8, 2025",
     likes: 5,
     replies: [
-      { id: 1, user: "Replier18", text: "Lorem ipsum!" }
+      {
+        id: 1,
+        user: "Replier18",
+        text: "Lorem ipsum!",
+        replies: [
+          {
+            id: 1,
+            user: "Account2",
+            text: "Appreciate your input!"
+          }
+        ]
+      }
     ]
   },
   {

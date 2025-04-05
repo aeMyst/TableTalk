@@ -6,11 +6,8 @@ import "./Posts.css";
 export default function Posts() {
   const { id } = useParams();
   const post = blogPosts.find((p) => String(p.id) === id);
-
   const [replies, setReplies] = useState(post?.replies || []);
   const [newReply, setNewReply] = useState("");
-  const [likes, setLikes] = useState(post?.likes || 0);
-  const [liked, setLiked] = useState(false); 
 
   if (!post) {
     return (
@@ -22,24 +19,77 @@ export default function Posts() {
   }
 
   const handleAddReply = () => {
-    if (newReply.trim() === "") return;
+    if (!newReply.trim()) return;
 
-    const newEntry = {
+    const reply = {
       id: replies.length + 1,
       user: "You",
-      text: newReply.trim(),
+      text: newReply,
+      replies: [],
     };
 
-    setReplies([...replies, newEntry]);
+    setReplies([...replies, reply]);
     setNewReply("");
   };
 
-  const handleToggleLike = () => {
-    setLiked((prevLiked) => {
-      const updated = !prevLiked;
-      setLikes((prev) => prev + (updated ? 1 : -1));
-      return updated;
-    });
+  const addNestedReply = (parentId, text) => {
+    const recursiveAdd = (replyList) =>
+      replyList.map((r) => {
+        if (r.id === parentId) {
+          return {
+            ...r,
+            replies: [...(r.replies || []), { id: Date.now(), user: "You", text, replies: [] }],
+          };
+        } else if (r.replies?.length) {
+          return { ...r, replies: recursiveAdd(r.replies) };
+        }
+        return r;
+      });
+
+    setReplies(recursiveAdd(replies));
+  };
+
+  const Reply = ({ reply, level = 0 }) => {
+    const [showReplyBox, setShowReplyBox] = useState(false);
+    const [childText, setChildText] = useState("");
+
+    return (
+      <li className="reply-item" style={{ "--indent-level": level }}>
+        <strong>{reply.user}:</strong> {reply.text}
+        <div className="reply-actions">
+          <button className="reply-text-button" onClick={() => setShowReplyBox(!showReplyBox)}>
+            Reply
+          </button>
+        </div>
+        {showReplyBox && (
+          <div className="nested-reply-form">
+            <textarea
+              className="reply-textarea"
+              placeholder="Write a reply..."
+              value={childText}
+              onChange={(e) => setChildText(e.target.value)}
+            />
+            <button
+              className="reply-button"
+              onClick={() => {
+                addNestedReply(reply.id, childText);
+                setChildText("");
+                setShowReplyBox(false);
+              }}
+            >
+              Submit
+            </button>
+          </div>
+        )}
+        {reply.replies?.length > 0 && (
+          <ul className="nested-replies">
+            {reply.replies.map((nested) => (
+              <Reply key={nested.id} reply={nested} level={level + 1} />
+            ))}
+          </ul>
+        )}
+      </li>
+    );
   };
 
   return (
@@ -51,33 +101,17 @@ export default function Posts() {
           <span className="post-date">{post.date}</span>
         </div>
         <hr className="post-divider" />
-
         <div className="post-content">
           <p>{post.content}</p>
         </div>
 
-        {/* Replies Section */}
         <div className="replies-section">
-            
-        <div className="like-section">
-          <button className="like-button" onClick={handleToggleLike}>
-            {liked ? "❤️" : "🤍"}
-          </button>
-          <span className="like-count">{likes} {likes === 1 ? "Like" : "Likes"}</span>
-        </div>
-
           <h3 className="replies-heading">Replies</h3>
-          {replies.length === 0 ? (
-            <p className="no-replies">No replies yet. Be the first to reply!</p>
-          ) : (
-            <ul className="replies-list">
-              {replies.map((reply) => (
-                <li key={reply.id} className="reply-item">
-                  <strong>{reply.user}:</strong> {reply.text}
-                </li>
-              ))}
-            </ul>
-          )}
+          <ul className="replies-list">
+            {replies.map((reply) => (
+              <Reply key={reply.id} reply={reply} />
+            ))}
+          </ul>
 
           <div className="reply-form">
             <textarea

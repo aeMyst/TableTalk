@@ -8,12 +8,12 @@ const Post = ({ id, title, author, date, likes }) => (
   <Link to={`/blog/${id}`} className="blog-post-link">
     <article className="blog-post-card">
       <div className="blog-post-content">
-        <h2 className="blog-post-title"> {title} </h2>
+        <div className="blog-post-header">
+          <h2 className="blog-post-title">{title}</h2>
+        </div>
         <div className="blog-post-meta">
           <span className="blog-author">By: {author} || {date}</span>
-          <div className="blog-likes">
-          ❤️ {likes} {likes === 1 ? "Like" : "Likes"}
-        </div>
+          <div className="blog-likes">❤️ {likes} {likes === 1 ? "Like" : "Likes"}</div>
         </div>
       </div>
     </article>
@@ -22,15 +22,34 @@ const Post = ({ id, title, author, date, likes }) => (
 
 export default function Blog() {
   const [sortOrder, setSortOrder] = useState("newest");
+  const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 3;
 
-  const sortedPosts = [...blogPosts].sort((a, b) => {
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
-    return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
+  // ✅ Filter based on search
+  const filteredPosts = blogPosts.filter((post) => {
+    const query = searchQuery.toLowerCase();
+    return (
+      post.title.toLowerCase().includes(query) ||
+      post.content.toLowerCase().includes(query) ||
+      post.author.toLowerCase().includes(query)
+    );
   });
 
+  // ✅ Sort based on sort order
+  const sortedPosts = [...filteredPosts].sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+
+    if (sortOrder === "newest") return dateB - dateA;
+    if (sortOrder === "oldest") return dateA - dateB;
+    if (sortOrder === "mostLikes") return b.likes - a.likes;
+    if (sortOrder === "leastLikes") return a.likes - b.likes;
+
+    return 0;
+  });
+
+  // Pagination
   const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -51,6 +70,11 @@ export default function Blog() {
               type="text"
               placeholder="Search blog posts..."
               className="blog-search-input"
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setCurrentPage(1); // Reset to page 1 on new search
+              }}
             />
           </div>
 
@@ -59,10 +83,15 @@ export default function Blog() {
             <select
               className="blog-sort-dropdown"
               value={sortOrder}
-              onChange={(e) => setSortOrder(e.target.value)}
+              onChange={(e) => {
+                setSortOrder(e.target.value);
+                setCurrentPage(1);
+              }}
             >
               <option value="newest">Newest First</option>
               <option value="oldest">Oldest First</option>
+              <option value="mostLikes">Most Likes</option>
+              <option value="leastLikes">Least Likes</option>
             </select>
           </div>
         </div>
@@ -76,31 +105,40 @@ export default function Blog() {
                 <button className="blog-add-button">+ Add New Blog Post</button>
               </Link>
             </div>
+
             <div className="blog-post-list">
-              {currentPosts.map((post) => (
-                <Post
-                  key={post.id}
-                  id={post.id}
-                  title={post.title}
-                  author={post.author}
-                  date={post.date}
-                  likes={post.likes} 
-                />
-              ))}
+              {currentPosts.length === 0 ? (
+                <p style={{ textAlign: "center", marginTop: "2rem" }}>
+                  No blog posts found.
+                </p>
+              ) : (
+                currentPosts.map((post) => (
+                  <Post
+                    key={post.id}
+                    id={post.id}
+                    title={post.title}
+                    author={post.author}
+                    date={post.date}
+                    likes={post.likes}
+                  />
+                ))
+              )}
             </div>
 
             {/* Pagination Section */}
-            <div className="pagination-blog">
-              {Array.from({ length: totalPages }, (_, i) => (
-                <button
-                  key={i + 1}
-                  className={`page-button-blog ${currentPage === i + 1 ? "active" : ""}`}
-                  onClick={() => handlePageChange(i + 1)}
-                >
-                  {i + 1}
-                </button>
-              ))}
-            </div>
+            {totalPages > 1 && (
+              <div className="pagination-blog">
+                {Array.from({ length: totalPages }, (_, i) => (
+                  <button
+                    key={i + 1}
+                    className={`page-button-blog ${currentPage === i + 1 ? "active" : ""}`}
+                    onClick={() => handlePageChange(i + 1)}
+                  >
+                    {i + 1}
+                  </button>
+                ))}
+              </div>
+            )}
           </main>
         </div>
       </div>

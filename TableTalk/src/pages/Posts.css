@@ -85,6 +85,15 @@
   }
   
   /* Reply Form */
+  .reply-item {
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    background-color: #f0f2f8;
+    border-radius: 8px;
+    border-left: 4px solid #3b3f97;
+    margin-left: calc(var(--indent-level, 0) * 2rem); 
+  }
+
   .reply-form {
     display: flex;
     flex-direction: column;
@@ -118,7 +127,37 @@
   .reply-button:hover {
     background-color: #5781CB;
   }
+
+  .reply-actions {
+    margin-top: 0.3rem;
+  }
   
+  .nested-reply-form {
+    margin-top: 0.5rem;
+  }
+  
+  .nested-replies {
+    padding-left: 10rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    border-radius: 6px;
+  }
+  
+  .reply-text-button {
+    background-color: transparent;
+    color: #3b3f97;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0;
+    margin-top: 0.3rem;
+  }
+  
+  .reply-text-button:hover {
+    text-decoration: underline;
+  }
+  
+
   /* 404 Message */
   .post-not-found {
     max-width: 800px;
