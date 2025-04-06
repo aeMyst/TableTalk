@@ -42,7 +42,7 @@ export default function Navbar() {
         </Link>
         <Link to="/suggest" className={`button ${isActive("/suggest") ? "active" : ""}`}>
           <img src={GameSvg} alt="Suggest" className="icon" />
-          <span className="link-title">Suggest</span>
+          <span className="link-title">Suggestions</span>
         </Link>
       </div>
     </div>

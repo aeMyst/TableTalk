@@ -17,6 +17,8 @@ export default function Suggest() {
     NumberPeople: '',
     groupObjective: '',
     gameType: '',
+    gameDuration: '',
+    gameComplexity: '' 
   });
 
   const [filteredGames, setFilteredGames] = useState([]);
@@ -30,6 +32,21 @@ export default function Suggest() {
   // Removed "Cooperative" from group objectives
   const groupObjectives = ['Competitive', 'Casual', 'Party'];
 
+  const gameDurations = [
+    { value: '', label: 'Select' },
+    { value: 'short', label: 'Short (<30 mins)' },
+    { value: 'medium', label: 'Medium (30 - 60 mins)' },
+    { value: 'long', label: 'Long (1-2 hours)' },
+    { value: 'extended', label: 'Extended (>2 hours)' }
+  ];
+
+  const complexityLevels = [
+    { value: '', label: 'Select' },
+    { value: 'light', label: 'Light (Easy to Pick up)' },
+    { value: 'medium', label: 'Medium (Requires Some Strategy)' },
+    { value: 'heavy', label: 'Heavy (Complex Strategy)' }
+  ];
+
   const allBoardGames = [
     {
       name: "Pandemic",
@@ -37,6 +54,8 @@ export default function Suggest() {
       objectives: ["Casual"],
       players: [2, 4],
       image: PandemicImage,
+      duration: 'medium',
+      complexity: 'heavy',
       description: "Work together to cure diseases before they spread across the globe.",
       reviews: 115051,
       rules: "Players take on roles like Scientist and Medic to find cures for four diseases by collecting cards. Outbreaks and epidemics increase difficulty. The game ends when all cures are found or if outbreaks spiral out of control.",
@@ -48,6 +67,8 @@ export default function Suggest() {
       objectives: ["Casual"],
       players: [3, 6],
       image: CatanImage,
+      duration: 'long',
+      complexity: 'medium',
       description: "Build settlements, trade resources, and become the dominant force on the island of Catan.",
       reviews: 450051,
       rules: "Collect resource cards like wood, brick, and wheat to build roads, settlements, and cities. Trade strategically with other players to gain an advantage and win.",
@@ -59,6 +80,8 @@ export default function Suggest() {
       objectives: ["Competitive"],
       players: [2, 2],
       image: ChessImage,
+      duration: 'short',
+      complexity: 'heavy',
       description: "A classic strategy game where two players battle to checkmate their opponent's king.",
       reviews: 990516,
       rules: "Each piece moves in a unique way. Protect your king while attacking your opponent's pieces. The game ends when a king is checkmated.",
@@ -70,6 +93,8 @@ export default function Suggest() {
       objectives: ["Casual"],
       players: [4, 4],
       image: Pandemic2Image,
+      duration: 'medium',
+      complexity: 'heavy',
       description: "An updated version of Pandemic with new roles, events, and challenges.",
       reviews: 42051,
       rules: "Cure diseases with new roles and events. Outbreaks and epidemics add complexity. Similar to the original Pandemic, but with additional roles and events.",
@@ -81,6 +106,8 @@ export default function Suggest() {
       objectives: ["Casual", "Competitive"],
       players: [4, 8],
       image: ClueImage,
+      duration: 'medium',
+      complexity: 'light',
       description: "Solve the mystery of who killed Mr. Boddy, with what weapon, and in which room.",
       reviews: 6175,
       rules: "Players move around the mansion in turns, gathering clues to deduce the murderer, weapon, and location. The first to solve the mystery wins.",
@@ -92,6 +119,8 @@ export default function Suggest() {
       objectives: ["Party", "Casual"],
       players: [4, 6],
       image: ExplodingKittensImage,
+      duration: 'short',
+      complexity: 'light',
       description: "A card game of strategy and luck where players try to avoid drawing an exploding kitten.",
       reviews: 6901,
       rules: "Players take turns drawing cards. If you draw an exploding kitten, you're out! Use action cards to avoid exploding or sabotage other players.",
@@ -103,6 +132,8 @@ export default function Suggest() {
       objectives: ["Casual"],
       players: [4, 10],
       image: TicketToRideImage,
+      duration: 'long',
+      complexity: 'medium',
       description: "Build train routes across North America and complete destination tickets to score points.",
       reviews: 5051,
       rules: "Collect matching train cards to claim routes between cities. Complete destination tickets to earn bonus points. The player with the most points wins.",
@@ -114,12 +145,25 @@ export default function Suggest() {
       objectives: ["Competitive", "Casual"],
       players: [2, 8],
       image: MonopolyImage,
+      duration: 'extended',
+      complexity: 'medium',
       description: "Buy, trade, and build properties to bankrupt your opponents in this classic board game.",
       reviews: 289051,
       rules: "Roll the dice to move around the board. Buy properties, build houses and hotels, and charge rent to other players. The last player with money wins.",
       leaderboardRank: 3,
     },
   ];
+
+  const handleClearForm = () => {
+    setFormData({
+      NumberPeople: '',
+      groupObjective: '',
+      gameType: '',
+      gameDuration: '',
+      gameComplexity: '' 
+    });
+    setSelectedCategory("");
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -145,7 +189,7 @@ export default function Suggest() {
     let gamesToFilter = selectedCategory === "yourGames" ? allBoardGames.slice(0, 4) : allBoardGames;
 
     const filteredGames = gamesToFilter.filter(game => {
-      const { NumberPeople, groupObjective, gameType } = formData;
+      const { NumberPeople, groupObjective, gameType, gameDuration, gameComplexity } = formData;
 
       const isPlayerCountValid = !NumberPeople || 
         (Array.isArray(game.players) 
@@ -154,8 +198,10 @@ export default function Suggest() {
 
       const isObjectiveValid = !groupObjective || game.objectives.includes(groupObjective);
       const isTypeValid = !gameType || game.type === gameType;
+      const isDurationValid = !gameDuration || game.duration === gameDuration;
+      const isComplexityValid = !gameComplexity || game.complexity === gameComplexity;
 
-      return isPlayerCountValid && isObjectiveValid && isTypeValid;
+      return isPlayerCountValid && isObjectiveValid && isTypeValid && isDurationValid && isComplexityValid;
     });
 
     // Select a maximum of 3 games
@@ -207,30 +253,100 @@ export default function Suggest() {
                 ))}
               </select>
             </div>
+
+            <div className="form-group">
+              <label>Game Duration</label>
+              <select 
+                name="gameDuration" 
+                value={formData.gameDuration} 
+                onChange={handleInputChange}
+              >
+                {gameDurations.map(duration => (
+                  <option key={duration.value} value={duration.value}>
+                    {duration.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label>Game Complexity</label>
+              <select 
+                name="complexity" 
+                value={formData.complexity} 
+                onChange={handleInputChange}
+              >
+                {complexityLevels.map(level => (
+                  <option key={level.value} value={level.value}>
+                    {level.label}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
+          {/* <label>Board Games Selection</label> */}
 
           {/* Checkbox Fields */}
-          <div className="checkbox-group">
-            <label className="checkbox-label">
+          <div className="single-toggle-container">
+            <label className={`toggle-option ${selectedCategory !== "yourGames" ? "active" : ""}`}>
+              All Board Games
+            </label>
+            
+            <label className="single-toggle-switch">
               <input 
-                type="checkbox" 
+                type="checkbox"
                 checked={selectedCategory === "yourGames"}
                 onChange={() => setSelectedCategory(selectedCategory === "yourGames" ? "" : "yourGames")}
               />
-              From Your Board Games
+              <span className="slider"></span>
             </label>
-
-            <label className="checkbox-label">
-              <input 
-                type="checkbox" 
-                checked={selectedCategory === "allGames"}
-                onChange={() => setSelectedCategory(selectedCategory === "allGames" ? "" : "allGames")}
-              />
-              All Board Games
+            
+            <label className={`toggle-option ${selectedCategory === "yourGames" ? "active" : ""}`}>
+              Your Games
             </label>
           </div>
 
-          <button type="submit" className="submit-button">Suggest a Game</button>
+{/*           <div className="mt-2 mb-2">
+            <div className="flex items-center justify-center gap-3">
+              <span className={`ml-8 text-base font-medium w-18 text-right ${selectedCategory !== "yourGames" ? "text-[#3B3F97] bg-[#f0f0f0] rounded-[5px]" : "text-gray-500"}`}>
+                All Games
+              </span>
+
+              <div className={`w-36 aspect-video rounded-lg bg-[#ebe6ef] border-2 border-[#121331]`}>
+                <div className="flex h-full w-full px-1.5 items-center gap-x-1.5">
+                  <div className="w-4 h-4 flex-shrink-0 rounded-full border-2 border-[#121331]"></div>
+                  <label
+                    htmlFor="creativeSwitch"
+                    className={`${selectedCategory === "yourGames" ? "scale-x-[-1]" : ""} w-full h-7 border-2 border-[#121331] rounded cursor-pointer`}
+                  >
+                    <input 
+                      type="checkbox" 
+                      id="creativeSwitch" 
+                      className="hidden" 
+                      checked={selectedCategory === "yourGames"}
+                      onChange={() => setSelectedCategory(selectedCategory === "yourGames" ? "" : "yourGames")}
+                    />
+                    <div className="w-full h-full bg-[#5781CB] relative">
+                      <div className="w-0 h-0 z-20 border-l-[18px] border-l-transparent border-r-[18px] border-r-transparent border-t-[15px] border-t-[#121331] relative">
+                        <div className="w-0 h-0 absolute border-l-[14px] border-l-transparent border-r-[14px] border-r-transparent border-t-[12px] border-t-[#3B3F97] -top-[15px] -left-[14px]"></div>
+                      </div>
+                      <div className="w-[18px] h-6 z-10 absolute top-[6px] left-0 bg-[#5781CB] border-r border-b-2 border-[#121331] transform skew-y-[39deg]"></div>
+                      <div className="w-[19px] h-6 z-10 absolute top-[6px] left-[18px] bg-[#3B3F97] border-r-2 border-l border-b-2 border-[#121331] transform skew-y-[-39deg]"></div>
+                    </div>
+                  </label>
+                  <div className="w-4 h-0.5 flex-shrink-0 bg-[#121331] rounded-full"></div>
+                </div>
+              </div>
+
+              <span className={`text-base font-medium w-22 text-left ${selectedCategory === "yourGames" ? "text-[#3B3F97] bg-[#f0f0f0] rounded-[5px]" : "text-gray-500"}`}>
+                Your Games
+              </span>
+            </div>
+          </div> */}
+          <div className="form-buttons">
+            <button type="submit" className="submit-button">Suggest a Game</button>
+            <button type="button" onClick={handleClearForm} className="clear-button">Clear Filters</button>
+          </div>
         </form>
       </div>
 
@@ -251,6 +367,8 @@ export default function Suggest() {
                 <p>Type: {game.type}</p>
                 <p>Objectives: {game.objectives.join(", ")}</p>
                 <p>Players: {Array.isArray(game.players) ? `${game.players[0]}–${game.players[1]}` : game.players}</p>
+                <p>Duration: {game.duration}</p>
+                <p>Complexity: {game.complexity}</p>
               </div>
             </div>
           ))}
