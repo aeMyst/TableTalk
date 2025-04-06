@@ -1,114 +1,142 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import Hammer from "hammerjs";
 import "../pages/Queue.css";
+import "../elements/tinderCard.css";
 
-export default function Queue() {
-  const [activeTab, setActiveTab] = useState("friends");
-  const [rangeValue, setRangeValue] = useState(0);
+export default function TinderCards() {
+  useEffect(() => {
+    const tinderContainer = document.querySelector(".tinder");
+    const allCards = document.querySelectorAll(".tinder--card");
+    const nope = document.getElementById("nope");
+    const love = document.getElementById("love");
 
-  const handleInputChange = (e) => {
-    setRangeValue(e.target.value);
-  };
+    function initCards() {
+      const newCards = document.querySelectorAll(".tinder--card:not(.removed)");
+      newCards.forEach((card, index) => {
+        card.style.zIndex = newCards.length - index;
+        card.style.transform = `scale(${(20 - index) / 20}) translateY(-${30 * index}px)`;
+        card.style.opacity = (10 - index) / 10;
+      });
+      tinderContainer.classList.add("loaded");
+    }
 
-  const removeDiv = (btn) => {
-    ((btn.parentNode).parentNode).removeChild(btn.parentNode);
-  };
+    initCards();
+
+    allCards.forEach((el) => {
+      const hammertime = new Hammer(el);
+
+      hammertime.on("pan", (event) => {
+        el.classList.add("moving");
+
+        if (event.deltaX === 0 && event.center.x === 0) return;
+
+        tinderContainer.classList.toggle("tinder_love", event.deltaX > 0);
+        tinderContainer.classList.toggle("tinder_nope", event.deltaX < 0);
+
+        const xMulti = event.deltaX * 0.03;
+        const yMulti = event.deltaY / 80;
+        const rotate = xMulti * yMulti;
+
+        el.style.transform = `translate(${event.deltaX}px, ${event.deltaY}px) rotate(${rotate}deg)`;
+      });
+
+      hammertime.on("panend", (event) => {
+        el.classList.remove("moving");
+        tinderContainer.classList.remove("tinder_love");
+        tinderContainer.classList.remove("tinder_nope");
+
+        const moveOutWidth = document.body.clientWidth;
+        const keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
+        el.classList.toggle("removed", !keep);
+
+        if (keep) {
+          el.style.transform = "";
+        } else {
+          const endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
+          const toX = event.deltaX > 0 ? endX : -endX;
+          const toY = event.deltaY > 0 ? endX : -endX;
+          const xMulti = event.deltaX * 0.03;
+          const yMulti = event.deltaY / 80;
+          const rotate = xMulti * yMulti;
+
+          el.style.transform = `translate(${toX}px, ${toY + event.deltaY}px) rotate(${rotate}deg)`;
+          initCards();
+        }
+      });
+    });
+
+    const createButtonListener = (love) => () => {
+      const cards = document.querySelectorAll(".tinder--card:not(.removed)");
+      const moveOutWidth = document.body.clientWidth * 1.5;
+      if (!cards.length) return;
+
+      const card = cards[0];
+      card.classList.add("removed");
+      card.style.transform = love
+        ? `translate(${moveOutWidth}px, -100px) rotate(-30deg)`
+        : `translate(-${moveOutWidth}px, -100px) rotate(30deg)`;
+
+      initCards();
+    };
+
+    nope.addEventListener("click", createButtonListener(false));
+    love.addEventListener("click", createButtonListener(true));
+  }, []);
+
+  const users = [
+    {
+      img: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
+      username: "Ben Fren",
+      classification: "Casual",
+      description: "Loves party games and good vibes!",
+    },
+    {
+      img: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
+      username: "Bud Dee",
+      classification: "Competitive",
+      description: "Always ready for a challenge.",
+    },
+    {
+      img: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
+      username: "Jess Chess",
+      classification: "Strategist",
+      description: "Lover of logic and tactical battles.",
+    },
+    {
+      img: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
+      username: "James Games",
+      classification: "Techie",
+      description: "Into digital board game crossovers.",
+    },
+    {
+      img: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
+      username: "Quinten Quaintance",
+      classification: "Social",
+      description: "I play for the laughs and snacks 🍕",
+    }
+  ];
 
   return (
-    <div className="queue-wrapper">
-      <div className="queue-tabs">
-        <button
-          className={`queue-tab ${activeTab === "friends" ? "active" : ""}`}
-          onClick={() => setActiveTab("friends")}
-        >
-          🧑‍🤝‍🧑 Friends
-        </button>
-        <button
-          className={`queue-tab ${activeTab === "matchmaking" ? "active" : ""}`}
-          onClick={() => setActiveTab("matchmaking")}
-        >
-          💘 Matchmaking
-        </button>
+    <div className="tinder">
+      <div className="tinder--status">
+        <span className="emoji-nope">❌</span>
+        <span className="emoji-love">❤️</span>
       </div>
 
-      <div className="queue-content">
-        {activeTab === "friends" ? (
-          <div className="friends-tab">
-            <section className="friends-panel">
-              <h2>Your Friends</h2>
-              <div className="friend-list">
-                {["Ben Fren", "Bud Dee", "Quinten Quaintance"].map((name, i) => (
-                  <div className="friend-card" key={i}>
-                    <div className="friend-info">
-                      <h3>{name}</h3>
-                      <p>Friends since March {2 + i}</p>
-                      <p>{i % 2 === 0 ? `${i + 1} unread message(s)` : "No unread messages"}</p>
-                    </div>
-                    <div className="friend-actions">
-                      <button>Chat</button>
-                      <button onClick={(e) => removeDiv(e.target)}>Unfriend</button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section className="add-friend-panel">
-              <h2>Add a Friend</h2>
-              <input type="text" placeholder="Search by name..." />
-              <button>Add Friend</button>
-            </section>
+      <div className="tinder--cards">
+        {users.map((user, i) => (
+          <div className="tinder--card" key={i}>
+            <img src={user.img} alt={`Profile of ${user.username}`} />
+            <h3>{user.username}</h3>
+            <p><strong>{user.classification}</strong></p>
+            <p>{user.description}</p>
           </div>
-        ) : (
-          <div className="matchmaking-tab">
-            <section className="matchmaking-form">
-              <h2>Find People to Play With</h2>
-              <form>
-                <label>Name</label>
-                <input type="text" placeholder="Their name..." />
+        ))}
+      </div>
 
-                <label>Game Type</label>
-                <select>
-                  <option>None</option>
-                  <option>Competitive</option>
-                  <option>Casual</option>
-                </select>
-
-                <label>Genre</label>
-                <select>
-                  <option>None</option>
-                  <option>Area Control</option>
-                  <option>Abstract Strategy</option>
-                  <option>Cooperative</option>
-                  <option>Murder Mystery</option>
-                  <option>Party</option>
-                  <option>Strategy</option>
-                </select>
-
-                <label>Distance: {rangeValue} km</label>
-                <input type="range" max="200" value={rangeValue} onChange={handleInputChange} />
-
-                <button type="submit">Search</button>
-              </form>
-            </section>
-
-            <section className="match-results">
-              <h2>Matches</h2>
-              {["Joe Shmoe", "James Games", "Jess Chess"].map((name, i) => (
-                <div className="match-card" key={i}>
-                  <div className="match-info">
-                    <h3>{name}</h3>
-                    <p>{i === 0 ? "You both like Competitive Games" : i === 1 ? "You're 20km apart" : "You're both friends with Hannah"}</p>
-                    <p>You both like Strategy games</p>
-                  </div>
-                  <div className="match-actions">
-                    <button>Message</button>
-                    <button onClick={(e) => removeDiv(e.target)}>Ignore</button>
-                  </div>
-                </div>
-              ))}
-            </section>
-          </div>
-        )}
+      <div className="tinder--buttons">
+        <button id="nope">❌</button>
+        <button id="love">❤️</button>
       </div>
     </div>
   );
