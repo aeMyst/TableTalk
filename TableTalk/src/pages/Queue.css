@@ -1,65 +1,161 @@
-.container {
+.queue-wrapper {
+  width: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 2rem;
   display: flex;
-}
-
-.queue-button {
-  border: none;
-  color: rgb(60, 87, 183);
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  width: 80%;
-}
-
-form {
-  display: flex;
-  align-items: center;
   flex-direction: column;
-  padding-top: 20px;
-  text-align: center;
+  gap: 2rem;
+}
+
+.queue-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.queue-tab {
+  padding: 0.75rem 1.5rem;
+  background: #e0e0e0;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.queue-tab.active {
+  background-color: #3B3F97;
+  color: white;
+}
+
+.queue-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* FRIENDS TAB */
+.friends-tab {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.friends-panel,
+.add-friend-panel {
+  flex: 1;
+  background: #f4f6ff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+}
+
+.friend-card {
+  background: white;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.friend-actions button {
+  margin-right: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  background-color: #3B3F97;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.friend-actions button:hover {
+  background-color: #5781CB;
+}
+
+.add-friend-panel input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.add-friend-panel button {
+  padding: 0.6rem 1rem;
+  background-color: #3B3F97;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* MATCHMAKING TAB */
+.matchmaking-tab {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+}
+
+.matchmaking-form {
+  background: #f4f4f4;
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+.matchmaking-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.matchmaking-form select,
+.matchmaking-form input[type="text"],
+.matchmaking-form input[type="range"] {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.matchmaking-form button {
+  padding: 0.6rem 1rem;
+  background-color: #3B3F97;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.match-results {
+  background: #f0f2ff;
+  padding: 2rem;
+  border-radius: 12px;
 }
 
 .match-card {
-  width: 30vw;
-  height: 200px;
-  background: #b8d2ff;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-}
-
-.match-button {
-  border: none;
-  color: rgb(60, 87, 183);
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  width: 7vw;
-}
-
-.form-control {
-  max-width:15vw;
-}
-
-h2.textstyle {
-  font-family: tahoma
-}
-
-.rounded-card {
-  width: 40vw;
-  height: 200px;
-  border-radius: 15px;
-  background-color: #f0f0f0;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  
-  flex-direction: column;
-  justify-content: center;
+  background: white;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  box-sizing: border-box;
+}
+
+.match-actions button {
+  margin-left: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  background-color: #3B3F97;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
 }

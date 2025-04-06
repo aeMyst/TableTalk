@@ -1,120 +1,114 @@
-import React, { useState } from 'react';
-import "../elements/tall-card.css";
+import React, { useState } from "react";
 import "../pages/Queue.css";
 
 export default function Queue() {
+  const [activeTab, setActiveTab] = useState("friends");
   const [rangeValue, setRangeValue] = useState(0);
 
   const handleInputChange = (e) => {
     setRangeValue(e.target.value);
   };
-  
+
   const removeDiv = (btn) => {
     ((btn.parentNode).parentNode).removeChild(btn.parentNode);
   };
 
-
   return (
-
-
-    <div className="container">
-      <div className="friends-container">
-        <div className="tall-card-blue">
-          <h1>Friends</h1>
-          <form>
-            <div className="match-card">
-              <h2 class="textstyle">Ben Fren</h2>
-              <r1>Friend since March 2nd</r1><br></br>
-              <r2>1 unread message</r2><br></br><br></br>
-              <button className="match-button">Message</button>
-              <button className="match-button" onClick={(e) => removeDiv(e.target)}>Unfriend</button>
-            </div>
-            <div className="match-card">
-              <h2 class = "textstyle">Bud Dee</h2>
-              <r1>Friends since February 14</r1><br></br>
-              <r2>No unread messages</r2><br></br><br></br>
-              <button className="match-button">Message</button>
-              <button className="match-button" onClick={(e) => removeDiv(e.target)}>Unfriend</button>
-            </div>
-            <div className="match-card">
-              <h2 class = "textstyle">Quinten Quaintance</h2>
-              <r1>Friends since July 9</r1><br></br>
-              <r2>3 unread messages</r2><br></br><br></br>
-              <button className="match-button">Message</button>
-              <button className="match-button" onClick={(e) => removeDiv(e.target)}>Unfriend</button>
-            </div>
-          </form>
-        </div>
+    <div className="queue-wrapper">
+      <div className="queue-tabs">
+        <button
+          className={`queue-tab ${activeTab === "friends" ? "active" : ""}`}
+          onClick={() => setActiveTab("friends")}
+        >
+          🧑‍🤝‍🧑 Friends
+        </button>
+        <button
+          className={`queue-tab ${activeTab === "matchmaking" ? "active" : ""}`}
+          onClick={() => setActiveTab("matchmaking")}
+        >
+          💘 Matchmaking
+        </button>
       </div>
 
-      <div className="search-container">
-        <div className="tall-card">
-          <h1>Find people to play with!</h1>
-          <r1>Search for new people using these filters. All fields are optional.</r1>
-          <form>
-            <label htmlFor="name">Their Name</label>
-            <input type="text" id="name" name="fname" className="form-control" /><br />
+      <div className="queue-content">
+        {activeTab === "friends" ? (
+          <div className="friends-tab">
+            <section className="friends-panel">
+              <h2>Your Friends</h2>
+              <div className="friend-list">
+                {["Ben Fren", "Bud Dee", "Quinten Quaintance"].map((name, i) => (
+                  <div className="friend-card" key={i}>
+                    <div className="friend-info">
+                      <h3>{name}</h3>
+                      <p>Friends since March {2 + i}</p>
+                      <p>{i % 2 === 0 ? `${i + 1} unread message(s)` : "No unread messages"}</p>
+                    </div>
+                    <div className="friend-actions">
+                      <button>Chat</button>
+                      <button onClick={(e) => removeDiv(e.target)}>Unfriend</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
 
-            <label htmlFor="gametypes">Their Game Type Preferences</label>
-            <select name="Game Types" id="gametypes" className="form-control"><br />
-            <option value="none">None Chosen</option>
-              <option value="competitive">Competitive</option>
-              <option value="casual">Casual</option>  
-            </select><br />
+            <section className="add-friend-panel">
+              <h2>Add a Friend</h2>
+              <input type="text" placeholder="Search by name..." />
+              <button>Add Friend</button>
+            </section>
+          </div>
+        ) : (
+          <div className="matchmaking-tab">
+            <section className="matchmaking-form">
+              <h2>Find People to Play With</h2>
+              <form>
+                <label>Name</label>
+                <input type="text" placeholder="Their name..." />
 
-            <label htmlFor="gamegenres">Their Game Genre Preferences</label>
-            <select name="Game Type" id="gametypes" className="form-control">
-              <option value="none">None Chosen</option>
-              <option value="areacontrol">Area Control</option>
-              <option value="abstractstrategy">Abstract Strategy</option>
-              <option value="cooperative">Cooperative</option>
-              <option value="murdermystery">Murder Mystery</option>
-              <option value="party">Party</option>
-              <option value="strategy">Strategy</option>
+                <label>Game Type</label>
+                <select>
+                  <option>None</option>
+                  <option>Competitive</option>
+                  <option>Casual</option>
+                </select>
 
-            </select><br></br>
+                <label>Genre</label>
+                <select>
+                  <option>None</option>
+                  <option>Area Control</option>
+                  <option>Abstract Strategy</option>
+                  <option>Cooperative</option>
+                  <option>Murder Mystery</option>
+                  <option>Party</option>
+                  <option>Strategy</option>
+                </select>
 
-            <label htmlFor="range">Distance</label>
-            <input
-              type="range"
-              id="range"
-              max="200"
-              defaultValue="0"
-              onInput={handleInputChange}
-            />
-            <output htmlFor="range">{rangeValue} km</output>
-          </form><br></br>
-          <input type="submit" value="Search"></input>
-        </div>
-      </div>
+                <label>Distance: {rangeValue} km</label>
+                <input type="range" max="200" value={rangeValue} onChange={handleInputChange} />
 
-      <div className="matches-container">
-        <div className="tall-card-blue">
-          <h1>Matches For You</h1>
-          <form>
-            <div className="match-card">
-              <h2 class="textstyle">Joe Shmoe</h2>
-              <r1>You both like Competitive Games</r1><br></br>
-              <r2>You both own Pandemic</r2><br></br><br></br>
-              <button className="match-button">Message</button>
-              <button className="match-button" onClick={(e) => removeDiv(e.target)}>Ignore</button>
-            </div>
-            <div className="match-card">
-              <h2 class = "textstyle">James Games</h2>
-              <r1>You're only 20 km away</r1><br></br>
-              <r2>You both like Strategy Games</r2><br></br><br></br>
-              <button className="match-button">Message</button>
-              <button className="match-button" onClick={(e) => removeDiv(e.target)}>Ignore</button>
-            </div>
-            <div className="match-card">
-              <h2 class = "textstyle">Jess Chess</h2>
-              <r1>You're both friends with Hannah Montana</r1><br></br>
-              <r2>You both like Strategy Games</r2><br></br><br></br>
-              <button className="match-button">Message</button>
-              <button className="match-button" onClick={(e) => removeDiv(e.target)}>Ignore</button>
-            </div>
-          </form>
-        </div>
+                <button type="submit">Search</button>
+              </form>
+            </section>
+
+            <section className="match-results">
+              <h2>Matches</h2>
+              {["Joe Shmoe", "James Games", "Jess Chess"].map((name, i) => (
+                <div className="match-card" key={i}>
+                  <div className="match-info">
+                    <h3>{name}</h3>
+                    <p>{i === 0 ? "You both like Competitive Games" : i === 1 ? "You're 20km apart" : "You're both friends with Hannah"}</p>
+                    <p>You both like Strategy games</p>
+                  </div>
+                  <div className="match-actions">
+                    <button>Message</button>
+                    <button onClick={(e) => removeDiv(e.target)}>Ignore</button>
+                  </div>
+                </div>
+              ))}
+            </section>
+          </div>
+        )}
       </div>
     </div>
   );
