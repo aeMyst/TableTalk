@@ -1,4 +1,5 @@
 import React, { useState } from 'react'; 
+import { Link } from "react-router-dom";
 import "../elements/card.css";
 import "./Suggest.css";
 import Modal from "../components/Modal/Modal";
@@ -165,20 +166,59 @@ export default function Suggest() {
     setSelectedCategory("");
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
+  
   const handleGameCardClick = (game) => {
     setSelectedGame(game);
     setIsModalOpen(true);
   };
 
+  // const handleGameCardClick = (game) => {
+  //   // Convert game name to URL-friendly format (same as in your GameDetails page)
+  //   const gameUrl = game.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  //   navigate(`/games/${gameUrl}`);
+  // };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+
   // modal close
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedGame(null);
+  };
+
+  const [hoverStates, setHoverStates] = useState({});
+
+  const handleCardHover = (e, index) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    setHoverStates(prev => ({
+      ...prev,
+      [index]: {
+        rotateX: ((y - centerY) / centerY) * 5,
+        rotateY: ((centerX - x) / centerX) * 5,
+        translateZ: 20
+      }
+    }));
+  };
+
+  const handleCardLeave = (index) => {
+    setHoverStates(prev => ({
+      ...prev,
+      [index]: {
+        rotateX: 0,
+        rotateY: 0,
+        translateZ: 0
+      }
+    }));
   };
   
 
@@ -204,9 +244,9 @@ export default function Suggest() {
       return isPlayerCountValid && isObjectiveValid && isTypeValid && isDurationValid && isComplexityValid;
     });
 
-    // Select a maximum of 3 games
-    const limitedGames = filteredGames.length > 3
-      ? filteredGames.sort(() => 0.5 - Math.random()).slice(0, 3)
+    // Select a maximum of 5 games
+    const limitedGames = filteredGames.length > 5
+      ? filteredGames.sort(() => 0.5 - Math.random()).slice(0, 5)
       : filteredGames;
 
     setTimeout(() => {
@@ -355,14 +395,17 @@ export default function Suggest() {
         <h2 className="mb-4">Suggested Games</h2>
         <div className={`suggested-list ${isAnimating ? 'fade-in' : ''}`}>
           {filteredGames.map((game, index) => (
-            <div 
+            <Link 
               key={game.name} 
+              to={`/game/${game.name.toLowerCase().replace(/\s+/g, "-")}`}
               className="suggested-card" 
               style={{ animationDelay: `${index * 0.2}s` }}
-              onClick={() => handleGameCardClick(game)}
+              onMouseMove={(e) => handleCardHover(e, index)}
+              onMouseLeave={() => handleCardLeave(index)}
+              /*onClick={() => handleGameCardClick(game)}*/
             >
               <img src={game.image} alt={game.name} className="suggested-image" />
-              <div>
+              <div className='gameDetails'>
                 <h3>{game.name}</h3>
                 <p>Type: {game.type}</p>
                 <p>Objectives: {game.objectives.join(", ")}</p>
@@ -370,7 +413,7 @@ export default function Suggest() {
                 <p>Duration: {game.duration}</p>
                 <p>Complexity: {game.complexity}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
