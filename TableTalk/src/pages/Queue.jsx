@@ -1,10 +1,52 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Hammer from "hammerjs";
 import "../pages/Queue.css";
 import "../elements/tinderCard.css";
+import "../pages/Chat.css";
 
 export default function TinderCards() {
+  const [activeTab, setActiveTab] = useState("matchmaking");
+  const [friendMessage, setFriendMessage] = useState("");
+  const [activeChat, setActiveChat] = useState(null);
+  const [chatInput, setChatInput] = useState("");
+  const [chatMessages, setChatMessages] = useState({});
+
+  const users = [
+    {
+      img: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg",
+      username: "Ben Fren",
+      classification: "Casual",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    },
+    {
+      img: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg",
+      username: "Bud Dee",
+      classification: "Competitive",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    },
+    {
+      img: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg",
+      username: "Jess Chess",
+      classification: "Strategist",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    },
+    {
+      img: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg",
+      username: "James Games",
+      classification: "Techie",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    },
+    {
+      img: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg",
+      username: "Quinten Quaintance",
+      classification: "Social",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    }
+  ];
+
   useEffect(() => {
+    if (activeTab !== "matchmaking") return;
+
     const tinderContainer = document.querySelector(".tinder");
     const allCards = document.querySelectorAll(".tinder--card");
     const nope = document.getElementById("nope");
@@ -17,26 +59,21 @@ export default function TinderCards() {
         card.style.transform = `scale(${(20 - index) / 20}) translateY(-${30 * index}px)`;
         card.style.opacity = (10 - index) / 10;
       });
-      tinderContainer.classList.add("loaded");
+      tinderContainer?.classList.add("loaded");
     }
 
     initCards();
 
     allCards.forEach((el) => {
       const hammertime = new Hammer(el);
-
       hammertime.on("pan", (event) => {
         el.classList.add("moving");
-
         if (event.deltaX === 0 && event.center.x === 0) return;
-
         tinderContainer.classList.toggle("tinder_love", event.deltaX > 0);
         tinderContainer.classList.toggle("tinder_nope", event.deltaX < 0);
-
         const xMulti = event.deltaX * 0.03;
         const yMulti = event.deltaY / 80;
         const rotate = xMulti * yMulti;
-
         el.style.transform = `translate(${event.deltaX}px, ${event.deltaY}px) rotate(${rotate}deg)`;
       });
 
@@ -47,6 +84,13 @@ export default function TinderCards() {
 
         const moveOutWidth = document.body.clientWidth;
         const keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
+        const username = el.querySelector("h3")?.textContent;
+
+        if (!keep && event.deltaX > 0 && username) {
+          setFriendMessage(`✅ Friend request sent to ${username}`);
+          setTimeout(() => setFriendMessage(""), 3000);
+        }
+
         el.classList.toggle("removed", !keep);
 
         if (keep) {
@@ -71,6 +115,13 @@ export default function TinderCards() {
       if (!cards.length) return;
 
       const card = cards[0];
+      const username = card.querySelector("h3")?.textContent;
+
+      if (love && username) {
+        setFriendMessage(`✅ Friend request sent to ${username}`);
+        setTimeout(() => setFriendMessage(""), 3000);
+      }
+
       card.classList.add("removed");
       card.style.transform = love
         ? `translate(${moveOutWidth}px, -100px) rotate(-30deg)`
@@ -79,65 +130,119 @@ export default function TinderCards() {
       initCards();
     };
 
-    nope.addEventListener("click", createButtonListener(false));
-    love.addEventListener("click", createButtonListener(true));
-  }, []);
+    nope?.addEventListener("click", createButtonListener(false));
+    love?.addEventListener("click", createButtonListener(true));
+  }, [activeTab]);
 
-  const users = [
-    {
-      img: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
-      username: "Ben Fren",
-      classification: "Casual",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    },
-    {
-      img: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
-      username: "Bud Dee",
-      classification: "Competitive",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    },
-    {
-      img: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
-      username: "Jess Chess",
-      classification: "Strategist",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    },
-    {
-      img: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
-      username: "James Games",
-      classification: "Techie",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    },
-    {
-      img: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
-      username: "Quinten Quaintance",
-      classification: "Social",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    }
-  ];
+  const handleSendMessage = () => {
+    if (!activeChat || chatInput.trim() === "") return;
+    setChatMessages((prev) => ({
+      ...prev,
+      [activeChat]: [...(prev[activeChat] || []), { sender: "you", text: chatInput }]
+    }));
+    setChatInput("");
+  };
 
   return (
-    <div className="tinder">
-      <div className="tinder--status">
-        <span className="emoji-nope">❌</span>
-        <span className="emoji-love">❤️</span>
+    <div className="queue-wrapper">
+      <div className="queue-tabs">
+        <button
+          className={`queue-tab ${activeTab === "friends" ? "active" : ""}`}
+          onClick={() => setActiveTab("friends")}
+        >
+          🧑‍🤝‍🧑 Friends
+        </button>
+        <button
+          className={`queue-tab ${activeTab === "matchmaking" ? "active" : ""}`}
+          onClick={() => setActiveTab("matchmaking")}
+        >
+          💘 Matchmaking
+        </button>
       </div>
 
-      <div className="tinder--cards">
-        {users.map((user, i) => (
-          <div className="tinder--card" key={i}>
-            <img src={user.img} alt={`Profile of ${user.username}`} />
-            <h3>{user.username}</h3>
-            <p><strong>{user.classification}</strong></p>
-            <p>{user.description}</p>
+      {activeTab === "friends" ? (
+        <div className="friends-panel">
+          {/* Current Friends */}
+          <section className="current-friends">
+            <h2>Your Friends</h2>
+            {["Ben Fren", "Bud Dee"].map((friend, idx) => (
+              <div key={idx} className="friend-card">
+                <h4>{friend}</h4>
+                <button className="match-button" onClick={() => setActiveChat(friend)}>
+                  Chat
+                </button>
+              </div>
+            ))}
+          </section>
+
+          {/* Chat Box */}
+          {activeChat && (
+            <div className="chat-box">
+              <div className="chat-header">
+                Chat with {activeChat}
+                <button className="chat-close-button" onClick={() => setActiveChat(null)}>×</button>
+              </div>
+              <div className="chat-messages">
+                {(chatMessages[activeChat] || []).map((msg, idx) => (
+                  <div key={idx} className={`chat-message ${msg.sender === "you" ? "sent" : ""}`}>
+                    {msg.text}
+                  </div>
+                ))}
+              </div>
+              <div className="chat-input-container">
+                <input
+                  type="text"
+                  className="chat-input"
+                  value={chatInput}
+                  onChange={(e) => setChatInput(e.target.value)}
+                  placeholder="Type your message..."
+                  onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
+                />
+                <button className="chat-send-button" onClick={handleSendMessage}>Send</button>
+              </div>
+            </div>
+          )}
+
+          {/* Search New Friends */}
+          <section className="search-friends">
+            <h2>Find New Friends</h2>
+            <input type="text" placeholder="Enter username..." className="search-input" />
+            <button className="match-button">Search</button>
+          </section>
+        </div>
+      ) : (
+        <div className="tinder">
+          {friendMessage && (
+            <div className="friend-message animate">{friendMessage}</div>
+          )}
+
+          <div className="tinder--status">
+            <span className="emoji-nope">❌</span>
+            <span className="emoji-love">❤️</span>
           </div>
-        ))}
-      </div>
 
-      <div className="tinder--buttons">
-        <button id="nope">❌</button>
-        <button id="love">❤️</button>
-      </div>
+          <div className="tinder--cards">
+            {users.map((user, i) => (
+              <div className="tinder--card" key={i}>
+                <div className="profile-section">
+                  <img src={user.img} alt={`Profile of ${user.username}`} className="profile-pic" />
+                  <h3>{user.username}</h3>
+                  <p className="classification">{user.classification}</p>
+                </div>
+                <div className="description-section">
+                  <strong>Description:</strong>
+                  <p>{user.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="tinder--buttons">
+            <button id="nope">❌</button>
+            <button id="love">❤️</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
