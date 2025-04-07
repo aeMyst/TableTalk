@@ -13,31 +13,31 @@ export default function TinderCards() {
 
   const users = [
     {
-      img: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg",
+      img: "https://a.storyblok.com/f/178900/960x540/9a75be9716/solo-leveling-episode-23.jpg/m/filters:quality(95)format(webp)",
       username: "Ben Fren",
       classification: "Casual",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     },
     {
-      img: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg",
+      img: "https://a.storyblok.com/f/178900/960x540/9a75be9716/solo-leveling-episode-23.jpg/m/filters:quality(95)format(webp)",
       username: "Bud Dee",
       classification: "Competitive",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     },
     {
-      img: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg",
+      img: "https://a.storyblok.com/f/178900/960x540/9a75be9716/solo-leveling-episode-23.jpg/m/filters:quality(95)format(webp)",
       username: "Jess Chess",
       classification: "Strategist",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     },
     {
-      img: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg",
+      img: "https://a.storyblok.com/f/178900/960x540/9a75be9716/solo-leveling-episode-23.jpg/m/filters:quality(95)format(webp)",
       username: "James Games",
       classification: "Techie",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     },
     {
-      img: "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg",
+      img: "https://a.storyblok.com/f/178900/960x540/9a75be9716/solo-leveling-episode-23.jpg/m/filters:quality(95)format(webp)",
       username: "Quinten Quaintance",
       classification: "Social",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -162,54 +162,62 @@ export default function TinderCards() {
 
       {activeTab === "friends" ? (
         <div className="friends-panel">
-          {/* Current Friends */}
-          <section className="current-friends">
-            <h2>Your Friends</h2>
-            {["Ben Fren", "Bud Dee"].map((friend, idx) => (
-              <div key={idx} className="friend-card">
-                <h4>{friend}</h4>
-                <button className="match-button" onClick={() => setActiveChat(friend)}>
-                  Chat
-                </button>
-              </div>
-            ))}
-          </section>
-
-          {/* Chat Box */}
-          {activeChat && (
-            <div className="chat-box">
-              <div className="chat-header">
-                Chat with {activeChat}
-                <button className="chat-close-button" onClick={() => setActiveChat(null)}>×</button>
-              </div>
-              <div className="chat-messages">
-                {(chatMessages[activeChat] || []).map((msg, idx) => (
-                  <div key={idx} className={`chat-message ${msg.sender === "you" ? "sent" : ""}`}>
-                    {msg.text}
-                  </div>
-                ))}
-              </div>
-              <div className="chat-input-container">
-                <input
-                  type="text"
-                  className="chat-input"
-                  value={chatInput}
-                  onChange={(e) => setChatInput(e.target.value)}
-                  placeholder="Type your message..."
-                  onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
-                />
-                <button className="chat-send-button" onClick={handleSendMessage}>Send</button>
-              </div>
-            </div>
-          )}
-
-          {/* Search New Friends */}
-          <section className="search-friends">
-            <h2>Find New Friends</h2>
-            <input type="text" placeholder="Enter username..." className="search-input" />
-            <button className="match-button">Search</button>
-          </section>
+ <div className="friends-layout">
+  {/* Friends Card */}
+  <div className="friends-list card-box">
+    <h2>Friends</h2>
+    <div className="friends-grid">
+      {["Ben Fren", "Bud Dee", "Jess Chess", "James Games", "Quinten Quaintance", "New Pal"].map((friend, idx) => (
+        <div key={idx} className="friend-card">
+          <div className="friend-avatar">img</div>
+          <h4>{friend}</h4>
+          <button className="chat-button" onClick={() => setActiveChat(friend)}>Chat</button>
         </div>
+      ))}
+    </div>
+  </div>
+
+  {/* Search Card */}
+  <div className="search-friends card-box">
+    <h2>Search For Friends</h2>
+    <label>Search:</label>
+    <input type="text" className="search-input-mm" placeholder="Search by username" />
+    <div className="search-result-card">
+      <div className="friend-avatar">img</div>
+      <h4>User 1</h4>
+      <button className="add-button">Add Friend</button>
+    </div>
+  </div>
+</div>
+
+  {/* Chat Box (still full width on bottom right) */}
+  {activeChat && (
+    <div className="chat-box">
+      <div className="chat-header">
+        Chat with {activeChat}
+        <button className="chat-close-button" onClick={() => setActiveChat(null)}>×</button>
+      </div>
+      <div className="chat-messages">
+        {(chatMessages[activeChat] || []).map((msg, idx) => (
+          <div key={idx} className={`chat-message ${msg.sender === "you" ? "sent" : ""}`}>
+            {msg.text}
+          </div>
+        ))}
+      </div>
+      <div className="chat-input-container">
+        <input
+          type="text"
+          className="chat-input"
+          value={chatInput}
+          onChange={(e) => setChatInput(e.target.value)}
+          placeholder="Type your message..."
+          onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
+        />
+        <button className="chat-send-button" onClick={handleSendMessage}>Send</button>
+      </div>
+    </div>
+  )}
+</div>
       ) : (
         <div className="tinder">
           {friendMessage && (
