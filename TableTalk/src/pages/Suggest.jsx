@@ -392,7 +392,7 @@ export default function Suggest() {
 
       {/* Sidebar for Suggested Games */}
       <div className="suggest-sidebar">
-        <h2 className="mb-4">Suggested Games</h2>
+        <h2 className="mb-1">Suggested Games</h2>
         <div className={`suggested-list ${isAnimating ? 'fade-in' : ''}`}>
           {filteredGames.map((game, index) => (
             <Link 
@@ -407,11 +407,11 @@ export default function Suggest() {
               <img src={game.image} alt={game.name} className="suggested-image" />
               <div className='gameDetails'>
                 <h3>{game.name}</h3>
-                <p>Type: {game.type}</p>
-                <p>Objectives: {game.objectives.join(", ")}</p>
-                <p>Players: {Array.isArray(game.players) ? `${game.players[0]}–${game.players[1]}` : game.players}</p>
-                <p>Duration: {game.duration}</p>
-                <p>Complexity: {game.complexity}</p>
+                <p><span className="custom-font-label">Type:</span> {game.type}</p>
+                <p><span className="custom-font-label">Objectives:</span> {game.objectives.join(", ")}</p>
+                <p><span className="custom-font-label">Players:</span> {Array.isArray(game.players) ? `${game.players[0]}–${game.players[1]}` : game.players}</p>
+                <p><span className="custom-font-label">Duration:</span> {game.duration}</p>
+                <p><span className="custom-font-label">Complexity:</span> {game.complexity}</p>
               </div>
             </Link>
           ))}

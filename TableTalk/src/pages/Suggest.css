@@ -2,7 +2,7 @@
 .suggest-container {
   display: flex;
   max-width: 1600px;
-  max-height: 760px;
+  max-height: 755px;
   margin: 40px auto;
   gap: 20px; 
   align-items: stretch;
@@ -12,7 +12,7 @@
 .suggest-content {
   width: 500px; /* Changed from flex-grow to fixed width */
   min-width: 500px; /* Prevent shrinking */
-  max-height: 760px;
+  max-height: 755px;
   padding: 40px;
   background: #fff;
   border-radius: 10px;
@@ -135,14 +135,14 @@ select:focus {
   width: 130px;
   font-weight: 500;
   color: #666;
-  transition: color 0.3s;
-  transition: font-weight 0.7s;
+  transition: all 0.8s;
+  /* transition: font-weight 0.7s; */
 }
 
 .toggle-option.active {
   color: #5781CB;
+  text-shadow: 0 0 2px rgba(87, 129, 203, 0.8); /* Blue glow */
   font-weight: 700;
-  box-shadow: #666;
   /* background-color: #f0f0f0;
   border-radius: 5px; */
 }
@@ -253,6 +253,10 @@ input:checked + .slider:before {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
   100% { transform: translateY(0px); }
+}
+
+.custom-font-label {
+  font-family: var(--font-primary); /* Bobby Jones */
 }
 
 .suggested-image {
