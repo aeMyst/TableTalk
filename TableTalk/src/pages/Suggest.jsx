@@ -34,18 +34,18 @@ export default function Suggest() {
   const groupObjectives = ['Competitive', 'Casual', 'Party'];
 
   const gameDurations = [
-    { value: '', label: 'Select' },
-    { value: 'short', label: 'Short (<30 mins)' },
-    { value: 'medium', label: 'Medium (30 - 60 mins)' },
-    { value: 'long', label: 'Long (1-2 hours)' },
-    { value: 'extended', label: 'Extended (>2 hours)' }
+    { value: '', label: 'Select Game Duration' },
+    { value: 'Short', label: 'Short (<30 mins)' },
+    { value: 'Medium', label: 'Medium (30 - 60 mins)' },
+    { value: 'Long', label: 'Long (1-2 hours)' },
+    { value: 'Extended', label: 'Extended (>2 hours)' }
   ];
 
   const complexityLevels = [
-    { value: '', label: 'Select' },
-    { value: 'light', label: 'Light (Easy to Pick up)' },
-    { value: 'medium', label: 'Medium (Requires Some Strategy)' },
-    { value: 'heavy', label: 'Heavy (Complex Strategy)' }
+    { value: '', label: 'Select Complexity Level' },
+    { value: 'Light', label: 'Light (Easy to Pick up)' },
+    { value: 'Medium', label: 'Medium (Requires Some Strategy)' },
+    { value: 'Heavy', label: 'Heavy (Complex Strategy)' }
   ];
 
   const allBoardGames = [
@@ -55,8 +55,8 @@ export default function Suggest() {
       objectives: ["Casual"],
       players: [2, 4],
       image: PandemicImage,
-      duration: 'medium',
-      complexity: 'heavy',
+      duration: 'Medium',
+      complexity: 'Heavy',
       description: "Work together to cure diseases before they spread across the globe.",
       reviews: 115051,
       rules: "Players take on roles like Scientist and Medic to find cures for four diseases by collecting cards. Outbreaks and epidemics increase difficulty. The game ends when all cures are found or if outbreaks spiral out of control.",
@@ -68,8 +68,8 @@ export default function Suggest() {
       objectives: ["Casual"],
       players: [3, 6],
       image: CatanImage,
-      duration: 'long',
-      complexity: 'medium',
+      duration: 'Long',
+      complexity: 'Medium',
       description: "Build settlements, trade resources, and become the dominant force on the island of Catan.",
       reviews: 450051,
       rules: "Collect resource cards like wood, brick, and wheat to build roads, settlements, and cities. Trade strategically with other players to gain an advantage and win.",
@@ -81,8 +81,8 @@ export default function Suggest() {
       objectives: ["Competitive"],
       players: [2, 2],
       image: ChessImage,
-      duration: 'short',
-      complexity: 'heavy',
+      duration: 'Short',
+      complexity: 'Heavy',
       description: "A classic strategy game where two players battle to checkmate their opponent's king.",
       reviews: 990516,
       rules: "Each piece moves in a unique way. Protect your king while attacking your opponent's pieces. The game ends when a king is checkmated.",
@@ -94,8 +94,8 @@ export default function Suggest() {
       objectives: ["Casual"],
       players: [4, 4],
       image: Pandemic2Image,
-      duration: 'medium',
-      complexity: 'heavy',
+      duration: 'Medium',
+      complexity: 'Heavy',
       description: "An updated version of Pandemic with new roles, events, and challenges.",
       reviews: 42051,
       rules: "Cure diseases with new roles and events. Outbreaks and epidemics add complexity. Similar to the original Pandemic, but with additional roles and events.",
@@ -107,8 +107,8 @@ export default function Suggest() {
       objectives: ["Casual", "Competitive"],
       players: [4, 8],
       image: ClueImage,
-      duration: 'medium',
-      complexity: 'light',
+      duration: 'Medium',
+      complexity: 'Light',
       description: "Solve the mystery of who killed Mr. Boddy, with what weapon, and in which room.",
       reviews: 6175,
       rules: "Players move around the mansion in turns, gathering clues to deduce the murderer, weapon, and location. The first to solve the mystery wins.",
@@ -120,8 +120,8 @@ export default function Suggest() {
       objectives: ["Party", "Casual"],
       players: [4, 6],
       image: ExplodingKittensImage,
-      duration: 'short',
-      complexity: 'light',
+      duration: 'Short',
+      complexity: 'Light',
       description: "A card game of strategy and luck where players try to avoid drawing an exploding kitten.",
       reviews: 6901,
       rules: "Players take turns drawing cards. If you draw an exploding kitten, you're out! Use action cards to avoid exploding or sabotage other players.",
@@ -133,8 +133,8 @@ export default function Suggest() {
       objectives: ["Casual"],
       players: [4, 10],
       image: TicketToRideImage,
-      duration: 'long',
-      complexity: 'medium',
+      duration: 'Long',
+      complexity: 'Medium',
       description: "Build train routes across North America and complete destination tickets to score points.",
       reviews: 5051,
       rules: "Collect matching train cards to claim routes between cities. Complete destination tickets to earn bonus points. The player with the most points wins.",
@@ -146,8 +146,8 @@ export default function Suggest() {
       objectives: ["Competitive", "Casual"],
       players: [2, 8],
       image: MonopolyImage,
-      duration: 'extended',
-      complexity: 'medium',
+      duration: 'Extended',
+      complexity: 'Medium',
       description: "Buy, trade, and build properties to bankrupt your opponents in this classic board game.",
       reviews: 289051,
       rules: "Roll the dice to move around the board. Buy properties, build houses and hotels, and charge rent to other players. The last player with money wins.",
@@ -267,7 +267,7 @@ export default function Suggest() {
             <div className="form-group">
               <label>Number of Players</label>
               <select name="NumberPeople" value={formData.NumberPeople} onChange={handleInputChange}>
-                <option value="">Select</option>
+                <option value="">Select Number of Players</option>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
                   <option key={num} value={num}>{num}</option>
                 ))}
@@ -277,7 +277,7 @@ export default function Suggest() {
             <div className="form-group">
               <label>Group Objective</label>
               <select name="groupObjective" value={formData.groupObjective} onChange={handleInputChange}>
-                <option value="">Select</option>
+                <option value="">Select Group Objective</option>
                 {groupObjectives.map(objective => (
                   <option key={objective} value={objective}>{objective}</option>
                 ))}
@@ -287,7 +287,7 @@ export default function Suggest() {
             <div className="form-group">
               <label>Game Type</label>
               <select name="gameType" value={formData.gameType} onChange={handleInputChange}>
-                <option value="">Select</option>
+                <option value="">Select Game Type</option>
                 {gameTypes.map(type => (
                   <option key={type} value={type}>{type}</option>
                 ))}
