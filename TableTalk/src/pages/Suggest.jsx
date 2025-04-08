@@ -4,15 +4,6 @@ import "../elements/card.css";
 import "./Suggest.css";
 import boardGames from "../database/gamesData.jsx"; 
 
-// import PandemicImage from '../assets/gameImages/Pandemic.jpg';
-// import CatanImage from '../assets/gameImages/Catan.jpeg';
-// import ChessImage from '../assets/gameImages/Chess.jpeg';
-// import Pandemic2Image from '../assets/gameImages/Pandemic2.jpeg';
-// import ClueImage from '../assets/gameImages/Clue.jpeg';
-// import ExplodingKittensImage from '../assets/gameImages/explodingKittens.jpeg';
-// import TicketToRideImage from '../assets/gameImages/ticketToRide.jpg';
-// import MonopolyImage from '../assets/gameImages/monopoly.jpg';
-
 export default function Suggest() {
   const [formData, setFormData] = useState({
     NumberPeople: '',
@@ -30,7 +21,7 @@ export default function Suggest() {
   const gameTypes = [...new Set(boardGames.map(game => game.type))];
 
   // Removed "Cooperative" from group objectives
-  const groupObjectives = ['Competitive', 'Casual', 'Party'];
+  const groupObjectives = ['Competitive', 'Casual'];
 
   const gameDurations = [
     { value: '', label: 'Select Game Duration' },
