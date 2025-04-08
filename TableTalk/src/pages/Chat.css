@@ -33,7 +33,7 @@
   }
   
   .chat-messages {
-    flex-grow: 1; /* Takes up all available space */
+    flex-grow: 1; 
     padding: 10px;
     overflow-y: auto;
     background: #f9f9f9;
@@ -47,13 +47,13 @@
     border-radius: 8px;
     margin: 5px 0;
     max-width: 70%;
-    align-self: flex-start; /* Default for incoming messages */
+    align-self: flex-start; 
   }
   
   .chat-message.sent {
     background: #3B3F97;
     color: white;
-    align-self: flex-end; /* Aligns to the right for sent messages */
+    align-self: flex-end; 
   }
   
   .chat-input-container {
