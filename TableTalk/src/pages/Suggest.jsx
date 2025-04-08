@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import "../elements/card.css";
 import "./Suggest.css";
-import Modal from "../components/Modal/Modal";
+import boardGames from "../database/gamesData.jsx"; 
 
-import PandemicImage from '../assets/gameImages/Pandemic.jpg';
-import CatanImage from '../assets/gameImages/Catan.jpeg';
-import ChessImage from '../assets/gameImages/Chess.jpeg';
-import Pandemic2Image from '../assets/gameImages/Pandemic2.jpeg';
-import ClueImage from '../assets/gameImages/Clue.jpeg';
-import ExplodingKittensImage from '../assets/gameImages/explodingKittens.jpeg';
-import TicketToRideImage from '../assets/gameImages/ticketToRide.jpg';
-import MonopolyImage from '../assets/gameImages/monopoly.jpg';
+// import PandemicImage from '../assets/gameImages/Pandemic.jpg';
+// import CatanImage from '../assets/gameImages/Catan.jpeg';
+// import ChessImage from '../assets/gameImages/Chess.jpeg';
+// import Pandemic2Image from '../assets/gameImages/Pandemic2.jpeg';
+// import ClueImage from '../assets/gameImages/Clue.jpeg';
+// import ExplodingKittensImage from '../assets/gameImages/explodingKittens.jpeg';
+// import TicketToRideImage from '../assets/gameImages/ticketToRide.jpg';
+// import MonopolyImage from '../assets/gameImages/monopoly.jpg';
 
 export default function Suggest() {
   const [formData, setFormData] = useState({
@@ -26,9 +26,8 @@ export default function Suggest() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedGame, setSelectedGame] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const gameTypes = ['Area Control', 'Abstract Strategy', 'Murder Mystery', 'Other'];
+  const gameTypes = [...new Set(boardGames.map(game => game.type))];
 
   // Removed "Cooperative" from group objectives
   const groupObjectives = ['Competitive', 'Casual', 'Party'];
@@ -48,113 +47,6 @@ export default function Suggest() {
     { value: 'Heavy', label: 'Heavy (Complex Strategy)' }
   ];
 
-  const allBoardGames = [
-    {
-      name: "Pandemic",
-      type: "Cooperative",
-      objectives: ["Casual"],
-      players: [2, 4],
-      image: PandemicImage,
-      duration: 'Medium',
-      complexity: 'Heavy',
-      description: "Work together to cure diseases before they spread across the globe.",
-      reviews: 115051,
-      rules: "Players take on roles like Scientist and Medic to find cures for four diseases by collecting cards. Outbreaks and epidemics increase difficulty. The game ends when all cures are found or if outbreaks spiral out of control.",
-      leaderboardRank: 4,
-    },
-    {
-      name: "Catan",
-      type: "Area Control",
-      objectives: ["Casual"],
-      players: [3, 6],
-      image: CatanImage,
-      duration: 'Long',
-      complexity: 'Medium',
-      description: "Build settlements, trade resources, and become the dominant force on the island of Catan.",
-      reviews: 450051,
-      rules: "Collect resource cards like wood, brick, and wheat to build roads, settlements, and cities. Trade strategically with other players to gain an advantage and win.",
-      leaderboardRank: 2,
-    },
-    {
-      name: "Chess",
-      type: "Abstract Strategy",
-      objectives: ["Competitive"],
-      players: [2, 2],
-      image: ChessImage,
-      duration: 'Short',
-      complexity: 'Heavy',
-      description: "A classic strategy game where two players battle to checkmate their opponent's king.",
-      reviews: 990516,
-      rules: "Each piece moves in a unique way. Protect your king while attacking your opponent's pieces. The game ends when a king is checkmated.",
-      leaderboardRank: 1,
-    },
-    {
-      name: "Pandemic 2.0",
-      type: "Cooperative",
-      objectives: ["Casual"],
-      players: [4, 4],
-      image: Pandemic2Image,
-      duration: 'Medium',
-      complexity: 'Heavy',
-      description: "An updated version of Pandemic with new roles, events, and challenges.",
-      reviews: 42051,
-      rules: "Cure diseases with new roles and events. Outbreaks and epidemics add complexity. Similar to the original Pandemic, but with additional roles and events.",
-      leaderboardRank: 5,
-    },
-    {
-      name: "Clue",
-      type: "Murder Mystery",
-      objectives: ["Casual", "Competitive"],
-      players: [4, 8],
-      image: ClueImage,
-      duration: 'Medium',
-      complexity: 'Light',
-      description: "Solve the mystery of who killed Mr. Boddy, with what weapon, and in which room.",
-      reviews: 6175,
-      rules: "Players move around the mansion in turns, gathering clues to deduce the murderer, weapon, and location. The first to solve the mystery wins.",
-      leaderboardRank: 7,
-    },
-    {
-      name: "Exploding Kittens",
-      type: "Other",
-      objectives: ["Party", "Casual"],
-      players: [4, 6],
-      image: ExplodingKittensImage,
-      duration: 'Short',
-      complexity: 'Light',
-      description: "A card game of strategy and luck where players try to avoid drawing an exploding kitten.",
-      reviews: 6901,
-      rules: "Players take turns drawing cards. If you draw an exploding kitten, you're out! Use action cards to avoid exploding or sabotage other players.",
-      leaderboardRank: 6,
-    },
-    {
-      name: "Ticket to Ride",
-      type: "Area Control",
-      objectives: ["Casual"],
-      players: [4, 10],
-      image: TicketToRideImage,
-      duration: 'Long',
-      complexity: 'Medium',
-      description: "Build train routes across North America and complete destination tickets to score points.",
-      reviews: 5051,
-      rules: "Collect matching train cards to claim routes between cities. Complete destination tickets to earn bonus points. The player with the most points wins.",
-      leaderboardRank: 8,
-    },
-    {
-      name: "Monopoly",
-      type: "Area Control",
-      objectives: ["Competitive", "Casual"],
-      players: [2, 8],
-      image: MonopolyImage,
-      duration: 'Extended',
-      complexity: 'Medium',
-      description: "Buy, trade, and build properties to bankrupt your opponents in this classic board game.",
-      reviews: 289051,
-      rules: "Roll the dice to move around the board. Buy properties, build houses and hotels, and charge rent to other players. The last player with money wins.",
-      leaderboardRank: 3,
-    },
-  ];
-
   const handleClearForm = () => {
     setFormData({
       NumberPeople: '',
@@ -169,7 +61,6 @@ export default function Suggest() {
   
   const handleGameCardClick = (game) => {
     setSelectedGame(game);
-    setIsModalOpen(true);
   };
 
   // const handleGameCardClick = (game) => {
@@ -183,12 +74,6 @@ export default function Suggest() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-
-  // modal close
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedGame(null);
-  };
 
   const [hoverStates, setHoverStates] = useState({});
 
@@ -225,30 +110,29 @@ export default function Suggest() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsAnimating(true);
-
-    let gamesToFilter = selectedCategory === "yourGames" ? allBoardGames.slice(0, 4) : allBoardGames;
-
-    const filteredGames = gamesToFilter.filter(game => {
+  
+    const filteredGames = boardGames.filter(game => {
       const { NumberPeople, groupObjective, gameType, gameDuration, gameComplexity } = formData;
-
+  
+      // Convert maxPlayers to a range
+      const playerRange = [2, game.maxPlayers]; // minimum 2 players
+      
       const isPlayerCountValid = !NumberPeople || 
-        (Array.isArray(game.players) 
-          ? game.players[0] <= parseInt(NumberPeople) && game.players[1] >= parseInt(NumberPeople) 
-          : game.players === parseInt(NumberPeople));
-
-      const isObjectiveValid = !groupObjective || game.objectives.includes(groupObjective);
+        (playerRange[0] <= parseInt(NumberPeople) && playerRange[1] >= parseInt(NumberPeople));
+  
+      const isObjectiveValid = !groupObjective || game.objective === groupObjective;
       const isTypeValid = !gameType || game.type === gameType;
-      const isDurationValid = !gameDuration || game.duration === gameDuration;
+      const isDurationValid = !gameDuration || game.duration.includes(gameDuration);
       const isComplexityValid = !gameComplexity || game.complexity === gameComplexity;
-
+  
       return isPlayerCountValid && isObjectiveValid && isTypeValid && isDurationValid && isComplexityValid;
     });
-
+  
     // Select a maximum of 5 games
     const limitedGames = filteredGames.length > 5
       ? filteredGames.sort(() => 0.5 - Math.random()).slice(0, 5)
       : filteredGames;
-
+  
     setTimeout(() => {
       setFilteredGames(limitedGames);
       setIsAnimating(false);
@@ -394,97 +278,27 @@ export default function Suggest() {
       <div className="suggest-sidebar">
         <h2 className="mb-1">Suggested Games</h2>
         <div className={`suggested-list ${isAnimating ? 'fade-in' : ''}`}>
-          {filteredGames.map((game, index) => (
-            <Link 
-              key={game.name} 
-              to={`/game/${game.name.toLowerCase().replace(/\s+/g, "-")}`}
-              className="suggested-card" 
-              style={{ animationDelay: `${index * 0.2}s` }}
-              onMouseMove={(e) => handleCardHover(e, index)}
-              onMouseLeave={() => handleCardLeave(index)}
-              /*onClick={() => handleGameCardClick(game)}*/
-            >
-              <img src={game.image} alt={game.name} className="suggested-image" />
-              <div className='gameDetails'>
-                <h3>{game.name}</h3>
-                <p><span className="custom-font-label">Type:</span> {game.type}</p>
-                <p><span className="custom-font-label">Objectives:</span> {game.objectives.join(", ")}</p>
-                <p><span className="custom-font-label">Players:</span> {Array.isArray(game.players) ? `${game.players[0]}–${game.players[1]}` : game.players}</p>
-                <p><span className="custom-font-label">Duration:</span> {game.duration}</p>
-                <p><span className="custom-font-label">Complexity:</span> {game.complexity}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
-        <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-          {selectedGame && (
-            <div className="relative modal-background p-6 rounded-lg shadow-lg w-full max-w-2xl space-y-6">
-              {/* Close Button */}
-              <button 
-                onClick={handleCloseModal} 
-                className="absolute top-2 right-2 text-white hover:text-gray-700 text-xl p-2 rounded-full"
-              >
-                ✖
-              </button>
-
-              {/* Top Section: Game Name */}
-              <h2 className="text-5xl font-bold text-white">{selectedGame.name}</h2>
-
-              {/* Flex Container for Image and Game Details */}
-              <div className="flex gap-6">
-                {/* Game Image */}
-                <img 
-                  src={selectedGame.image} 
-                  alt={selectedGame.name} 
-                  className="w-72 h-72 object-cover rounded-lg" 
-                />
-
-                {/* Game Details, Review Button, and Leaderboard Rank */}
-                <div className="space-y-4 w-64 mt-8">
-                  
-                  {/* Leaderboard Rank */}
-                  <div className="flex items-center gap-2 mb-8">
-                    <h3 className="text-2xl font-semibold text-white">Leaderboard Rank:</h3>
-                    <p className="text-white text-lg">#{selectedGame.leaderboardRank}</p>
-                  </div>
-                  
-                  {/* Game Details */}
-                  <div className="space-y-2">
-                    <p><strong className="text-lg">Type:</strong> {selectedGame.type}</p>
-                    <p><strong className="text-lg">Objectives:</strong> {selectedGame.objectives.join(", ")}</p>
-                    <p><strong className="text-lg">Players:</strong> {Array.isArray(selectedGame.players) ? `${selectedGame.players[0]}–${selectedGame.players[1]}` : selectedGame.players}</p>
-                  </div>
-
-                  {/* Review Button */}
-                  <div>
-                    <button
-                      onClick={() => {
-                        setSelectedGame((prev) => ({
-                          ...prev,
-                          reviews: prev.reviewsClicked ? prev.reviews - 1 : prev.reviews + 1,
-                          reviewsClicked: !prev.reviewsClicked,
-                        }));
-                      }}
-                      className="modal-dark text-white text-lg px-4 py-2 rounded-md hover:modal-light transition"
-                    >
-                      {selectedGame.reviewsClicked ? "Community ❤️: " : "Community 🖤: "} ({selectedGame.reviews})
-                    </button>
-                  </div>
-
-                </div>
-              </div>
-
-              {/* Description & Rules */}
-              <div className="w-full space-y-4">
-                <h3 className="text-2xl font-semibold text-white">Description</h3>
-                <p className="text-white">{selectedGame.description}</p>
-                <h3 className="text-2xl font-semibold text-white">Game Rules</h3>
-                <p className="text-white">{selectedGame.rules}</p>
-              </div>
+        {filteredGames.map((game, index) => (
+          <Link 
+            key={game.name} 
+            to={`/game/${game.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+            className="suggested-card" 
+            style={{ animationDelay: `${index * 0.2}s` }}
+            onMouseMove={(e) => handleCardHover(e, index)}
+            onMouseLeave={() => handleCardLeave(index)}
+          >
+            <img src={game.image} alt={game.name} className="suggested-image" />
+            <div className='gameDetails'>
+              <h3>{game.name}</h3>
+              <p><span className="custom-font-label">Type:</span> {game.type}</p>
+              <p><span className="custom-font-label">Objective:</span> {game.objective}</p>
+              <p><span className="custom-font-label">Max Players:</span> {game.maxPlayers}</p>
+              <p><span className="custom-font-label">Duration:</span> {game.duration}</p>
+              <p><span className="custom-font-label">Complexity:</span> {game.complexity}</p>
             </div>
-          )}
-        </Modal>
-
+          </Link>
+        ))}
+        </div>
       </div>
     </div>
   );
