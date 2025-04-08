@@ -33,9 +33,9 @@ export default function Home() {
   const recentBlogs = blogPosts.slice(0, 3);
 
   const recentMatches = [
-    { opponent: "Alice", chatLink: "/chat/alice" },
-    { opponent: "Bob", chatLink: "/chat/bob" },
-    { opponent: "Charlie", chatLink: "/chat/charlie" },
+    { opponent: "User 1", chatLink: "/chat/User 1" },
+    { opponent: "User 2", chatLink: "/chat/User 2" },
+    { opponent: "User 3", chatLink: "/chat/User 3" },
   ];
 
   const toggleChat = (opponent) => {
