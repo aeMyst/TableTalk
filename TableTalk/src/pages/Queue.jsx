@@ -45,11 +45,13 @@ export default function TinderCards() {
     },
   ];
 
+  const [friends, setFriends] = useState(users.slice(0, 3)); // initial 3 are friends
+
   const handleSendMessage = () => {
     if (!activeChat || chatInput.trim() === "") return;
     setChatMessages((prev) => ({
       ...prev,
-      [activeChat]: [...(prev[activeChat] || []), { sender: "you", text: chatInput }]
+      [activeChat]: [...(prev[activeChat] || []), { sender: "you", text: chatInput }],
     }));
     setChatInput("");
   };
@@ -171,11 +173,13 @@ export default function TinderCards() {
             <div className="friends-list card-box">
               <h2>Friends</h2>
               <div className="friends-grid">
-                {users.map((friend, idx) => (
+                {friends.map((friend, idx) => (
                   <div key={idx} className="friend-card">
                     <img src={friend.img} alt={friend.username} className="friend-avatar-img" />
                     <h4>{friend.username}</h4>
-                    <button className="chat-button" onClick={() => setActiveChat(friend.username)}>Chat</button>
+                    <button className="chat-button" onClick={() => setActiveChat(friend.username)}>
+                      Chat
+                    </button>
                   </div>
                 ))}
               </div>
@@ -190,27 +194,41 @@ export default function TinderCards() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-            {searchTerm ? (
-              filteredUsers.length > 0 ? (
-              filteredUsers.map((user, i) => (
-              <div key={i} className="search-result-card">
-                <img src={user.img} alt={user.username} className="friend-avatar-img" />
-                <h4>{user.username}</h4>
-                <button className="add-button">Add Friend</button>
-              </div>
-              ))
-            ) : (
-      <p>No results found</p>
-    )
-          ) : null}
+              {searchTerm &&
+                (filteredUsers.length > 0 ? (
+                  filteredUsers.map((user, i) => {
+                    const isFriend = friends.some((f) => f.username === user.username);
+                    return (
+                      <div key={i} className="search-result-card">
+                        <img src={user.img} alt={user.username} className="friend-avatar-img" />
+                        <h4>{user.username}</h4>
+                        <button
+                          className="add-button"
+                          disabled={isFriend}
+                          onClick={() => !isFriend && setFriends([...friends, user])}
+                          style={{
+                            opacity: isFriend ? 0.6 : 1,
+                            cursor: isFriend ? "not-allowed" : "pointer",
+                          }}
+                        >
+                          {isFriend ? "Already Added" : "Add Friend"}
+                        </button>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <p>No results found</p>
+                ))}
+            </div>
           </div>
-        </div>
 
           {activeChat && (
             <div className="chat-box">
               <div className="chat-header">
                 Chat with {activeChat}
-                <button className="chat-close-button" onClick={() => setActiveChat(null)}>×</button>
+                <button className="chat-close-button" onClick={() => setActiveChat(null)}>
+                  ×
+                </button>
               </div>
               <div className="chat-messages">
                 {(chatMessages[activeChat] || []).map((msg, idx) => (
@@ -228,16 +246,16 @@ export default function TinderCards() {
                   placeholder="Type your message..."
                   onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
                 />
-                <button className="chat-send-button" onClick={handleSendMessage}>Send</button>
+                <button className="chat-send-button" onClick={handleSendMessage}>
+                  Send
+                </button>
               </div>
             </div>
           )}
         </div>
       ) : (
         <div className="tinder">
-          {friendMessage && (
-            <div className="friend-message animate">{friendMessage}</div>
-          )}
+          {friendMessage && <div className="friend-message animate">{friendMessage}</div>}
           <div className="tinder--status">
             <span className="emoji-nope">❌</span>
             <span className="emoji-love">❤️</span>
@@ -246,7 +264,11 @@ export default function TinderCards() {
             {users.map((user, i) => (
               <div className="tinder--card" key={i}>
                 <div className="profile-section">
-                  <img src={user.img} alt={`Profile of ${user.username}`} className="profile-pic" />
+                  <img
+                    src={user.img}
+                    alt={`Profile of ${user.username}`}
+                    className="profile-pic"
+                  />
                   <h3>{user.username}</h3>
                   <p className="classification">{user.classification}</p>
                 </div>
