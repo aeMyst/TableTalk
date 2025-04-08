@@ -190,7 +190,7 @@ export default function TinderCards() {
   </div>
 </div>
 
-  {/* Chat Box (still full width on bottom right) */}
+  {/* Chat Box */}
   {activeChat && (
     <div className="chat-box">
       <div className="chat-header">
