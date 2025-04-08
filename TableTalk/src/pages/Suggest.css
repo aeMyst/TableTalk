@@ -10,8 +10,8 @@
 
 /* Form Area */
 .suggest-content {
-  width: 500px; /* Changed from flex-grow to fixed width */
-  min-width: 500px; /* Prevent shrinking */
+  width: 500px; 
+  min-width: 500px; 
   max-height: 755px;
   padding: 40px;
   background: #fff;
@@ -24,7 +24,7 @@
 
 /* Sidebar */
 .suggest-sidebar {
-  flex: 1; /* Changed from fixed width to flexible */
+  flex: 1; 
   width: 1200px;
   background: #3B3F97;
   padding: 25px;
@@ -44,11 +44,11 @@
 .form-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; /* Reduced from 30px */
+  gap: 20px; 
 }
 
 .form-group {
-  min-width: 100%; /* Changed from 320px to full width */
+  min-width: 100%;
 }
 
 label {
@@ -83,7 +83,7 @@ select:focus {
 }
 /* Submit Button */
 .submit-button {
-  flex: 7; /* 70% width, doesn't grow/shrink */
+  flex: 7; 
   background-color: #3B3F97;
   color: white;
   padding: 14px;
@@ -104,7 +104,7 @@ select:focus {
 }
 
 .clear-button {
-  flex: 3; /* 30% width, doesn't grow/shrink */
+  flex: 3; 
   background-color: #d32f2f;
   color: white;
   padding: 14px;
@@ -119,7 +119,7 @@ select:focus {
 }
 
 .clear-button:hover {
-  background: #f44336; /* Darker red on hover */
+  background: #f44336; 
 }
 
 /* Checkbox Group */

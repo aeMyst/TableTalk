@@ -296,6 +296,24 @@
   z-index: 9999;
 }
 
+.no-matches-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 750px; 
+  width: 100%;
+}
+
+.no-matches-message {
+  text-align: center;
+  background: #f8f9ff;
+  padding: 2rem 3rem;
+  border-radius: 16px;
+  font-size: 1.4rem;
+  color: #3B3F97;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
 @keyframes fadeInOut {
   0% {
     opacity: 0;
