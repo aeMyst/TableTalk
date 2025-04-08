@@ -8,6 +8,7 @@ export default function Posts() {
   const post = blogPosts.find((p) => String(p.id) === id);
   const [replies, setReplies] = useState(post?.replies || []);
   const [newReply, setNewReply] = useState("");
+  const [likes, setLikes] = useState(post?.likes || 0);
 
   if (!post) {
     return (
@@ -17,6 +18,10 @@ export default function Posts() {
       </div>
     );
   }
+
+  const handleLike = () => {
+    setLikes((prev) => prev + 1);
+  };
 
   const handleAddReply = () => {
     if (!newReply.trim()) return;
@@ -103,6 +108,11 @@ export default function Posts() {
         <hr className="post-divider" />
         <div className="post-content">
           <p>{post.content}</p>
+        </div>
+
+        {/* Like Section */}
+        <div className="like-section">
+          <button className="like-button" onClick={handleLike}> Likes: ❤️{likes}</button>
         </div>
 
         <div className="replies-section">

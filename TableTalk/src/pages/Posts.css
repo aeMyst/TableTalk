@@ -170,27 +170,29 @@
   .like-section {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin: 1.5rem 0;
+    gap: 10px;
+    margin-top: 1rem;
   }
   
   .like-button {
-    background: transparent;
+    padding: 8px 12px;
+    background-color: #5a6ef2;
+    color: white;
     border: none;
-    font-size: 2rem;
+    border-radius: 6px;
+    font-weight: bold;
     cursor: pointer;
-    transition: transform 0.2s ease;
   }
   
   .like-button:hover {
-    transform: scale(1.15);
+    background-color: #7888f0;
   }
   
   .like-count {
-    font-size: 1rem;
     font-weight: bold;
     color: #333;
   }
+  
   
   
   
