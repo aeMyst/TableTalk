@@ -84,7 +84,7 @@ export default function Navbar() {
                   <div className="notification-header">
                     <h4>Notifications</h4>
                     {notifications.length > 0 && (
-                      <button className="clear-button" onClick={clearNotifications}>
+                      <button className="clear-button-notification" onClick={clearNotifications}>
                         Clear All
                       </button>
                     )}

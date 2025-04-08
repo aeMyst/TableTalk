@@ -236,7 +236,7 @@ nav {
   margin-bottom: 0.75rem;
 }
 
-.clear-button {
+.clear-button-notification {
   background: none;
   border: none;
   color: #d32f2f;
@@ -245,7 +245,7 @@ nav {
   font-weight: bold;
 }
 
-.clear-button:hover {
+.clear-button-notification :hover {
   text-decoration: underline;
 }
 
