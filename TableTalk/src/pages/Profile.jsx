@@ -1,22 +1,37 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import "../elements/card.css";
 import "./Profile.css";
-import picture from "../assets/images/profile1.jpg";
 import placeholder from "../assets/gameImages/placeholder.webp";
+import defaultPic from "../assets/images/profile1.jpg";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("overview");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [description, setDescription] = useState(
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-  );
+
+  const [username, setUsername] = useState("JohnDoe");
+  const [email, setEmail] = useState("johndoe@example.com");
+  const [password, setPassword] = useState("password123");
+  const [showPassword, setShowPassword] = useState(false); 
+  const [description, setDescription] = useState("Lorem ipsum dolor sit amet...");
+  const [tags, setTags] = useState(["Competitive", "Fun"]);
+  const [newTag, setNewTag] = useState("");
+  const [classification, setClassification] = useState("Intermediate");
+  const [profilePic, setProfilePic] = useState(defaultPic);
   const [boardGames, setBoardGames] = useState([
     { name: "Catan", image: placeholder },
     { name: "Ticket to Ride", image: placeholder },
     { name: "Gloomhaven", image: placeholder },
-    { name: "Carcassonne", image: placeholder }
+    { name: "Carcassonne", image: placeholder },
   ]);
+
+  const [isEditing, setIsEditing] = useState({
+    username: false,
+    email: false,
+    password: false,
+    description: false,
+    tags: false,
+    classification: false,
+  });
 
   const navigate = useNavigate();
 
@@ -26,64 +41,93 @@ export default function Profile() {
   };
 
   const addBoardGame = () => {
-    const newGame = { name: "New Game", image: placeholder };
-    setBoardGames([...boardGames, newGame]);
+    setBoardGames([...boardGames, { name: "New Game", image: placeholder }]);
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setProfilePic(url);
+    }
+  };
+
+  const toggleEdit = (field) => {
+    setIsEditing((prev) => ({ ...prev, [field]: !prev[field] }));
   };
 
   return (
     <div className="profile-container">
-      {/* Sidebar */}
       <div className="profile-sidebar">
-        <button 
-          className={`tab-button ${activeTab === "overview" ? "active" : ""}`} 
-          onClick={() => setActiveTab("overview")}
-        >
-          Overview
-        </button>
-
-        <button 
-          className={`tab-button ${activeTab === "boardgames" ? "active" : ""}`} 
-          onClick={() => setActiveTab("boardgames")}
-        >
-          Board Games
-        </button>
-
-        <button 
-          className={`tab-button ${activeTab === "settings" ? "active" : ""}`} 
-          onClick={() => setActiveTab("settings")}
-        >
-          Settings
-        </button>
-
+        <button className={`tab-button ${activeTab === "overview" ? "active" : ""}`} onClick={() => setActiveTab("overview")}>Overview</button>
+        <button className={`tab-button ${activeTab === "boardgames" ? "active" : ""}`} onClick={() => setActiveTab("boardgames")}>Board Games</button>
+        <button className={`tab-button ${activeTab === "settings" ? "active" : ""}`} onClick={() => setActiveTab("settings")}>Settings</button>
         <hr className="sidebar-divider" />
-
-        <button className="logout-button-sidebar" onClick={handleLogout}>
-          Log Out
-        </button>
+        <button className="logout-button-sidebar" onClick={handleLogout}>Log Out</button>
       </div>
 
-      {/* Content */}
       <div className="profile-content card">
         {activeTab === "overview" && (
           <div className="tab-content">
             <h1>User Profile</h1>
             <div className="profile-info">
               <div className="profile-pic-section">
-                <img src={picture} alt="Profile" className="profile-pic" />
-                <button className="change-pic-btn">Change Profile Picture</button>
+                <img src={profilePic} alt="Profile" className="profile-pic" />
+                <label htmlFor="profilePicUpload" className="change-pic-btn">Change Profile Picture</label>
+                <input id="profilePicUpload" type="file" accept="image/*" style={{ display: "none" }} onChange={handleImageChange} />
               </div>
               <div className="details">
+                {/* Username */}
                 <div className="info-row">
                   <label>Username:</label>
-                  <p>JohnDoe</p>
+                  {isEditing.username ? (
+                    <>
+                      <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="input-inline" />
+                      <button className="edit-btn" onClick={() => toggleEdit("username")}>Save</button>
+                    </>
+                  ) : (
+                    <>
+                      <p>{username}</p>
+                      <button className="edit-btn" onClick={() => toggleEdit("username")}>Edit</button>
+                    </>
+                  )}
                 </div>
+
+                {/* Email */}
                 <div className="info-row">
                   <label>Email:</label>
-                  <p>johndoe@example.com</p>
+                  {isEditing.email ? (
+                    <>
+                      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="input-inline" />
+                      <button className="edit-btn" onClick={() => toggleEdit("email")}>Save</button>
+                    </>
+                  ) : (
+                    <>
+                      <p>{email}</p>
+                      <button className="edit-btn" onClick={() => toggleEdit("email")}>Edit</button>
+                    </>
+                  )}
                 </div>
+
+                {/* Password */}
                 <div className="info-row">
                   <label>Password:</label>
-                  <p>**********</p>
+                  {isEditing.password ? (
+                    <>
+                      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="input-inline" />
+                      <button className="edit-btn" onClick={() => toggleEdit("password")}>Save</button>
+                    </>
+                  ) : (
+                    <>
+                      <p>{showPassword ? password : "●●●●●●●●"}</p>
+                      <div style={{ display: "flex", gap: "8px" }}>
+                        <button className="edit-btn" onClick={() => toggleEdit("password")}>Edit</button>
+                        <button className="edit-btn" onClick={() => setShowPassword((prev) => !prev)}>
+                          {showPassword ? "Hide" : "Show"}
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -91,21 +135,98 @@ export default function Profile() {
             <hr className="section-divider" />
             <h2>Matchmaking Preferences</h2>
             <div className="details">
+              {/* Tags */}
               <div className="info-row">
                 <label>Tags:</label>
-                <p>Competitive, Fun, ...</p>
+                {isEditing.tags ? (
+                  <div style={{ flexGrow: 1 }}>
+                    <div className="tag-list" style={{ marginBottom: "10px" }}>
+                      {tags.map((tag, index) => (
+                        <span key={index} className="tag-item">
+                          {tag}
+                          <button className="tag-remove-btn" onClick={() => setTags((prev) => prev.filter((t) => t !== tag))}>×</button>
+                        </span>
+                      ))}
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                      <input
+                        type="text"
+                        value={newTag}
+                        onChange={(e) => setNewTag(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" && newTag.trim() && tags.length < 10) {
+                            e.preventDefault();
+                            const trimmed = newTag.trim();
+                            if (!tags.includes(trimmed)) {
+                              setTags([...tags, trimmed]);
+                            }
+                            setNewTag("");
+                          }
+                        }}
+                        placeholder="Enter a new tag"
+                        className="input-inline"
+                        disabled={tags.length >= 10}
+                      />
+                      <button className="edit-btn" onClick={() => {
+                        const trimmed = newTag.trim();
+                        if (trimmed && !tags.includes(trimmed) && tags.length < 10) {
+                          setTags([...tags, trimmed]);
+                          setNewTag("");
+                        }
+                      }} disabled={tags.length >= 10}>Add</button>
+                      <button className="edit-btn" onClick={() => toggleEdit("tags")}>Done</button>
+                    </div>
+                    {tags.length >= 10 && (
+                      <p style={{ color: "#888", fontSize: "0.85rem", marginTop: "6px" }}>
+                        Tag limit reached (10 tags max).
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  <>
+                    <p>{tags.join(", ")}</p>
+                    <button className="edit-btn" onClick={() => toggleEdit("tags")}>Edit</button>
+                  </>
+                )}
               </div>
+
+              {/* Classification */}
               <div className="info-row">
                 <label>Classification:</label>
-                <p>Intermediate</p>
+                {isEditing.classification ? (
+                  <>
+                    <select value={classification} onChange={(e) => setClassification(e.target.value)} className="input-inline">
+                      <option value="Beginner">Beginner</option>
+                      <option value="Intermediate">Intermediate</option>
+                      <option value="Advanced">Advanced</option>
+                      <option value="Expert">Expert</option>
+                    </select>
+                    <button className="edit-btn" onClick={() => toggleEdit("classification")}>Save</button>
+                  </>
+                ) : (
+                  <>
+                    <p>{classification}</p>
+                    <button className="edit-btn" onClick={() => toggleEdit("classification")}>Edit</button>
+                  </>
+                )}
               </div>
+
+              {/* Description */}
               <div className="info-row description-row">
                 <label>Description:</label>
-                <p className="description-text">{description}</p>
+                {isEditing.description ? (
+                  <>
+                    <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="input-inline" />
+                    <button className="edit-btn" onClick={() => toggleEdit("description")}>Save</button>
+                  </>
+                ) : (
+                  <>
+                    <p className="description-text">{description}</p>
+                    <button className="edit-btn" onClick={() => toggleEdit("description")}>Edit</button>
+                  </>
+                )}
               </div>
             </div>
-
-            <button className="edit-profile-btn">Edit Profile</button>
           </div>
         )}
 
