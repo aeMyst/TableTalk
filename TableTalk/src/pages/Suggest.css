@@ -1,7 +1,8 @@
 /* Layout adjustments */
 .suggest-container {
   display: flex;
-  max-width: 1200px;
+  max-width: 1600px;
+  max-height: 755px;
   margin: 40px auto;
   gap: 20px; 
   align-items: stretch;
@@ -9,7 +10,9 @@
 
 /* Form Area */
 .suggest-content {
-  flex-grow: 1; 
+  width: 500px; /* Changed from flex-grow to fixed width */
+  min-width: 500px; /* Prevent shrinking */
+  max-height: 755px;
   padding: 40px;
   background: #fff;
   border-radius: 10px;
@@ -21,7 +24,8 @@
 
 /* Sidebar */
 .suggest-sidebar {
-  width: 500px; 
+  flex: 1; /* Changed from fixed width to flexible */
+  width: 1200px;
   background: #3B3F97;
   padding: 25px;
   border-radius: 10px;
@@ -34,27 +38,17 @@
 .suggestion-form {
   display: flex;
   flex-direction: column;
-  flex-grow: 1; 
-  justify-content: space-between; 
-  gap: 20px; 
-  padding-bottom: 20px; 
+  gap: 20px;
 }
 
 .form-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px; 
-  justify-content: space-around; 
-  align-items: center; 
-  flex-grow: 1; 
+  gap: 20px; /* Reduced from 30px */
 }
 
 .form-group {
-  flex: 1;
-  min-width: 320px; 
-  display: flex;
-  flex-direction: column;
-  justify-content: center; 
+  min-width: 100%; /* Changed from 320px to full width */
 }
 
 label {
@@ -76,70 +70,206 @@ select:focus {
   border-color: #3B3F97;
   outline: none;
 }
+.label{
+  font-weight: bold;
+}
 
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  align-items: center;
+  width: 90%;
+}
 /* Submit Button */
 .submit-button {
-  width: 100%;
+  flex: 7; /* 70% width, doesn't grow/shrink */
   background-color: #3B3F97;
   color: white;
   padding: 14px;
   border-radius: 8px;
   font-size: 1.1rem;
+  font-weight: bold;
   cursor: pointer;
   transition: background 0.3s;
+  border: none;
+  text-align: center;
+}
+.gameDetails{
+  color: white;
 }
 
 .submit-button:hover {
   background: #5781CB;
 }
 
-/* Checkbox Group */
-.checkbox-group {
-  display: flex;
-  justify-content: center; 
-  gap: 100px;
-  margin-top: 20px;
+.clear-button {
+  flex: 3; /* 30% width, doesn't grow/shrink */
+  background-color: #d32f2f;
+  color: white;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+  border: none;
+  text-align: center;
+  font-size: medium;
 }
 
-.checkbox-label {
+.clear-button:hover {
+  background: #f44336; /* Darker red on hover */
+}
+
+/* Checkbox Group */
+.single-toggle-container {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 1rem;
-  font-weight: 500;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
 }
 
-input[type="checkbox"] {
-  width: 25px;
-  height: 25px;
+.toggle-option {
+  width: 130px;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.8s;
+  /* transition: font-weight 0.7s; */
+}
+
+.toggle-option.active {
+  color: #5781CB;
+  text-shadow: 0 0 2px rgba(87, 129, 203, 0.8); /* Blue glow */
+  font-weight: 700;
+  /* background-color: #f0f0f0;
+  border-radius: 5px; */
+}
+
+.toggle-option:first-child {
+  width: 130px;
+}
+
+.toggle-option:last-child {
+  width: 95px;
+}
+
+.single-toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+}
+
+.single-toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
   cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #3B3F97;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #3B3F97;
+}
+
+input:checked + .slider:before {
+  transform: translateX(30px);
 }
 
 /* Suggested Games List */
 .suggested-list {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 10px; 
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  grid-auto-rows: 1fr; /* Equal height rows */
+  gap: 20px; /* Space between cards */
+  margin-top: 20px;
 }
 
 .suggested-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 15px;
   background: #5781CB;
   border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
   opacity: 0;
   transform: translateY(-10px);
   animation: slideIn 0.5s ease forwards;
+  min-height: 250px;
+  transform-style: preserve-3d;
+  will-change: transform;
+  position: relative;
+  z-index: 1;
+}
+
+.suggested-card:hover {
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.suggested-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.suggested-card:hover::before {
+  opacity: 1;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.custom-font-label {
+  font-family: var(--font-primary); /* Bobby Jones */
 }
 
 .suggested-image {
-  width: 80px; 
-  height: 80px;
+  width: 100%;
+  height: 120px;
   object-fit: cover;
   border-radius: 6px;
+  margin-bottom: 12px;
+}
+.gameDetails{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Animation */
@@ -154,17 +284,45 @@ input[type="checkbox"] {
   }
 }
 
+@media (max-width: 1600px) {
+  .suggested-list {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+  }
+}
+
+@media (max-width: 1200px) {
+  .suggest-sidebar {
+    width: 100%;
+  }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .suggest-container {
     flex-direction: column;
   }
 
+  .suggest-content,
   .suggest-sidebar {
-    width: 100%;
+    width: 100%; /* Both full width on mobile */
+  }
+
+  .checkbox-group {
+    gap: 15px;
   }
 
   .form-grid {
     flex-direction: column;
+  }
+
+  .submit-button,
+  .clear-button {
+    flex: 0 0 100%; /* Full width on mobile */
+    width: 100%;
+  }
+  .toggle-group {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
   }
 }
