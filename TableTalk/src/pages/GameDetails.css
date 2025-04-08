@@ -1,16 +1,18 @@
 /* Game Details Page Wrapper */
 .game-details-container {
     max-width: 1200px; 
-    margin: 50px auto;
+    height: 760px;
+    /* margin: 5px; */
     padding: 40px; 
     background: #fff;
     border-radius: 12px;
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
     display: flex;
-    flex-direction: row; 
+    flex-direction: column; /* Changed from row layout */
     gap: 50px; 
-    align-items: flex-start;
-    overflow: hidden;
+    /* align-items: flex-start; */
+    /* overflow: hidden; */
+    position: relative; /*extra*/
 }
 
 /* Left Section - Image & Basic Info */
@@ -19,8 +21,95 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
+    gap: 20px;
 }
+
+/* .favorite-container {
+    margin-top: 5px;
+  } */
+  
+  .favorite-button {
+    background: #3B3F97;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 15px 10px 10px;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    color: white;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  .favorite-button:hover {
+    background: #5781CB;
+    transform: translateY(-2px);
+    box-shadow: rgba(149, 157, 165, 0.3) 0px 10px 28px;
+  }
+  
+  .favorite-container input {
+    display: none;
+  }
+  
+  .favorite-container input:checked + label svg {
+    fill: hsl(0deg 100% 50%);
+    stroke: hsl(0deg 100% 50%);
+    animation: heartButton 1s;
+  }
+  
+  @keyframes heartButton {
+    0% {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(1.3);
+    }
+    50% {
+      transform: scale(1);
+    }
+    75% {
+      transform: scale(1.3);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  .favorite-button .action {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+  }
+  
+  .favorite-button .action span {
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    transition: all 0.5s;
+  }
+  
+  .favorite-button .action span.option-1 {
+    transform: translate(0px, 0%);
+    opacity: 1;
+  }
+  
+  .favorite-container input:checked + label .action span.option-1 {
+    transform: translate(0px, -100%);
+    opacity: 0;
+  }
+  
+  .favorite-button .action span.option-2 {
+    transform: translate(0px, 100%);
+    opacity: 0;
+  }
+  
+  .favorite-container input:checked + label .action span.option-2 {
+    transform: translate(0px, 0%);
+    opacity: 1;
+  }
 
 /* Game Image */
 .game-details-image {
@@ -30,12 +119,26 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+.game-info.strong{
+  font-family: var(--font-primary); /* Bobby Jones */
+}
+
 /* Game Title */
 .game-title {
     font-size: 30px; 
     font-weight: bold;
     color: #3B3F97;
     text-align: center;
+    width: 100%;
+    order: 1; /* Ensure it stays at top */
+}
+
+/* Main Content Container */
+.content-container {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  order: 2; /* Comes after title */
 }
 
 /* Game Information */
@@ -82,9 +185,161 @@
     flex: 2;
     display: flex;
     flex-direction: column;
-    gap: 100px;
-    width: 100%;
-    max-width: 750px;
+    gap: 20px;
+    /* width: 100%;
+    max-width: 750px; */
+}
+
+.game-reviews {
+  background: #f0f0f0;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  /* min-height: 250px; */
+  overflow: hidden; /* Ensure animations stay contained */
+}
+
+/* Review Content */
+.review-content {
+  position: relative;
+  min-height: 150px; /* Adjust based on your content */
+  width: 90%;
+  padding: 0 33px; /* Give more space for buttons */
+  z-index: 1; /* Ensure content stays below buttons */
+  margin-top: 10px;
+}
+
+.review-date {
+  color: #666;
+  font-size: 0.9em;
+  margin-left: 5px;
+}
+
+.review-text {
+  position: absolute;
+  width: 100%;
+  transition: all 0.5s ease;
+  opacity: 1;
+}
+
+.review-text p{
+  font-style: italic;
+}
+.game-reviews h2 {
+  text-align: left; /* Force left alignment */
+  margin-left: 0;   /* Remove any default margin */
+  padding-left: 0;  /* Remove any default padding */
+}
+
+/* Animation Classes */
+.review-text.slide-out-left {
+  animation: slideOutLeft 0.25s forwards;
+}
+
+.review-text.slide-out-right {
+  animation: slideOutRight 0.25s forwards;
+}
+
+.review-text.slide-in-left {
+  animation: slideInLeft 0.25s forwards;
+}
+
+.review-text.slide-in-right {
+  animation: slideInRight 0.25s forwards;
+}
+
+@keyframes slideInLeft {
+  from {
+      transform: translateX(100%);
+      opacity: 0;
+  }
+  to {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+      transform: translateX(-100%);
+      opacity: 0;
+  }
+  to {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}
+
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.review-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #3B3F97;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+  z-index: 10; /* Ensure buttons are above other elements */
+}
+
+.review-nav:hover {
+  background: #5781CB;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.review-nav.prev {
+  left: 20px;
+}
+
+.review-nav.next {
+  right: 20px;
+}
+
+.review-author {
+  font-weight: bold;
+  color: #3B3F97;
+  margin-top: 15px;
+}
+
+.review-rating {
+  color: gold;
+  margin: 10px 0;
+  font-size: 20px;
+}
+
+.game-reviews h2 {
+  font-size: 24px;
+  color: #3B3F97;
+  margin-bottom: 8px;
 }
 
 /* Rules Section */
@@ -123,19 +378,33 @@
 .back-button {
     background: #3B3F97;
     color: white;
-    padding: 14px 22px;
+    padding: 15px 15px;
     border: none;
-    border-radius: 8px;
+    border-radius: 20px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
-    transition: background 0.3s ease;
-    margin-top: 20px;
-    align-self: center;
+    transition: all 0.7s ease;
+    align-items: center;
+    position: absolute;/*changes for the next 3 rows*/
+    order: 0; /* First element */
+    display: flex;
+    gap: 5px;
 }
 
 .back-button:hover {
     background: #5781CB;
+    transform: translateX(-3px);
+}
+
+.back-button svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s ease;
+}
+
+.back-button:hover svg {
+  transform: translateX(-3px);
 }
 
 @media (max-width: 900px) {
@@ -166,7 +435,7 @@
     }
 
     .back-button {
-        font-size: 16px;
+        font-size: 12px;
         padding: 12px 18px;
     }
 }
