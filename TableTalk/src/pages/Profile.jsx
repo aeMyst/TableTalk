@@ -20,10 +20,9 @@ export default function Profile() {
 
   const navigate = useNavigate();
 
-  // Logout Function
   const handleLogout = () => {
-    localStorage.removeItem("isAuthenticated"); // Clear authentication state
-    navigate("/"); // Redirect to landing page
+    localStorage.removeItem("isAuthenticated");
+    navigate("/");
   };
 
   const addBoardGame = () => {
@@ -43,13 +42,6 @@ export default function Profile() {
         </button>
 
         <button 
-          className={`tab-button ${activeTab === "match" ? "active" : ""}`} 
-          onClick={() => setActiveTab("match")}
-        >
-          Matchmaking Preferences
-        </button>
-
-        <button 
           className={`tab-button ${activeTab === "boardgames" ? "active" : ""}`} 
           onClick={() => setActiveTab("boardgames")}
         >
@@ -63,15 +55,14 @@ export default function Profile() {
           Settings
         </button>
 
-        <button 
-          className={`tab-button ${activeTab === "security" ? "active" : ""}`} 
-          onClick={() => setActiveTab("security")}
-        >
-          Security
+        <hr className="sidebar-divider" />
+
+        <button className="logout-button-sidebar" onClick={handleLogout}>
+          Log Out
         </button>
       </div>
 
-      {/* Profile Content */}
+      {/* Content */}
       <div className="profile-content card">
         {activeTab === "overview" && (
           <div className="tab-content">
@@ -96,31 +87,25 @@ export default function Profile() {
                 </div>
               </div>
             </div>
-            <button className="edit-profile-btn">Edit Profile</button>
-          </div>
-        )}
 
-        {activeTab === "match" && (
-          <div className="tab-content">
-            <h1>matchmaking Preferences</h1>
-            <p>Update your Matchmaking Information Here</p>
+            <hr className="section-divider" />
+            <h2>Matchmaking Preferences</h2>
             <div className="details">
-                <div className="info-row">
-                  <label>Tags</label>
-                  <p>Competitive, Fun, ...</p>
-                </div>
-                <div className="info-row">
-                  <label>Classicfication:</label>
-                  <p>Intermediate</p>
-                </div>
-                <div className="info-row description-row">
-                  <label>Description:</label>
-                  <p className="description-text">
-                    {description}
-                  </p>
-                </div>
+              <div className="info-row">
+                <label>Tags:</label>
+                <p>Competitive, Fun, ...</p>
               </div>
-              <button className="edit-profile-btn">Edit Queue Settings</button>
+              <div className="info-row">
+                <label>Classification:</label>
+                <p>Intermediate</p>
+              </div>
+              <div className="info-row description-row">
+                <label>Description:</label>
+                <p className="description-text">{description}</p>
+              </div>
+            </div>
+
+            <button className="edit-profile-btn">Edit Profile</button>
           </div>
         )}
 
@@ -145,14 +130,6 @@ export default function Profile() {
           <div className="tab-content">
             <h1>Settings</h1>
             <p>Customize your profile settings here.</p>
-            <button className="logout-button" onClick={handleLogout}>Log Out</button>
-          </div>
-        )}
-
-        {activeTab === "security" && (
-          <div className="tab-content">
-            <h1>Security</h1>
-            <p>Update your password and security settings here.</p>
           </div>
         )}
       </div>
