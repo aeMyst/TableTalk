@@ -4,6 +4,7 @@ import "../elements/card.css";
 import "./Profile.css";
 import placeholder from "../assets/gameImages/placeholder.webp";
 import defaultPic from "../assets/images/profile1.jpg";
+import availableBoardGames from "../database/gamesData.jsx";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("overview");
@@ -20,21 +21,15 @@ export default function Profile() {
   const [isAddingGame, setIsAddingGame] = useState(false);
   const [newGameName, setNewGameName] = useState("");
   const [gameError, setGameError] = useState("");
+  const [darkMode, setDarkMode] = useState(false);
+  const [emailNotifications, setEmailNotifications] = useState(true);
+  const [showSuggestions, setShowSuggestions] = useState(true);
   const [boardGames, setBoardGames] = useState([
     { name: "Catan", image: placeholder },
     { name: "Ticket to Ride", image: placeholder },
     { name: "Gloomhaven", image: placeholder },
     { name: "Carcassonne", image: placeholder },
   ]);
-  const availableBoardGames = [
-    { name: "Catan", image: placeholder },
-    { name: "Ticket to Ride", image: placeholder },
-    { name: "Gloomhaven", image: placeholder },
-    { name: "Carcassonne", image: placeholder },
-    { name: "Wingspan", image: placeholder },
-    { name: "7 Wonders", image: placeholder },
-    { name: "Terraforming Mars", image: placeholder },
-  ];
 
   const [isEditing, setIsEditing] = useState({
     username: false,
@@ -304,12 +299,51 @@ export default function Profile() {
           </div>
         )}
 
-        {activeTab === "settings" && (
-          <div className="tab-content">
-            <h1>Settings</h1>
-            <p>Customize your profile settings here.</p>
-          </div>
-        )}
+{activeTab === "settings" && (
+  <div className="tab-content">
+    <h1>Settings</h1>
+
+    <div className="settings-option">
+      <label>Enable Dark Mode</label>
+      <label className="switch">
+        <input
+          type="checkbox"
+          checked={darkMode}
+          onChange={() => setDarkMode(!darkMode)}
+        />
+        <span className="slider"></span>
+      </label>
+    </div>
+
+    <div className="settings-option">
+      <label>Email Notifications</label>
+      <label className="switch">
+        <input
+          type="checkbox"
+          checked={emailNotifications}
+          onChange={() => setEmailNotifications(!emailNotifications)}
+        />
+        <span className="slider"></span>
+      </label>
+    </div>
+
+    <div className="settings-option">
+      <label>Show Game Suggestions on Homepage</label>
+      <label className="switch">
+        <input
+          type="checkbox"
+          checked={showSuggestions}
+          onChange={() => setShowSuggestions(!showSuggestions)}
+        />
+        <span className="slider"></span>
+      </label>
+    </div>
+
+    <p style={{ marginTop: "20px", color: "#888" }}>
+      These settings are just for demo purposes and aren't stored permanently.
+    </p>
+  </div>
+)}
       </div>
     </div>
   );
