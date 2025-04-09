@@ -334,20 +334,7 @@ const boardGames = [
     complexity: "Heavy",
     description: "A classic war strategy game where players battle for world domination through strategic attacks and alliances.",
     rules: "Players take turns attacking and defending territories using dice rolls and troop reinforcements. The player who controls the most territories wins.",
-    reviews: [
-      {
-        text: "The Legacy version transformed this classic. The evolving board and persistent changes create an unforgettable campaign experience.",
-        author: "Legacy Lover",
-        rating: 5,
-        date: "2023-11-08"
-      },
-      {
-        text: "Too dependent on dice luck. Games can last forever if players are too cautious. There are better area control games now.",
-        author: "Modern Warmonger",
-        rating: 2,
-        date: "2023-10-01"
-      }
-    ]
+    reviews: []
   }
 ];
 
