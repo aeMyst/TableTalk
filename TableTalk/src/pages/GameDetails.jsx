@@ -66,10 +66,10 @@ export default function GameDetails() {
       // Update existing review
       updatedGame.reviews[editingReview] = newReview;
     } else {
-      // Add new review
+      // or Add the new review
       updatedGame.reviews = [...game.reviews, newReview];
     }
-    // Find the game index and update in boardGames
+    // Find the game index and update in boardGames list (only updates the local array)
     const gameIndex = boardGames.findIndex(g => g.name === game.name);
     boardGames[gameIndex] = updatedGame;
     
@@ -84,7 +84,6 @@ export default function GameDetails() {
     setEditingReview(null);
     setHasSubmittedReview(true); // Mark that user has submitted a review
 
-    // Update state to show the new review
     setCurrentReviewIndex(editingReview !== null ? editingReview : updatedGame.reviews.length - 1);
   };
 
@@ -207,7 +206,6 @@ export default function GameDetails() {
                           - {review.author}
                           {review.date && <span className="review-date"> • {review.date}</span>}
                         </div>
-                        {/* Show edit button only for the user's review */}
                         {review.author === "You" && ( // not needed now but replace "You" with user auth check
                             <button 
                               className="edit-review-button"
