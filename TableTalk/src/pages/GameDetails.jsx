@@ -9,6 +9,9 @@ export default function GameDetails() {
   const [isFavorite, setIsFavorite] = useState(false);
   const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
   const [animation, setAnimation] = useState('');
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [hasSubmittedReview, setHasSubmittedReview] = useState(false);
+  const [editingReview, setEditingReview] = useState(null);
   //const [likes, setLikes] = useState(0);
 
   // Find the game in the database
@@ -22,6 +25,13 @@ export default function GameDetails() {
 
   const [likes, setLikes] = useState(game.likes || 0);
 
+  const [newReview, setNewReview] = useState({
+    text: '',
+    rating: 0,
+    author: 'You', // or get from user auth
+    date: new Date().toLocaleDateString()
+  });
+
   const handleFavoriteClick = () => {
     const newFavoriteState = !isFavorite;
     setIsFavorite(newFavoriteState);
@@ -29,10 +39,10 @@ export default function GameDetails() {
   };
 
   const handleReviewNav = (direction) => {
-    // Set exit animation
+    // exit animation
     setAnimation(direction > 0 ? 'slide-out-right' : 'slide-out-left');
     
-    // Wait for exit animation to complete before changing index
+    // Wait for exit animation to complete
     setTimeout(() => {
       setCurrentReviewIndex(prev => {
         if (direction > 0) {
@@ -41,15 +51,46 @@ export default function GameDetails() {
           return prev === 0 ? game.reviews.length - 1 : prev - 1;
         }
       });
-      // Set enter animation
+      // enter animation
       setAnimation(direction > 0 ? 'slide-in-left' : 'slide-in-right');
-    }, 250); // Matches CSS transition time
+    }, 250);
+  };
+
+  const handleSubmitReview = () => {
+    if (!newReview.text || newReview.rating === 0) return;
+    
+    // Update the game's reviews array (will figure out how to add it to the dataset later)
+    const updatedGame = {
+      ...game};
+    if (editingReview !== null) {
+      // Update existing review
+      updatedGame.reviews[editingReview] = newReview;
+    } else {
+      // Add new review
+      updatedGame.reviews = [...game.reviews, newReview];
+    }
+    // Find the game index and update in boardGames
+    const gameIndex = boardGames.findIndex(g => g.name === game.name);
+    boardGames[gameIndex] = updatedGame;
+    
+    // Reset form and hide it
+    setNewReview({
+      text: '',
+      rating: 0,
+      author: 'You',
+      date: new Date().toLocaleDateString()
+    });
+    setShowReviewForm(false);
+    setEditingReview(null);
+    setHasSubmittedReview(true); // Mark that user has submitted a review
+
+    // Update state to show the new review
+    setCurrentReviewIndex(editingReview !== null ? editingReview : updatedGame.reviews.length - 1);
   };
 
   return (
     <div className="game-details-container card">
 
-      {/* Back Button - Now at top left */}
       <button className="back-button" onClick={() => navigate(-1)}>
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
         <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -110,21 +151,37 @@ export default function GameDetails() {
           
           {/* Game Reviews */}
           <div className="game-reviews">
-            <h2>Reviews</h2>
-            {game.reviews.length > 0 && (
+            <div className="reviews-header">
+              <h2>Reviews</h2>
+              {game.reviews.length > 0 && (
+                <div className="review-nav-buttons">
+                  <button 
+                    className="review-nav prev"
+                    onClick={() => handleReviewNav(-1)}
+                    aria-label="Previous review"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                  </button>
+                  <button 
+                    className="review-nav next"
+                    onClick={() => handleReviewNav(1)}
+                    aria-label="Next review"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                  </button>
+                </div>
+              )}
+            </div>
+            
+            <div className="review-content">
+            {!showReviewForm && (
               <>
-                <button 
-                  className="review-nav prev"
-                  onClick={() => handleReviewNav(-1)}
-                  aria-label="Previous review"
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M15 18l-6-6 6-6"/>
-                  </svg>
-                </button>
-                
-                <div className="review-content">
-                  {game.reviews.map((review, index) => (
+                {game.reviews.length > 0 ? (
+                  game.reviews.map((review, index) => (
                     <div 
                       key={index}
                       className={`review-text ${
@@ -150,22 +207,75 @@ export default function GameDetails() {
                           - {review.author}
                           {review.date && <span className="review-date"> • {review.date}</span>}
                         </div>
+                        {/* Show edit button only for the user's review */}
+                        {review.author === "You" && ( // not needed now but replace "You" with user auth check
+                            <button 
+                              className="edit-review-button"
+                              onClick={() => {
+                                setNewReview({...review});
+                                setEditingReview(index);
+                                setShowReviewForm(true);
+                              }}
+                            >  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{marginRight: '4px'}}>
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                          </svg>
+                              Edit
+                            </button>
+                          )}
                       </div>
                     </div>
-                  ))}
-                </div>
-                
-                <button 
-                  className="review-nav next"
-                  onClick={() => handleReviewNav(1)}
-                  aria-label="Next review"
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M9 18l6-6-6-6"/>
-                  </svg>
-                </button>
+                  ))
+                ) : (
+                  <div className="no-reviews">
+                    <p>No reviews yet. Be the first to review this game!</p>
+                  </div>
+                )}
               </>
             )}
+              {!showReviewForm && !hasSubmittedReview && (
+                <div className="write-review-section">
+                  <button 
+                    className="write-review-button"
+                    onClick={() => {setShowReviewForm(true); setEditingReview(null);
+                    }}
+                  >
+                    <span className="review-plus-button">+</span> Write a Review
+                  </button>
+                </div>
+              )}
+
+              {showReviewForm && (
+                <div className="review-form">
+                  <textarea
+                    value={newReview.text}
+                    onChange={(e) => setNewReview({...newReview, text: e.target.value})}
+                    placeholder="Share your thoughts about this game..."
+                  />
+                  <div className="rating-input">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <span
+                        key={star}
+                        className={`star ${star <= newReview.rating ? 'filled' : ''}`}
+                        onClick={() => setNewReview({...newReview, rating: star})}
+                      >
+                        {star <= newReview.rating ? '★' : '☆'}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="form-actions">
+                    <button onClick={() => setShowReviewForm(false)}>Cancel</button>
+                    <button 
+                      className="submit-review"
+                      onClick={handleSubmitReview}
+                      disabled={!newReview.text || newReview.rating === 0}
+                    >
+                      {editingReview !== null ? "Submit Edit" : "Submit Review"}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
