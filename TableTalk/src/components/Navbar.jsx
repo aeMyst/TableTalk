@@ -9,14 +9,13 @@ import GameSvg from "../assets/navbar/gameIcon.svg";
 import BellSvg from "../assets/navbar/bell.svg";
 import "./Navbar.css";
 
-export default function Navbar() {
+export default function Navbar({ toggleChat }) {
   const location = useLocation();
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
 
   const [notifications, setNotifications] = useState([
-    { id: 1, message: "Your blog received a like." },
-    { id: 2, message: "Someone replied to your comment." }
+    { id: 1, message: "User 2 sent you a message!" }
   ]);
 
   const isActive = (path) => {
@@ -38,6 +37,17 @@ export default function Navbar() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const handleNotificationClick = (message, id) => {
+    const usernameMatch = message.match(/User \d+/);
+    if (usernameMatch) {
+      toggleChat(usernameMatch[0]); // e.g., "User 2"
+      setShowDropdown(false);
+  
+      // Remove the clicked notification
+      setNotifications((prev) => prev.filter((n) => n.id !== id));
+    }
+  };
 
   return (
     <nav>
@@ -67,6 +77,7 @@ export default function Navbar() {
             </Link>
           </div>
         </div>
+
         {/* Right side */}
         <div className="nav-box secondary">
           <div className="button-container">
@@ -92,13 +103,17 @@ export default function Navbar() {
                   {notifications.length === 0 ? (
                     <p className="dropdown-empty">No notifications</p>
                   ) : (
-                    <ul className="dropdown-list">
-                      {notifications.map((note) => (
-                        <li key={note.id} className="dropdown-item">
-                          {note.message}
-                        </li>
-                      ))}
-                    </ul>
+                  <ul className="dropdown-list">
+                  {notifications.map((note) => (
+                  <li
+                    key={note.id}
+                    className="dropdown-item"
+                    onClick={() => handleNotificationClick(note.message, note.id)}
+                  >
+                  {note.message}
+                  </li>
+                  ))}
+                  </ul>
                   )}
                 </div>
               )}
