@@ -5,6 +5,7 @@ import "./Profile.css";
 import placeholder from "../assets/gameImages/placeholder.webp";
 import defaultPic from "../assets/images/profile1.jpg";
 import availableBoardGames from "../database/gamesData.jsx";
+import userBoardGames from "../database/userBoardGames.jsx";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("overview");
@@ -24,13 +25,7 @@ export default function Profile() {
   const [darkMode, setDarkMode] = useState(false);
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [showSuggestions, setShowSuggestions] = useState(true);
-  const [boardGames, setBoardGames] = useState([
-    { name: "Catan", image: placeholder },
-    { name: "Ticket to Ride", image: placeholder },
-    { name: "Gloomhaven", image: placeholder },
-    { name: "Carcassonne", image: placeholder },
-  ]);
-
+  const [boardGames, setBoardGames] = useState(userBoardGames);
   const [isEditing, setIsEditing] = useState({
     username: false,
     email: false,
