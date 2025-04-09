@@ -17,12 +17,24 @@ export default function Profile() {
   const [newTag, setNewTag] = useState("");
   const [classification, setClassification] = useState("Intermediate");
   const [profilePic, setProfilePic] = useState(defaultPic);
+  const [isAddingGame, setIsAddingGame] = useState(false);
+  const [newGameName, setNewGameName] = useState("");
+  const [gameError, setGameError] = useState("");
   const [boardGames, setBoardGames] = useState([
     { name: "Catan", image: placeholder },
     { name: "Ticket to Ride", image: placeholder },
     { name: "Gloomhaven", image: placeholder },
     { name: "Carcassonne", image: placeholder },
   ]);
+  const availableBoardGames = [
+    { name: "Catan", image: placeholder },
+    { name: "Ticket to Ride", image: placeholder },
+    { name: "Gloomhaven", image: placeholder },
+    { name: "Carcassonne", image: placeholder },
+    { name: "Wingspan", image: placeholder },
+    { name: "7 Wonders", image: placeholder },
+    { name: "Terraforming Mars", image: placeholder },
+  ];
 
   const [isEditing, setIsEditing] = useState({
     username: false,
@@ -40,8 +52,31 @@ export default function Profile() {
     navigate("/");
   };
 
-  const addBoardGame = () => {
-    setBoardGames([...boardGames, { name: "New Game", image: placeholder }]);
+  const confirmAddBoardGame = () => {
+    const trimmedName = newGameName.trim();
+    if (!trimmedName) return;
+  
+    const alreadyAdded = boardGames.some(
+      (game) => game.name.toLowerCase() === trimmedName.toLowerCase()
+    );
+  
+    if (alreadyAdded) {
+      setGameError(`${trimmedName} is already in your list.`);
+      return;
+    }
+  
+    const found = availableBoardGames.find(
+      (game) => game.name.toLowerCase() === trimmedName.toLowerCase()
+    );
+  
+    const newGame = found
+      ? { name: found.name, image: found.image }
+      : { name: trimmedName, image: placeholder };
+  
+    setBoardGames([...boardGames, newGame]);
+    setNewGameName("");
+    setGameError("");
+    setIsAddingGame(false);
   };
 
   const handleImageChange = (e) => {
@@ -240,9 +275,31 @@ export default function Profile() {
                   <p>{game.name}</p>
                 </div>
               ))}
-              <div className="boardgame-card add-card" onClick={addBoardGame}>
-                <p>+ Add Game</p>
-              </div>
+{isAddingGame ? (
+  <div className="boardgame-card add-card" style={{ flexDirection: "column" }}>
+    <input
+      type="text"
+      value={newGameName}
+      onChange={(e) => setNewGameName(e.target.value)}
+      placeholder="Enter Game"
+      className="input-inline"
+      style={{ marginBottom: "8px" }}
+    />
+<div className="add-card-buttons">
+  <button className="edit-btn" onClick={confirmAddBoardGame}>Confirm</button>
+  <button className="edit-btn" onClick={() => {
+    setIsAddingGame(false);
+    setNewGameName("");
+    setGameError("");
+  }}>Cancel</button>
+</div>
+    {gameError && <p style={{ color: "red", marginTop: "6px" }}>{gameError}</p>}
+  </div>
+) : (
+  <div className="boardgame-card add-card" onClick={() => setIsAddingGame(true)}>
+    <p>+ Add Game</p>
+  </div>
+)}
             </div>
           </div>
         )}
