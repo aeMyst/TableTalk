@@ -6,35 +6,37 @@ import "../pages/Chat.css";
 
 import users from "../database/userData.jsx";
 
-export default function TinderCards() {
+export default function TinderCards({
+  allMessages,
+  setAllMessages,
+  currentChat,
+  setCurrentChat,
+  chatOpen,
+  setChatOpen,
+  chatMinimized,
+  setChatMinimized
+}) {
   const [activeTab, setActiveTab] = useState("matchmaking");
   const [friendMessage, setFriendMessage] = useState("");
-  const [activeChat, setActiveChat] = useState(null);
   const [chatInput, setChatInput] = useState("");
-  const [chatMessages, setChatMessages] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
-
-  const [friends, setFriends] = useState(users.slice(0, 3)); // initial 3 are friends
+  const [friends, setFriends] = useState(users.slice(0, 3));
 
   const [matchQueue, setMatchQueue] = useState(
     users.filter((u) => !users.slice(0, 3).some((f) => f.username === u.username))
   );
 
   const handleSendMessage = () => {
-    if (!activeChat || chatInput.trim() === "") return;
-    setChatMessages((prev) => ({
+    if (!currentChat || chatInput.trim() === "") return;
+    setAllMessages((prev) => ({
       ...prev,
-      [activeChat]: [...(prev[activeChat] || []), { sender: "you", text: chatInput }],
+      [currentChat]: [...(prev[currentChat] || []), { sender: "you", text: chatInput }],
     }));
     setChatInput("");
   };
 
   const filteredUsers = users.filter((u) =>
     u.username.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const nonFriends = users.filter(
-    (user) => !friends.some((friend) => friend.username === user.username)
   );
 
   useEffect(() => {
@@ -136,18 +138,8 @@ export default function TinderCards() {
   return (
     <div className="queue-wrapper">
       <div className="queue-tabs">
-        <button
-          className={`queue-tab ${activeTab === "friends" ? "active" : ""}`}
-          onClick={() => setActiveTab("friends")}
-        >
-          Friends
-        </button>
-        <button
-          className={`queue-tab ${activeTab === "matchmaking" ? "active" : ""}`}
-          onClick={() => setActiveTab("matchmaking")}
-        >
-          Matchmaking
-        </button>
+        <button className={`queue-tab ${activeTab === "friends" ? "active" : ""}`} onClick={() => setActiveTab("friends")}>Friends</button>
+        <button className={`queue-tab ${activeTab === "matchmaking" ? "active" : ""}`} onClick={() => setActiveTab("matchmaking")}>Matchmaking</button>
       </div>
 
       {activeTab === "friends" ? (
@@ -160,7 +152,11 @@ export default function TinderCards() {
                   <div key={idx} className="friend-card">
                     <img src={friend.img} alt={friend.username} className="friend-avatar-img" />
                     <h4>{friend.username}</h4>
-                    <button className="chat-button" onClick={() => setActiveChat(friend.username)}>
+                    <button className="chat-button" onClick={() => {
+                      setCurrentChat(friend.username);
+                      setChatOpen(true);
+                      setChatMinimized(false);
+                    }}>
                       Chat
                     </button>
                   </div>
@@ -189,18 +185,18 @@ export default function TinderCards() {
                           className="add-button"
                           disabled={isFriend}
                           onClick={() => {
-                          if (!isFriend) {
-                            setFriends((prev) => [...prev, user]);
-                            setMatchQueue((prev) => prev.filter((u) => u.username !== user.username));
-                          }
+                            if (!isFriend) {
+                              setFriends((prev) => [...prev, user]);
+                              setMatchQueue((prev) => prev.filter((u) => u.username !== user.username));
+                            }
                           }}
                           style={{
                             opacity: isFriend ? 0.6 : 1,
                             cursor: isFriend ? "not-allowed" : "pointer",
                           }}
-                      >
-                      {isFriend ? "Already Added" : "Add Friend"}
-                      </button>
+                        >
+                          {isFriend ? "Already Added" : "Add Friend"}
+                        </button>
                       </div>
                     );
                   })
@@ -210,34 +206,43 @@ export default function TinderCards() {
             </div>
           </div>
 
-          {activeChat && (
-            <div className="chat-box">
+          {chatOpen && currentChat && (
+            <div className={`chat-box ${chatMinimized ? "minimized" : ""}`}>
               <div className="chat-header">
-                Chat with {activeChat}
-                <button className="chat-close-button" onClick={() => setActiveChat(null)}>
-                  ×
-                </button>
+                Chat with {currentChat}
+                <div className="chat-controls">
+                  <button className="chat-minimize-button" onClick={() => setChatMinimized(!chatMinimized)}>
+                    {chatMinimized ? "▢" : "—"}
+                  </button>
+                  <button className="chat-close-button" onClick={() => setChatOpen(false)}>×</button>
+                </div>
               </div>
-              <div className="chat-messages">
-                {(chatMessages[activeChat] || []).map((msg, idx) => (
-                  <div key={idx} className={`chat-message ${msg.sender === "you" ? "sent" : ""}`}>
-                    {msg.text}
+
+              {!chatMinimized && (
+                <>
+                  <div className="chat-messages">
+                    {(allMessages[currentChat] || []).map((msg, idx) => (
+                      <div key={idx} className={`chat-message ${msg.sender === "you" ? "sent" : ""}`}>
+                        {msg.text}
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-              <div className="chat-input-container">
-                <input
-                  type="text"
-                  className="chat-input"
-                  value={chatInput}
-                  onChange={(e) => setChatInput(e.target.value)}
-                  placeholder="Type your message..."
-                  onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
-                />
-                <button className="chat-send-button" onClick={handleSendMessage}>
-                  Send
-                </button>
-              </div>
+
+                  <div className="chat-input-container">
+                    <input
+                      type="text"
+                      className="chat-input"
+                      value={chatInput}
+                      onChange={(e) => setChatInput(e.target.value)}
+                      placeholder="Type your message..."
+                      onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
+                    />
+                    <button className="chat-send-button" onClick={handleSendMessage}>
+                      Send
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           )}
         </div>
@@ -249,32 +254,26 @@ export default function TinderCards() {
             <span className="emoji-love">❤️</span>
           </div>
           <div className="tinder--cards">
-  {matchQueue.length > 0 ? (
-    matchQueue.map((user, i) => (
-      <div className="tinder--card" key={user.username}>
-        <div className="profile-section">
-          <img
-            src={user.img}
-            alt={`Profile of ${user.username}`}
-            className="profile-pic"
-          />
-          <h3>{user.username}</h3>
-          <p className="classification">{user.classification}</p>
-        </div>
-        <div className="description-section">
-          <strong>Description:</strong>
-          <p>{user.description}</p>
-        </div>
-      </div>
-    ))
-  ) : (
-    <div className="no-matches-wrapper">
-      <div className="no-matches-message">
-        No more matches, check back tomorrow! 😢
-      </div>
-    </div>
-  )}
-</div>
+            {matchQueue.length > 0 ? (
+              matchQueue.map((user) => (
+                <div className="tinder--card" key={user.username}>
+                  <div className="profile-section">
+                    <img src={user.img} alt={`Profile of ${user.username}`} className="profile-pic" />
+                    <h3>{user.username}</h3>
+                    <p className="classification">{user.classification}</p>
+                  </div>
+                  <div className="description-section">
+                    <strong>Description:</strong>
+                    <p>{user.description}</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="no-matches-wrapper">
+                <div className="no-matches-message">No more matches, check back tomorrow! 😢</div>
+              </div>
+            )}
+          </div>
           <div className="tinder--buttons">
             <button id="nope">❌</button>
             <button id="love">❤️</button>

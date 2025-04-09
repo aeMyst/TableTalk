@@ -16,10 +16,21 @@ import "./pages/Chat.css";
 
 export default function App() {
   const [chatOpen, setChatOpen] = useState(false);
-  const [currentChat, setCurrentChat] = useState(null);
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
   const [chatMinimized, setChatMinimized] = useState(false);
+  const [currentChat, setCurrentChat] = useState(null);
+  const [allMessages, setAllMessages] = useState({
+    "User 1": [
+      { text: "Hey, want to play Catan later?", sender: "User 1" },
+      { text: "Sure, what time works?", sender: "me" },
+    ],
+    "User 2": [
+      { text: "Loved that last game session!", sender: "User 2" },
+    ],
+    "User 3": [
+      { text: "Do you know the rules to 7 Wonders?", sender: "User 3" }
+    ]
+  });// { "User 2": [{text, sender}, ...] }
+  const [newMessage, setNewMessage] = useState("");
 
   const toggleChat = (username) => {
     if (currentChat === username) {
@@ -27,31 +38,48 @@ export default function App() {
     } else {
       setCurrentChat(username);
       setChatOpen(true);
-      setMessages([
-        { sender: username, text: "Hey! Just wanted to say hi tehe." }
-      ]);
     }
+    setChatMinimized(false); // Always expand when toggled
   };
 
   const sendMessage = () => {
-    if (newMessage.trim() !== "") {
-      setMessages([...messages, { text: newMessage, sender: "me" }]);
-      setNewMessage("");
-    }
+    if (!newMessage.trim()) return;
+    setAllMessages((prev) => ({
+      ...prev,
+      [currentChat]: [...(prev[currentChat] || []), { text: newMessage, sender: "me" }],
+    }));
+    setNewMessage("");
   };
 
   return (
     <div className="app-container">
       <Navbar toggleChat={toggleChat} />
-      
+
       <div className="page-container">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={<Home toggleChat={toggleChat} />}
+          />
           <Route path="/Blog" element={<Blog />} />
           <Route path="/blog/:id" element={<Posts />} />
           <Route path="/blog/new" element={<NewBlog />} />
           <Route path="/Search" element={<Search />} />
-          <Route path="/Queue" element={<Queue />} />
+          <Route
+  path="/Queue"
+  element={
+    <Queue
+      allMessages={allMessages}
+      setAllMessages={setAllMessages}
+      currentChat={currentChat}
+      setCurrentChat={setCurrentChat}
+      chatOpen={chatOpen}
+      setChatOpen={setChatOpen}
+      chatMinimized={chatMinimized}
+      setChatMinimized={setChatMinimized}
+    />
+  }
+/>
           <Route path="/Profile" element={<Profile />} />
           <Route path="/Suggest" element={<Suggest />} />
           <Route path="/auth" element={<Authentication />} />
@@ -59,43 +87,57 @@ export default function App() {
         </Routes>
       </div>
 
-      {chatOpen && (
-  <div className={`chat-box ${chatMinimized ? "minimized" : ""}`}>
-    <div className="chat-header">
-      <span>Chat with {currentChat}</span>
-      <div className="chat-controls">
-        <button className="chat-minimize-button" onClick={() => setChatMinimized(!chatMinimized)}>
-          {chatMinimized ? "+" : "—"}
-        </button>
-        <button className="chat-close-button" onClick={() => setChatOpen(false)}>X</button>
-      </div>
-    </div>
-
-    {!chatMinimized && (
-      <>
-        <div className="chat-messages">
-          {messages.map((msg, index) => (
-            <div key={index} className={`chat-message ${msg.sender === "me" ? "sent" : ""}`}>
-              {msg.text}
+      {/* Shared Chat Box */}
+      {chatOpen && currentChat && (
+        <div className={`chat-box ${chatMinimized ? "minimized" : ""}`}>
+          <div className="chat-header">
+            <span>Chat with {currentChat}</span>
+            <div className="chat-controls">
+              <button
+                className="chat-minimize-button"
+                onClick={() => setChatMinimized(!chatMinimized)}
+              >
+                {chatMinimized ? "▢" : "—"}
+              </button>
+              <button
+                className="chat-close-button"
+                onClick={() => setChatOpen(false)}
+              >
+                X
+              </button>
             </div>
-          ))}
-        </div>
+          </div>
 
-        <div className="chat-input-container">
-          <input 
-            type="text" 
-            className="chat-input" 
-            placeholder="Type a message..." 
-            value={newMessage} 
-            onChange={(e) => setNewMessage(e.target.value)} 
-            onKeyDown={(e) => e.key === "Enter" && sendMessage()} 
-          />
-          <button className="chat-send-button" onClick={sendMessage}>Send</button>
+          {!chatMinimized && (
+            <>
+              <div className="chat-messages">
+                {(allMessages[currentChat] || []).map((msg, index) => (
+                  <div
+                    key={index}
+                    className={`chat-message ${msg.sender === "me" ? "sent" : ""}`}
+                  >
+                    {msg.text}
+                  </div>
+                ))}
+              </div>
+
+              <div className="chat-input-container">
+                <input
+                  type="text"
+                  className="chat-input"
+                  placeholder="Type a message..."
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                />
+                <button className="chat-send-button" onClick={sendMessage}>
+                  Send
+                </button>
+              </div>
+            </>
+          )}
         </div>
-      </>
-    )}
-  </div>
-)}
+      )}
     </div>
   );
 }
