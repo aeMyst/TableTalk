@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; 
 import blogPosts from "../database/blogData.jsx";
 import "./Posts.css";
 
 export default function Posts() {
   const { id } = useParams();
+  const navigate = useNavigate(); 
   const post = blogPosts.find((p) => String(p.id) === id);
   const [replies, setReplies] = useState(post?.replies || []);
   const [newReply, setNewReply] = useState("");
   const [likes, setLikes] = useState(post?.likes || 0);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   if (!post) {
     return (
@@ -19,8 +21,13 @@ export default function Posts() {
     );
   }
 
-  const handleLike = () => {
-    setLikes((prev) => prev + 1);
+  const handleFavoriteClick = () => {
+    setIsFavorite(!isFavorite);
+    if (!isFavorite) {
+      setLikes((prev) => prev + 1);
+    } else {
+      setLikes((prev) => (prev > 0 ? prev - 1 : 0));
+    }
   };
 
   const handleAddReply = () => {
@@ -100,7 +107,9 @@ export default function Posts() {
   return (
     <div className="post-container">
       <div className="post-content-wrapper">
-        <h1 className="post-title">{post.title}</h1>
+        <div className="Post-header">
+          <h1 className="post-title">{post.title}</h1>
+        </div>
         <div className="post-meta">
           <span className="post-author">By {post.author}</span>
           <span className="post-date">{post.date}</span>
@@ -111,8 +120,22 @@ export default function Posts() {
         </div>
 
         {/* Like Section */}
-        <div className="like-section">
-          <button className="like-button" onClick={handleLike}> Likes: ❤️{likes}</button>
+        <div className="favorite-container">
+          <input 
+            type="checkbox" 
+            id="favorite" 
+            checked={isFavorite}
+            onChange={handleFavoriteClick}
+          />
+          <label htmlFor="favorite" className="favorite-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-heart">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+            <div className="action">
+              <span className="option-1">Community Likes: {likes}</span>
+              <span className="option-2">Community Likes: {likes}</span>
+            </div>
+          </label>
         </div>
 
         <div className="replies-section">
