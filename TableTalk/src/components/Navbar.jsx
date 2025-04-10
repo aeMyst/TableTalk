@@ -13,10 +13,15 @@ export default function Navbar({ toggleChat }) {
   const location = useLocation();
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
-
   const [notifications, setNotifications] = useState([
     { id: 1, message: "User 2 sent you a message!" }
   ]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("isAuthenticated") === "true";
+    setIsAuthenticated(loggedIn);
+  }, [location]);
 
   const isActive = (path) => {
     return path === "/"
@@ -41,10 +46,8 @@ export default function Navbar({ toggleChat }) {
   const handleNotificationClick = (message, id) => {
     const usernameMatch = message.match(/User \d+/);
     if (usernameMatch) {
-      toggleChat(usernameMatch[0]); // e.g., "User 2"
+      toggleChat(usernameMatch[0]);
       setShowDropdown(false);
-  
-      // Remove the clicked notification
       setNotifications((prev) => prev.filter((n) => n.id !== id));
     }
   };
@@ -67,64 +70,71 @@ export default function Navbar({ toggleChat }) {
               <img src={BlogSvg} alt="Blog" className="icon" />
               <span className="link-title">Blog</span>
             </Link>
-            <Link to="/queue" className={`button ${isActive("/queue") ? "active" : ""}`}>
-              <img src={QueueSvg} alt="Queue" className="icon" />
-              <span className="link-title">Matchmaking</span>
-            </Link>
-            <Link to="/suggest" className={`button ${isActive("/suggest") ? "active" : ""}`}>
-              <img src={GameSvg} alt="Suggest" className="icon" />
-              <span className="link-title">Suggestions</span>
-            </Link>
+
+            {isAuthenticated && (
+              <>
+                <Link to="/queue" className={`button ${isActive("/queue") ? "active" : ""}`}>
+                  <img src={QueueSvg} alt="Queue" className="icon" />
+                  <span className="link-title">Matchmaking</span>
+                </Link>
+                <Link to="/suggest" className={`button ${isActive("/suggest") ? "active" : ""}`}>
+                  <img src={GameSvg} alt="Suggest" className="icon" />
+                  <span className="link-title">Suggestions</span>
+                </Link>
+              </>
+            )}
           </div>
         </div>
 
-        {/* Right side */}
-        <div className="nav-box secondary">
-          <div className="button-container">
-            <div className="notification-wrapper" ref={dropdownRef}>
-              <button className="notification-button" onClick={() => setShowDropdown(!showDropdown)}>
-                <div className="icon-wrapper">
-                  <img src={BellSvg} alt="Notifications" className="icon" />
-                  {notifications.length > 0 && <span className="notification-badge" />}
-                </div>
-                <span className="link-title">Notifications</span>
-              </button>
+        {/* Right side (only show if authenticated) */}
+        {isAuthenticated && (
+          <div className="nav-box secondary">
+            <div className="button-container">
+              <div className="notification-wrapper" ref={dropdownRef}>
+                <button className="notification-button" onClick={() => setShowDropdown(!showDropdown)}>
+                  <div className="icon-wrapper">
+                    <img src={BellSvg} alt="Notifications" className="icon" />
+                    {notifications.length > 0 && <span className="notification-badge" />}
+                  </div>
+                  <span className="link-title">Notifications</span>
+                </button>
 
-              {showDropdown && (
-                <div className="notification-dropdown">
-                  <div className="notification-header">
-                    <h4>Notifications</h4>
-                    {notifications.length > 0 && (
-                      <button className="clear-button-notification" onClick={clearNotifications}>
-                        Clear All
-                      </button>
+                {showDropdown && (
+                  <div className="notification-dropdown">
+                    <div className="notification-header">
+                      <h4>Notifications</h4>
+                      {notifications.length > 0 && (
+                        <button className="clear-button-notification" onClick={clearNotifications}>
+                          Clear All
+                        </button>
+                      )}
+                    </div>
+                    {notifications.length === 0 ? (
+                      <p className="dropdown-empty">No notifications</p>
+                    ) : (
+                      <ul className="dropdown-list">
+                        {notifications.map((note) => (
+                          <li
+                            key={note.id}
+                            className="dropdown-item"
+                            onClick={() => handleNotificationClick(note.message, note.id)}
+                          >
+                            {note.message}
+                          </li>
+                        ))}
+                      </ul>
                     )}
                   </div>
-                  {notifications.length === 0 ? (
-                    <p className="dropdown-empty">No notifications</p>
-                  ) : (
-                  <ul className="dropdown-list">
-                  {notifications.map((note) => (
-                  <li
-                    key={note.id}
-                    className="dropdown-item"
-                    onClick={() => handleNotificationClick(note.message, note.id)}
-                  >
-                  {note.message}
-                  </li>
-                  ))}
-                  </ul>
-                  )}
-                </div>
-              )}
-            </div>
+                )}
+              </div>
 
-            <Link to="/profile" className={`button ${isActive("/profile") ? "active" : ""}`}>
-              <img src={ProfileSvg} alt="Profile" className="icon" />
-              <span className="link-title">Profile</span>
-            </Link>
+              <Link to="/profile" className={`button ${isActive("/profile") ? "active" : ""}`}>
+                <img src={ProfileSvg} alt="Profile" className="icon" />
+                <span className="link-title">Profile</span>
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </nav>
   );
