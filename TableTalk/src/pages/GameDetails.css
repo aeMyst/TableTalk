@@ -115,7 +115,7 @@
 .game-details-image {
     width: 100%;
     max-width: 350px; 
-    max-height: 240px;
+    max-height: 270px;
     border-radius: 12px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
 }
