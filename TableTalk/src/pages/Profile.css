@@ -1,7 +1,7 @@
 .profile-container {
     display: flex;
     max-width: 1600px;
-    margin: 40px auto;
+    margin: 20px auto;
     gap: 20px;
   }
   
