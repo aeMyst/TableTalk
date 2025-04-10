@@ -1,6 +1,6 @@
 .profile-container {
     display: flex;
-    max-width: 1500px;
+    max-width: 1600px;
     margin: 40px auto;
     gap: 20px;
   }
@@ -35,8 +35,9 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    flex-grow: 1; 
+    overflow-y: auto; 
+    max-height: 750px; 
+    box-sizing: border-box;
   }
   
   .profile-info {
@@ -112,7 +113,7 @@
   }
 
   .description-row {
-    align-items: center;
+    align-items: flex-start;
   }
   
   .description-text {
@@ -183,6 +184,56 @@
     margin: 5px;
   }
   
+  .input-inline {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 8px;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .tag-item {
+    background-color: #3B3F97;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .tag-remove-btn {
+    background: none;
+    color: white;
+    border: none;
+    margin-left: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .edit-btn {
+    background-color: #5781CB;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    margin-left: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  
+  .edit-btn:hover {
+    background-color: #3B3F97;
+  }
 /* ---------------------------------------------------------------------------------------------------------------------- */
 
 /* Board Games Grid */
@@ -190,9 +241,11 @@
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
+  overflow-y: auto;
   justify-content: flex-start;
   padding: 20px 0;
 }
+
 
 /* Board Game Card */
 .boardgame-card {
@@ -206,11 +259,53 @@
   transition: transform 0.2s ease-in-out;
 }
 
+.boardgame-card.add-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  gap: 10px;
+  min-height: 180px;
+  box-sizing: border-box;
+}
+
+.boardgame-card.add-card input.input-inline {
+  width: 100%;
+  padding: 6px 10px;
+  text-align: center;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.add-card-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.add-card-buttons .edit-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+  flex: 1 1 auto;
+  max-width: 100px;
+}
+
+.boardgame-card input {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+}
+
 .boardgame-card:hover {
   transform: scale(1.05);
 }
 
-/* Board Game Images */
 .boardgame-image {
   width: 120px;
   height: 120px;
@@ -233,6 +328,99 @@
 .add-card:hover {
   background: #d0d0d0;
 }
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+.section-divider {
+  margin: 30px 0 20px;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+.sidebar-divider {
+  margin: 20px 0;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+.logout-button-sidebar {
+  background-color: #E74C3C;
+  color: white;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+  text-align: left;
+}
+
+.logout-button-sidebar:hover {
+  background-color: #C0392B;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+.settings-option {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.settings-option label {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 30px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 26px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #4caf50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(18px);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
 
   /* Responsive Design */
   @media (max-width: 768px) {

@@ -3,19 +3,14 @@ import { useNavigate } from "react-router-dom";
 import "../elements/card.css";
 import "./Home.css"; 
 import "./mainHome.css"; 
-import "./Chat.css";
 import "../elements/suButton.css";
 import mainLogo from "../assets/logo/mainLogoCrop.png";
 import boardGames from "../database/gamesData.jsx";
 import blogPosts from "../database/blogData.jsx";
 
-export default function Home() {
+export default function Home({ toggleChat }) {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [chatOpen, setChatOpen] = useState(false);
-  const [currentChat, setCurrentChat] = useState(null);
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
 
   useEffect(() => {
     const userLoggedIn = localStorage.getItem("isAuthenticated") === "true";
@@ -33,27 +28,10 @@ export default function Home() {
   const recentBlogs = blogPosts.slice(0, 3);
 
   const recentMatches = [
-    { opponent: "User 1", chatLink: "/chat/User 1" },
-    { opponent: "User 2", chatLink: "/chat/User 2" },
-    { opponent: "User 3", chatLink: "/chat/User 3" },
+    { opponent: "User 1" },
+    { opponent: "User 2" },
+    { opponent: "User 3" },
   ];
-
-  const toggleChat = (opponent) => {
-    if (currentChat === opponent) {
-      setChatOpen(!chatOpen);
-    } else {
-      setCurrentChat(opponent);
-      setChatOpen(true);
-      setMessages([]); 
-    }
-  };
-
-  const sendMessage = () => {
-    if (newMessage.trim() !== "") {
-      setMessages([...messages, { text: newMessage, sender: "me" }]);
-      setNewMessage("");
-    }
-  };
 
   return (
     <div className="home-container">
@@ -143,36 +121,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-      )}
-
-      {/* Chat Box */}
-      {chatOpen && (
-        <div className="chat-box">
-          <div className="chat-header">
-            <span>Chat with {currentChat}</span>
-            <button className="chat-close-button" onClick={() => setChatOpen(false)}>X</button>
-          </div>
-          
-          <div className="chat-messages">
-            {messages.map((msg, index) => (
-              <div key={index} className={`chat-message ${msg.sender === "me" ? "sent" : ""}`}>
-                {msg.text}
-              </div>
-            ))}
-          </div>
-
-          <div className="chat-input-container">
-            <input 
-              type="text" 
-              className="chat-input" 
-              placeholder="Type a message..." 
-              value={newMessage} 
-              onChange={(e) => setNewMessage(e.target.value)} 
-              onKeyDown={(e) => e.key === "Enter" && sendMessage()} 
-            />
-            <button className="chat-send-button" onClick={sendMessage}>Send</button>
-          </div>
-        </div>
       )}
     </div>
   );

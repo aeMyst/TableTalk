@@ -11,7 +11,7 @@
   }
   
   .tinder {
-    margin-top: -275px;
+    margin-top: -200px;
     margin-left: -175px;
     width: 100vw;
     height: 100vh;
@@ -75,7 +75,7 @@
     align-items: flex-start;
     width: 90vw;
     max-width: 1600px;
-    height: 60vh;
+    height: 65vh;
     background: #FFFFFF;
     padding: 2rem 3rem;
     border-radius: 16px;

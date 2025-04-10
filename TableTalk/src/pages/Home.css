@@ -134,20 +134,6 @@
   margin-top: 15px; 
 }
 
-.dashboard-preview-card,
-.dashboard-blog-preview {
-  width: 100%;
-  display: flex;
-  overflow: hidden;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 400px; 
-  background-color: white;
-  border-radius: 15px;
-  padding: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 6px;
-}
-
 @media (max-width: 768px) {
   .home-container {
     padding: 1rem;

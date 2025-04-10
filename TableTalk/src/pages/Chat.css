@@ -12,16 +12,25 @@
     border: 1px solid #ccc;
     overflow: hidden;
     font-family: Arial, sans-serif;
+    z-index: 1000;
+  }
+
+  .chat-box.minimized {
+    height: auto;
+    max-height: none;
   }
   
   .chat-header {
-    background: #3B3F97;
-    color: white;
-    padding: 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0.75rem 1rem;
+    background-color: #3B3F97;
+    color: white;
     font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    cursor: grab;
   }
   
   .chat-close-button {
@@ -86,4 +95,38 @@
   .chat-send-button:hover {
     background: #5781cb;
   }
+
+  .chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  font-weight: bold;
+  background-color: #3B3F97;
+  color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.chat-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.chat-minimize-button,
+.chat-close-button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.chat-minimize-button:hover,
+.chat-close-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
   
