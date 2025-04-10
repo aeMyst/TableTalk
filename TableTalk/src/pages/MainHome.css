@@ -13,7 +13,7 @@
   .dashboard-welcome-card {
     background: white;
     border-radius: 12px;
-    padding: 2rem;
+    padding: 1.5rem;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     grid-column: span 2; 

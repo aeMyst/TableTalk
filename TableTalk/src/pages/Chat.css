@@ -12,6 +12,7 @@
     border: 1px solid #ccc;
     overflow: hidden;
     font-family: Arial, sans-serif;
+    z-index: 1000;
   }
 
   .chat-box.minimized {
