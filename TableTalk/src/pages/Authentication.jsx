@@ -16,6 +16,10 @@ export default function Authentication() {
     confirmPassword: "",
   });
 
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
+
   const [errors, setErrors] = useState({});
   const [focusedField, setFocusedField] = useState("");
   const [showForgotModal, setShowForgotModal] = useState(false);
@@ -24,10 +28,17 @@ export default function Authentication() {
     setActiveTab(initialTab);
   }, [searchParams]);
 
+  const validEmail = "admin@example.com";
+  const validPassword = "admin123";
+
   const handleLogin = (e) => {
     e.preventDefault();
-    localStorage.setItem("isAuthenticated", "true");
-    navigate("/");
+    if (loginEmail === validEmail && loginPassword === validPassword) {
+      localStorage.setItem("isAuthenticated", "true");
+      navigate("/");
+    } else {
+      setLoginError("Invalid email or password.");
+    }
   };
 
   const validateSignup = () => {
@@ -89,8 +100,21 @@ export default function Authentication() {
           {activeTab === "login" ? (
             <form className="auth-form" onSubmit={handleLogin}>
               <h1>Log In</h1>
-              <input type="email" placeholder="Email" required />
-              <input type="password" placeholder="Password" required />
+              <input
+                type="email"
+                placeholder="Email"
+                value={loginEmail}
+                onChange={(e) => setLoginEmail(e.target.value)}
+                required
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+                required
+              />
+              {loginError && <p className="auth-error">{loginError}</p>}
 
               <div className="auth-options">
                 <div className="remember-me">
@@ -182,7 +206,6 @@ export default function Authentication() {
         </div>
       </div>
 
-      {/* Modal for forgot password */}
       {showForgotModal && (
         <div className="modal-overlay">
           <div className="modal">
