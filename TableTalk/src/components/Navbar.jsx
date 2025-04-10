@@ -23,15 +23,10 @@ export default function Navbar({ toggleChat }) {
     setIsAuthenticated(loggedIn);
   }, [location]);
 
-  const isActive = (path) => {
-    return path === "/"
-      ? location.pathname === "/"
-      : location.pathname.startsWith(path);
-  };
+  const isActive = (path) =>
+    path === "/" ? location.pathname === "/" : location.pathname.startsWith(path);
 
-  const clearNotifications = () => {
-    setNotifications([]);
-  };
+  const clearNotifications = () => setNotifications([]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -62,17 +57,17 @@ export default function Navbar({ toggleChat }) {
               <img src={Logo} alt="Home" className="icon" />
               <span className="link-title">Home</span>
             </Link>
-            <Link to="/search" className={`button ${isActive("/search") ? "active" : ""}`}>
-              <img src={SearchSvg} alt="Search" className="icon" />
-              <span className="link-title">Search</span>
-            </Link>
-            <Link to="/blog" className={`button ${isActive("/blog") ? "active" : ""}`}>
-              <img src={BlogSvg} alt="Blog" className="icon" />
-              <span className="link-title">Blog</span>
-            </Link>
 
             {isAuthenticated && (
               <>
+                <Link to="/search" className={`button ${isActive("/search") ? "active" : ""}`}>
+                  <img src={SearchSvg} alt="Search" className="icon" />
+                  <span className="link-title">Search</span>
+                </Link>
+                <Link to="/blog" className={`button ${isActive("/blog") ? "active" : ""}`}>
+                  <img src={BlogSvg} alt="Blog" className="icon" />
+                  <span className="link-title">Blog</span>
+                </Link>
                 <Link to="/queue" className={`button ${isActive("/queue") ? "active" : ""}`}>
                   <img src={QueueSvg} alt="Queue" className="icon" />
                   <span className="link-title">Matchmaking</span>
@@ -86,7 +81,7 @@ export default function Navbar({ toggleChat }) {
           </div>
         </div>
 
-        {/* Right side (only show if authenticated) */}
+        {/* Right side */}
         {isAuthenticated && (
           <div className="nav-box secondary">
             <div className="button-container">
