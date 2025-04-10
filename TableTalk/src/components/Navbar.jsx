@@ -86,13 +86,16 @@ export default function Navbar({ toggleChat }) {
           <div className="nav-box secondary">
             <div className="button-container">
               <div className="notification-wrapper" ref={dropdownRef}>
-                <button className="notification-button" onClick={() => setShowDropdown(!showDropdown)}>
+                <div
+                  className={`button notification-button ${showDropdown ? "active" : ""}`}
+                  onClick={() => setShowDropdown(!showDropdown)}
+                >
                   <div className="icon-wrapper">
                     <img src={BellSvg} alt="Notifications" className="icon" />
                     {notifications.length > 0 && <span className="notification-badge" />}
                   </div>
                   <span className="link-title">Notifications</span>
-                </button>
+                </div>
 
                 {showDropdown && (
                   <div className="notification-dropdown">
