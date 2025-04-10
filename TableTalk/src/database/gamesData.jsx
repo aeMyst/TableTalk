@@ -1,15 +1,15 @@
 import CatanImage from "../assets/gameImages/Catan.jpeg";
 import TicketToRideImage from "../assets/gameImages/ticketToRide.jpg";
-import GloomhavenImage from "../assets/gameImages/placeholder.webp";
+import GloomhavenImage from "../assets/gameImages/gloomhaven.jpg";
 import ChessImage from "../assets/gameImages/Chess.jpeg";
 import ExplodingKittensImage from "../assets/gameImages/explodingKittens.jpeg";
 import ClueImage from '../assets/gameImages/Clue.jpeg';
 import PandemicImage from '../assets/gameImages/Pandemic.jpg';
 import MonopolyImage from "../assets/gameImages/monopoly.jpg";
-import DominionImage from "../assets/gameImages/placeholder.webp";
-import Wonders7Image from "../assets/gameImages/placeholder.webp";
-import AzulImage from "../assets/gameImages/placeholder.webp";
-import RiskImage from "../assets/gameImages/placeholder.webp";
+import DominionImage from "../assets/gameImages/dominion.webp";
+import Wonders7Image from "../assets/gameImages/7wonders.jpg";
+import AzulImage from "../assets/gameImages/azul.webp";
+import RiskImage from "../assets/gameImages/risk.webp";
 
 
 const boardGames = [
