@@ -108,7 +108,6 @@ export default function GameDetails() {
           <div className="game-info">
             <p><strong>Type:</strong> {game.type}</p>
             <p><strong>Objective:</strong> {game.objective}</p>
-            <p><strong>Difficulty:</strong> {game.difficulty}</p>
             <p><strong>Maximum Players:</strong> {game.maxPlayers}</p>
             <p><strong>Complexity:</strong> {game.complexity}</p>
             <p><strong>Duration:</strong> {game.duration}</p>

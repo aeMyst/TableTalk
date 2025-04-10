@@ -137,7 +137,7 @@ export default function Suggest() {
       <div className="suggest-content card">
         <h1>Find Your Perfect Game</h1>
         <p className="subtitle">Let us suggest the best game for your Game Night!</p>
-
+        <p className="subtitle2">You can fill as many filters as you'd like!</p>
         <form className="suggestion-form" onSubmit={handleSubmit}>
           <div className="form-grid">
             <div className="form-group">
@@ -214,7 +214,7 @@ export default function Suggest() {
                 checked={selectedCategory === "yourGames"}
                 onChange={() => setSelectedCategory(selectedCategory === "yourGames" ? "" : "yourGames")}
               />
-              <span className="slider"></span>
+              <span className="games-radio-slider"></span>
             </label>
             
             <label className={`toggle-option ${selectedCategory === "yourGames" ? "active" : ""}`}>
