@@ -113,6 +113,35 @@ select:focus {
   transform: translateY(-7%) scale(1.05);
 }
 
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 240%;
+  height: 120%;
+  padding: 20px;
+  text-align: center;
+}
+
+.empty-state-image {
+  max-width: 400px;
+  margin-bottom: 20px;
+  opacity: 0.4;
+}
+
+.empty-state-text {
+  color: #adb0f0;
+  font-size: 1.3rem;
+  font-family: var(--font-primary); /* Bobby Jones */
+  font-weight: 300;
+  margin-top: 10px;
+}
+
+.suggested-list {
+  min-height: 300px; /* Ensure consistent height */
+}
+
 .clear-button {
   flex: 3; 
   background-color: #d32f2f;
