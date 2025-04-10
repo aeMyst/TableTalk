@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import "../elements/card.css";
 import "./Suggest.css";
 import boardGames from "../database/gamesData.jsx"; 
+import userBoardGames from "../database/userBoardGames.jsx"; 
+import filterImage from '../assets/loadingImages/boards.svg';
+import loadingImage from '../assets/loadingImages/dice.svg';
+
 
 
 export default function Suggest() {
@@ -102,8 +106,10 @@ export default function Suggest() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsAnimating(true);
+
+    const gameSource = selectedCategory === "yourGames" ? userBoardGames : boardGames;
   
-    const filteredGames = boardGames.filter(game => {
+    const filteredGames = gameSource.filter(game => {
       const { NumberPeople, groupObjective, gameType, gameDuration, gameComplexity } = formData;
   
       // Convert maxPlayers to a range
