@@ -6,13 +6,13 @@ import boardGames from "../database/gamesData.jsx";
 export default function Search() {
   const gameTypes = ["Area Control", "Abstract Strategy", "Cooperative", "Murder Mystery", "Party", "Strategy"];
   const gameObjectives = ["Competitive", "Casual"];
-  const difficulties = ["Easy", "Medium", "Hard"];
+  const complexityLevels = ["Light", "Medium", "Heavy"];
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState("");
   const [selectedObjective, setSelectedObjective] = useState("");
   const [maxPlayers, setMaxPlayers] = useState("");
-  const [difficulty, setDifficulty] = useState("");
+  const [complexity, setComplexity] = useState("");
   const [sortOrder, setSortOrder] = useState("desc");
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,7 +23,7 @@ export default function Search() {
   selectedType !== "" ||
   selectedObjective !== "" ||
   maxPlayers !== "" ||
-  difficulty !== "" ||
+  complexity !== "" ||
   sortOrder !== "desc";
 
   const filteredGames = boardGames
@@ -32,7 +32,7 @@ export default function Search() {
       (selectedType ? game.type === selectedType : true) &&
       (selectedObjective ? game.objective === selectedObjective : true) &&
       (maxPlayers ? game.maxPlayers <= parseInt(maxPlayers) : true) &&
-      (difficulty ? game.difficulty === difficulty : true)
+      (complexity ? game.complexity === complexity : true)
     )
     .sort((a, b) => sortOrder === "asc" ? a.likes - b.likes : b.likes - a.likes);
 
@@ -50,7 +50,7 @@ export default function Search() {
     setSelectedType("");
     setSelectedObjective("");
     setMaxPlayers("");
-    setDifficulty("");
+    setComplexity("");
     setSortOrder("desc");
     setCurrentPage(1);
   };
@@ -113,10 +113,14 @@ export default function Search() {
       onChange={(e) => setMaxPlayers(e.target.value)}
     />
 
-    <label className="filter-label">Difficulty:</label>
-    <select className="filter-dropdown" value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
-      <option value="">All Difficulties</option>
-      {difficulties.map(level => (
+    <label className="filter-label">Complexity:</label>
+    <select 
+      className="filter-dropdown" 
+      value={complexity} 
+      onChange={(e) => setComplexity(e.target.value)}
+    >
+      <option value="">All Complexity Levels</option>
+      {complexityLevels.map(level => (
         <option key={level} value={level}>{level}</option>
       ))}
     </select>
