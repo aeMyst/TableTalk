@@ -28,9 +28,9 @@ export default function Home({ toggleChat }) {
   const recentBlogs = blogPosts.slice(0, 3);
 
   const recentMatches = [
-    { opponent: "User 1" },
-    { opponent: "User 2" },
-    { opponent: "User 3" },
+    { opponent: "Chemique" },
+    { opponent: "ruinremind" },
+    { opponent: "BGEnjoyer" },
   ];
 
   return (

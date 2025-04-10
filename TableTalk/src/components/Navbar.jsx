@@ -14,7 +14,7 @@ export default function Navbar({ toggleChat }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
   const [notifications, setNotifications] = useState([
-    { id: 1, message: "User 2 sent you a message!" }
+    { id: 1, message: "ruinremind sent you a message!" }
   ]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 

@@ -19,15 +19,15 @@ export default function App() {
   const [chatMinimized, setChatMinimized] = useState(false);
   const [currentChat, setCurrentChat] = useState(null);
   const [allMessages, setAllMessages] = useState({
-    "User 1": [
-      { text: "Hey, want to play Catan later?", sender: "User 1" },
+    "Chemique": [
+      { text: "Hey, want to play Catan later?", sender: "Chemique" },
       { text: "Sure, what time works?", sender: "me" },
     ],
-    "User 2": [
-      { text: "Loved that last game session!", sender: "User 2" },
+    "ruinremind": [
+      { text: "Loved that last game session!", sender: "ruinremind" },
     ],
-    "User 3": [
-      { text: "Do you know the rules to 7 Wonders?", sender: "User 3" }
+    "BGEnjoyer": [
+      { text: "Do you know the rules to 7 Wonders?", sender: "BGEnjoyer" }
     ]
   });// { "User 2": [{text, sender}, ...] }
   const [newMessage, setNewMessage] = useState("");
