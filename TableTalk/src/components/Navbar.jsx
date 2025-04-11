@@ -42,7 +42,7 @@ export default function Navbar({ toggleChat }) {
   }, []);
 
   const handleNotificationClick = (message, id) => {
-    const usernameMatch = message.match(/User \d+/);
+    const usernameMatch = message.match(/([a-zA-Z0-9_]+)/);
     if (usernameMatch) {
       toggleChat(usernameMatch[0]);
       setShowDropdown(false);
