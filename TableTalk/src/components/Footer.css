@@ -1,0 +1,21 @@
+.corner-footer {
+    position: fixed;
+    bottom: 1px;
+    left: 10px;
+    font-size: 0.7rem;
+    color: #888;
+    z-index: 1000;
+    background: transparent;
+    pointer-events: none;
+  }
+
+  .corner-footer-second {
+    position: fixed;
+    bottom: 1px;
+    right: 10px;
+    font-size: 0.7rem;
+    color: #888;
+    z-index: 1000;
+    background: transparent;
+    pointer-events: none;
+  }

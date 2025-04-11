@@ -14,6 +14,9 @@ import Posts from "./pages/Posts";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import Vision from "./pages/Vision";
+
+import Footer from "./components/Footer";
+
 import "./App.css"; 
 import "./pages/Chat.css";
 
@@ -57,7 +60,7 @@ export default function App() {
   return (
     <div className="app-container">
       <Navbar toggleChat={toggleChat} />
-
+      <Footer></Footer>
       <div className="page-container">
         <Routes>
           <Route

@@ -4,6 +4,7 @@ import "../elements/card.css";
 import "./Home.css"; 
 import "./MainHome.css"; 
 import "../elements/suButton.css";
+import "../components/Footer.css";
 import heroImage from "../assets/logo/mainLogoCrop.png";
 import boardGames from "../database/gamesData.jsx";
 import blogPosts from "../database/blogData.jsx";

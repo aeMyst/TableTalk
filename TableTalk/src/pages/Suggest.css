@@ -3,7 +3,6 @@
   display: flex;
   max-width: 100rem;              /* 1600px  => 1600 / 16 = 100rem */
   max-height: 47.19rem;            /* 755px   => 755 / 16 ≈ 47.19rem */
-  margin: 2.5rem auto;            /* 40px    => 40 / 16 = 2.5rem */
   gap: 1.25rem;                  /* 20px    => 20 / 16 = 1.25rem */
   align-items: stretch;
 }
@@ -134,7 +133,7 @@ select:focus {
 .empty-state-text {
   color: #adb0f0;
   font-size: 1.3rem;
-  font-family: var(--font-primary); /* Bobby Jones */
+  font-family: var(--font-primary); 
   font-weight: 300;
   margin-top: 0.625rem;          /* 10px */
 }
@@ -245,7 +244,7 @@ input:checked + .games-radio-slider:before {
 .suggested-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3 columns */
-  grid-auto-rows: 1fr; /* Equal height rows */
+  grid-auto-rows: 1fr; 
   gap: 1.25rem;              /* 20px */
   margin-top: 1.25rem;         /* 20px */
 }
@@ -297,7 +296,7 @@ input:checked + .games-radio-slider:before {
 }
 
 .custom-font-label {
-  font-family: var(--font-primary); /* Bobby Jones */
+  font-family: var(--font-primary); 
 }
 
 .suggested-image {
@@ -325,101 +324,52 @@ input:checked + .games-radio-slider:before {
   }
 }
 
-/* @media (max-width: 1600px) {
+@media (max-width: 64rem) {
+  .suggest-container {
+    flex-direction: column;       
+    max-width: 95%;               
+    margin: 2rem auto;            
+    gap: 1rem;                   
+  }
+  
+  .suggest-content {
+    width: 100%;                  
+    min-width: auto;              
+    margin-bottom: 1.5rem;        
+  }
+  
+  .suggest-sidebar {
+    width: 100%;                  
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-grid {
+    flex-direction: column;      
+  }
+  
   .suggested-list {
     grid-template-columns: repeat(2, 1fr); 
   }
 }
 
-@media (max-width: 1200px) {
-  .suggest-sidebar {
-    width: 100%;
-  }
-}
 
-
-@media (max-width: 768px) {
-  .suggest-container {
-    flex-direction: column;
-  }
-
-  .suggest-content,
-  .suggest-sidebar {
-    width: 100%; 
-  }
-
-  .checkbox-group {
-    gap: 15px;
-  }
-
-  .form-grid {
-    flex-direction: column;
-  }
-
-  .submit-button,
-  .clear-button {
-    flex: 0 0 100%; 
-    width: 100%;
-  }
-  .toggle-group {
-    flex-direction: column;
-    gap: 15px;
-    align-items: center;
-  } 
-}*/
-
-
-
-
-
-/* Tablet and Smaller: Devices with widths 1024px and under */
-@media (max-width: 64rem) {
-  .suggest-container {
-    flex-direction: column;       /* Stack the content vertically */
-    max-width: 95%;               /* Use a relative width instead of fixed */
-    margin: 2rem auto;            /* Reduce outer margins */
-    gap: 1rem;                   /* Slightly reduced gap */
-  }
-  
-  .suggest-content {
-    width: 100%;                  /* Full available width */
-    min-width: auto;              /* Remove the fixed min-width */
-    margin-bottom: 1.5rem;        /* Add spacing between stacked items */
-  }
-  
-  .suggest-sidebar {
-    width: 100%;                  /* Full available width */
-    margin-bottom: 1.5rem;
-  }
-  
-  .form-grid {
-    flex-direction: column;       /* Stack form items vertically */
-  }
-  
-  .suggested-list {
-    grid-template-columns: repeat(2, 1fr); /* Switch to 2 columns if 3 is too crowded */
-  }
-}
-
-/* Mobile Phones: Devices with widths 768px and under */
 @media (max-width: 48rem) {
   .suggest-container {
-    max-width: 100%;              /* Ensure container uses the full width */
-    margin: 1rem;                 /* Reduce margin further on small screens */
-    gap: 0.75rem;                /* Further reduce the gap */
+    max-width: 100%;              
+    margin: 1rem;                
+    gap: 0.75rem;                
   }
   
   .suggested-list {
-    grid-template-columns: 1fr;   /* Single column layout for cards */
+    grid-template-columns: 1fr;   
   }
   
   .submit-button,
   .clear-button {
-    padding: 0.75rem;             /* Slightly reduce button padding */
-    font-size: 1rem;              /* Adjust font size if needed */
+    padding: 0.75rem;             
+    font-size: 1rem;              
   }
   
-  /* Optionally, reduce font sizes for general text if necessary */
   label, .subtitle, .empty-state-text {
     font-size: 0.9rem;
   }
