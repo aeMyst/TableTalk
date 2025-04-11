@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../elements/card.css";
 import "./Home.css"; 
-import "./mainHome.css"; 
+import "./MainHome.css"; 
 import "../elements/suButton.css";
-import mainLogo from "../assets/logo/mainLogoCrop.png";
+import heroImage from "../assets/logo/mainLogoCrop.png";
 import boardGames from "../database/gamesData.jsx";
 import blogPosts from "../database/blogData.jsx";
 
@@ -40,20 +40,17 @@ export default function Home({ toggleChat }) {
           <div className="dashboard-welcome-card">
             <h1>Welcome Back!</h1>
             <p>Discover new board games, plan game nights, and connect with your friends.</p>
-            
             <div className="dashboard-actions">
-              <button className="dashboard-action-button" onClick={() => navigate("/queue")}>View New Matches</button>
+              <button className="dashboard-action-button" onClick={() => navigate("/queue")}>
+                View New Matches
+              </button>
             </div>
-
             <h2 className="dashboard-matches-title">Friends</h2>
             <div className="dashboard-matches-list">
               {recentMatches.map((match, index) => (
                 <div key={index} className="dashboard-match-item">
                   <p><strong>{match.opponent}</strong></p>
-                  <button 
-                    className="dashboard-chat-button" 
-                    onClick={() => toggleChat(match.opponent)}
-                  >
+                  <button className="dashboard-chat-button" onClick={() => toggleChat(match.opponent)}>
                     Open Chat
                   </button>
                 </div>
@@ -75,7 +72,9 @@ export default function Home({ toggleChat }) {
                 </div>
               ))}
             </div>
-            <button className="dashboard-view-more-button" onClick={() => navigate("/search")}>View More</button>
+            <button className="dashboard-view-more-button" onClick={() => navigate("/search")}>
+              View More
+            </button>
           </div>
 
           <div className="dashboard-blog-preview">
@@ -92,17 +91,18 @@ export default function Home({ toggleChat }) {
                 <p>No blog posts available.</p>
               )}
             </div>
-            <button className="dashboard-view-more-button" onClick={() => navigate("/blog")}>View More</button>
+            <button className="dashboard-view-more-button" onClick={() => navigate("/blog")}>
+              View More
+            </button>
           </div>
         </section>
       ) : (
-        <section className="hero-section">
-          <div className="home-card hero-card">
-            <h1 className="hero-title">Welcome to</h1>
-            <div className="logo-container">
-              <img src={mainLogo} alt="TableTalk Logo" className="main-logo" />
-            </div>
-            <p className="hero-subtitle">Play, Plan, and Connect Over Board Games</p>
+        <section className="hero-section landing-layout">
+          <div className="landing-left">
+            <h1 className="landing-title">Welcome to TableTalk</h1>
+            <p className="landing-subtitle">
+              Discover board games. Connect with players. Plan epic game nights.
+            </p>
 
             <div className="auth-buttons">
               <button className="sign-Button" onClick={() => navigate("/auth?tab=signup")}>
@@ -119,6 +119,10 @@ export default function Home({ toggleChat }) {
                 </div>
               </button>
             </div>
+          </div>
+
+          <div className="landing-right">
+            <img src={heroImage} alt="Board game scene" className="hero-illustration" />
           </div>
         </section>
       )}

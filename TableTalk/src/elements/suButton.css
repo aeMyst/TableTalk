@@ -7,9 +7,9 @@
     box-sizing: border-box;
     border: 0;
     border-radius: 20px;
-    color: var(--primary-color);
+    color: white;
     padding: 1em 1.8em;
-    background: var(--primary-color);
+    background: #3B3F97;
     display: flex;
     transition: 0.2s background;
     align-items: center;
