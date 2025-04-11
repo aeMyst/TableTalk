@@ -87,18 +87,18 @@ export default function Navbar({ toggleChat }) {
               </>
             ) : (
               <>
-                <button className="button" onClick={() => scrollToSection("about-section")}>
-                <img src={AboutSvg} alt="Search" className="icon" />
+                <Link to="/about" className={`button ${isActive("/about") ? "active" : ""}`}>
+                  <img src={AboutSvg} alt="about" className="icon" />
                   <span className="link-title">About Us</span>
-                </button>
-                <button className="button" onClick={() => scrollToSection("vision-section")}>
-                <img src={VisionSvg} alt="Search" className="icon" />
-                <span className="link-title">Our Vision</span>
-                </button>
-                <button className="button" onClick={() => scrollToSection("contact-section")}>
-                <img src={ContactSvg} alt="Search" className="icon" />
-                <span className="link-title">Contact Us</span>
-                  </button>
+                </Link>
+                <Link to="/vision" className={`button ${isActive("/vision") ? "active" : ""}`}>
+                  <img src={VisionSvg} alt="vision" className="icon" />
+                  <span className="link-title">Our Vision</span>
+                </Link>
+                <Link to="/contact" className={`button ${isActive("/contact") ? "active" : ""}`}>
+                  <img src={ContactSvg} alt="contact" className="icon" />
+                  <span className="link-title">Contact Us</span>
+                </Link>
               </>
             )}
           </div>

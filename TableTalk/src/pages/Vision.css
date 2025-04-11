@@ -1,0 +1,69 @@
+.three-column-page {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 3rem 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    gap: 2rem;
+    justify-content: center;
+  }
+  
+  .left-description-panel {
+    flex: 1;
+    min-width: 350px;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .desc-block h3 {
+    font-size: 2rem;
+    color: #3B3F97;
+    margin-bottom: 0.5rem;
+  }
+  
+  .desc-block p {
+    font-size: 1.8rem;
+    line-height: 1.5;
+    color: #333;
+  }
+  
+  .card-section {
+    flex: 3;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+  
+  .Vision-card {
+    flex: 1;
+    width: 300px;
+    height: 700px;
+    background-color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+    border-radius: 16px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #3B3F97;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+  }
+
+  .vision-icon {
+    width: 500px;
+    height: 575px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border-radius: 16px;
+  }
+
+  .vision-icon-connect {
+    width: 500px;
+    height: 575px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    object-position: 50%;
+    border-radius: 16px;
+  }

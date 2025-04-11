@@ -11,6 +11,9 @@ import Authentication from "./pages/Authentication";
 import GameDetails from "./pages/GameDetails"; 
 import NewBlog from "./pages/NewBlog";
 import Posts from "./pages/Posts";
+import Contact from "./pages/Contact";
+import About from "./pages/About";
+import Vision from "./pages/Vision";
 import "./App.css"; 
 import "./pages/Chat.css";
 
@@ -66,24 +69,29 @@ export default function App() {
           <Route path="/blog/new" element={<NewBlog />} />
           <Route path="/Search" element={<Search />} />
           <Route
-  path="/Queue"
-  element={
-    <Queue
-      allMessages={allMessages}
-      setAllMessages={setAllMessages}
-      currentChat={currentChat}
-      setCurrentChat={setCurrentChat}
-      chatOpen={chatOpen}
-      setChatOpen={setChatOpen}
-      chatMinimized={chatMinimized}
-      setChatMinimized={setChatMinimized}
-    />
-  }
-/>
+            path="/Queue"
+            element={
+            <Queue
+              allMessages={allMessages}
+              setAllMessages={setAllMessages}
+              currentChat={currentChat}
+              setCurrentChat={setCurrentChat}
+              chatOpen={chatOpen}
+              setChatOpen={setChatOpen}
+              chatMinimized={chatMinimized}
+              setChatMinimized={setChatMinimized}
+            />
+            }
+          />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/Suggest" element={<Suggest />} />
           <Route path="/auth" element={<Authentication />} />
           <Route path="/game/:gameName" element={<GameDetails />} />
+
+          <Route path="/about" element={<About />} />
+          <Route path="/vision" element={<Vision />} />
+          <Route path="/contact" element={<Contact />} />
+          
         </Routes>
       </div>
 
