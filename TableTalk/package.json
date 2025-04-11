@@ -1,4 +1,5 @@
 {
+  "homepage": "https://tabletop.com",
   "name": "tabletalk",
   "private": true,
   "version": "0.0.0",
@@ -8,9 +9,12 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "tailwind:init": "tailwindcss init"
+    "tailwind:init": "tailwindcss init",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "gh-pages": "^6.3.0",
     "hammerjs": "^2.0.8",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
