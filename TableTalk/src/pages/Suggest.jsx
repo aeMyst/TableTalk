@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import "../elements/card.css";
 import "./Suggest.css";
 import boardGames from "../database/gamesData.jsx"; 
+import userBoardGames from "../database/userBoardGames.jsx"; 
+import filterImage from '../assets/loadingImages/boards.svg';
+import loadingImage from '../assets/loadingImages/dice.svg';
+
 
 
 export default function Suggest() {
@@ -18,6 +22,7 @@ export default function Suggest() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedGame, setSelectedGame] = useState(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const gameTypes = [...new Set(boardGames.map(game => game.type))];
 
@@ -48,6 +53,8 @@ export default function Suggest() {
       gameComplexity: '' 
     });
     setSelectedCategory("");
+    setIsSubmitted(false); // Reset submission state when clearing filters
+    setFilteredGames([]); // Clear any filtered games
   };
 
   
@@ -102,8 +109,11 @@ export default function Suggest() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsAnimating(true);
+    setIsSubmitted(true); // Set isSubmitted to true
+
+    const gameSource = selectedCategory === "yourGames" ? userBoardGames : boardGames;
   
-    const filteredGames = boardGames.filter(game => {
+    const filteredGames = gameSource.filter(game => {
       const { NumberPeople, groupObjective, gameType, gameDuration, gameComplexity } = formData;
   
       // Convert maxPlayers to a range
@@ -270,26 +280,45 @@ export default function Suggest() {
       <div className="suggest-sidebar">
         <h2 className="mb-1">Suggested Games</h2>
         <div className={`suggested-list ${isAnimating ? 'fade-in' : ''}`}>
-        {filteredGames.map((game, index) => (
-          <Link 
-            key={game.name} 
-            to={`/game/${game.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-            className="suggested-card" 
-            style={{ animationDelay: `${index * 0.2}s` }}
-            onMouseMove={(e) => handleCardHover(e, index)}
-            onMouseLeave={() => handleCardLeave(index)}
-          >
-            <img src={game.image} alt={game.name} className="suggested-image" />
-            <div className='gameDetails'>
-              <h3>{game.name}</h3>
-              <p><span className="custom-font-label">Type:</span> {game.type}</p>
-              <p><span className="custom-font-label">Objective:</span> {game.objective}</p>
-              <p><span className="custom-font-label">Max Players:</span> {game.maxPlayers}</p>
-              <p><span className="custom-font-label">Duration:</span> {game.duration}</p>
-              <p><span className="custom-font-label">Complexity:</span> {game.complexity}</p>
+          {/* Show initial image when not submitted */}
+          {!isSubmitted && (
+            <div className="empty-state">
+              <img src={filterImage} alt="Choose filters" className="empty-state-image" />
+              <p className="empty-state-text">Choose some filters to find your perfect game!</p>
             </div>
-          </Link>
-        ))}
+          )}
+
+          {/* Show no results image when submitted but no games found */}
+          {isSubmitted && filteredGames.length === 0 && (
+            <div className="empty-state">
+              <img src={loadingImage} alt="No games found" className="empty-state-image" />
+              <p className="empty-state-text">No games match your filters. Try adjusting your criteria!</p>
+            </div>
+          )}
+
+          {/* Show filtered games when available */}
+          {isSubmitted && filteredGames.length > 0 && (
+            filteredGames.map((game, index) => (
+              <Link 
+                key={game.name} 
+                to={`/game/${game.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                className="suggested-card" 
+                style={{ animationDelay: `${index * 0.2}s` }}
+                onMouseMove={(e) => handleCardHover(e, index)}
+                onMouseLeave={() => handleCardLeave(index)}
+              >
+                <img src={game.image} alt={game.name} className="suggested-image" />
+                <div className='gameDetails'>
+                  <h3>{game.name}</h3>
+                  <p><span className="custom-font-label">Type:</span> {game.type}</p>
+                  <p><span className="custom-font-label">Objective:</span> {game.objective}</p>
+                  <p><span className="custom-font-label">Max Players:</span> {game.maxPlayers}</p>
+                  <p><span className="custom-font-label">Duration:</span> {game.duration}</p>
+                  <p><span className="custom-font-label">Complexity:</span> {game.complexity}</p>
+                </div>
+              </Link>
+            ))
+          )}
         </div>
       </div>
     </div>
