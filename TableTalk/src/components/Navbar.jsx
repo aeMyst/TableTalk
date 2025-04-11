@@ -7,6 +7,9 @@ import SearchSvg from "../assets/navbar/searchIcon.svg";
 import ProfileSvg from "../assets/navbar/profileIcon.svg";
 import GameSvg from "../assets/navbar/gameIcon.svg";
 import BellSvg from "../assets/navbar/bell.svg";
+import AboutSvg from "../assets/navbar/aboutUs.svg";
+import VisionSvg from "../assets/navbar/vision.svg";
+import ContactSvg from "../assets/navbar/contactUs.svg";
 import "./Navbar.css";
 
 export default function Navbar({ toggleChat }) {
@@ -14,7 +17,7 @@ export default function Navbar({ toggleChat }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
   const [notifications, setNotifications] = useState([
-    { id: 1, message: "User 2 sent you a message!" }
+    { id: 1, message: "ruinremind sent you a message!" }
   ]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -47,6 +50,11 @@ export default function Navbar({ toggleChat }) {
     }
   };
 
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) section.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <nav>
       <div className="nav-wrapper">
@@ -58,7 +66,7 @@ export default function Navbar({ toggleChat }) {
               <span className="link-title">Home</span>
             </Link>
 
-            {isAuthenticated && (
+            {isAuthenticated ? (
               <>
                 <Link to="/search" className={`button ${isActive("/search") ? "active" : ""}`}>
                   <img src={SearchSvg} alt="Search" className="icon" />
@@ -76,6 +84,21 @@ export default function Navbar({ toggleChat }) {
                   <img src={GameSvg} alt="Suggest" className="icon" />
                   <span className="link-title">Suggestions</span>
                 </Link>
+              </>
+            ) : (
+              <>
+                <button className="button" onClick={() => scrollToSection("about-section")}>
+                <img src={AboutSvg} alt="Search" className="icon" />
+                  <span className="link-title">About Us</span>
+                </button>
+                <button className="button" onClick={() => scrollToSection("vision-section")}>
+                <img src={VisionSvg} alt="Search" className="icon" />
+                <span className="link-title">Our Vision</span>
+                </button>
+                <button className="button" onClick={() => scrollToSection("contact-section")}>
+                <img src={ContactSvg} alt="Search" className="icon" />
+                <span className="link-title">Contact Us</span>
+                  </button>
               </>
             )}
           </div>
