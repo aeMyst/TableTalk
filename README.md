@@ -44,6 +44,58 @@ https://aemyst.github.io/TableTalk/#/
             
 ---
 
+## 🚀 Getting Started
+
+Follow these steps to run the TableTalk application locally on your machine.
+
+### ✅ Prerequisites
+
+Before you begin, make sure you have the following installed:
+
+- [Node.js](https://nodejs.org/) (version 16 or higher recommended)
+- [npm](https://www.npmjs.com/) (comes with Node.js)
+- A code editor like [VS Code](https://code.visualstudio.com/)
+
+---
+
+### 🔧 Step-by-Step Instructions
+
+1. **Clone the Repository**
+
+   Open a terminal and run: 
+
+   ```bash
+   git clone https://github.com/aeMyst/TableTalk.git
+   cd TableTalk                                        #NOTE you must VERIFY you are in the correct directory
+
+2. **install all dependencies**
+
+   In the same terminal:
+
+   ```bash
+   git clone https://github.com/aeMyst/TableTalk.git
+   npm install
+
+3. **Run the development Server**
+
+
+   In the same terminal:
+   ```bash
+   npm run dev
+
+4. **Open localhost Server to Browser of your Choice**
+
+   In the same terminal, you will see the following. Click the Link that is attached to open our application:
+   ```bash
+   > tabletalk@0.0.0 dev
+   > vite
+      VITE v6.2.5  ready in 384 ms
+      ➜  Local:   http://localhost:5173/TableTalk/
+      ➜  Network: use --host to expose
+      ➜  press h + enter to show help
+
+---
+
 ## 🧩 Features
 
 - 🗨️ **Real-Time Chat** – Message your friends with a persistent chat system.
