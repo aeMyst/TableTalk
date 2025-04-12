@@ -48,7 +48,6 @@ https://aemyst.github.io/TableTalk/#/
 
 - 🗨️ **Real-Time Chat** – Message your friends with a persistent chat system.
 - 🃏 **Matchmaking System** – Swipe-style friend suggestions to build your board game crew.
-- 📅 **Itinerary System** – Add, edit, and share trip and event schedules with friends.
 - 🧙‍♂️ **User Profiles** – Customize your profile with tags, bios, and images.
 - 📚 **Blog System** – Read and post game reviews, thoughts, or community content.
 - 🎮 **Leaderboards** – Track top games and discover new ones through rankings.
