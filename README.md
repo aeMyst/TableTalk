@@ -1,7 +1,7 @@
 # 🎲 TableTalk
 
 **DISCLAIMER**
-This application is made to **practice HCI fundamentals as a final project for CPSC 481.** To demonstrate most features within the time-frame, stubs are introduced to "fake" certain features. There is no back-end or database that interacts with our application.
+This application is made to **practice HCI fundamentals as a final project for CPSC 481.** To demonstrate most features within the time-frame, stubs are introduced to "fake" certain functionalities. There is no back-end or database that interacts with our application.
 
 Welcome to **TableTalk**, a social-first platform designed to make board game nights more interactive, organized, and fun! Whether you're into deep strategy games or lighthearted party play, TableTalk makes scheduling, chatting, and tracking games with your friends digital!
 
