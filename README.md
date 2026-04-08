@@ -112,7 +112,6 @@ Before you begin, make sure you have the following installed:
 | Tech        | Description                        |
 |-------------|------------------------------------|
 | React       | Frontend Framework (Vite + JSX)    |
-| TailwindCSS | Utility-first CSS styling          |
 | Node.js     | Backend runtime environment        |
 
 ---
